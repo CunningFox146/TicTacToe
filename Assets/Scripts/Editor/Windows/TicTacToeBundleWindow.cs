@@ -12,7 +12,7 @@ namespace TicTacToe.Editor.Windows
     {
         private const string BuildPath = "Assets/StreamingAssets";
 
-        private readonly Dictionary<VisualElement, Object> _objectsToPack = new Dictionary<VisualElement, Object>();
+        private readonly Dictionary<string, Object> _objectsToPack = new Dictionary<string, Object>();
         private Button _buildButton;
         private TextField _bundleNameField;
 
@@ -35,7 +35,8 @@ namespace TicTacToe.Editor.Windows
                 new AssetBundleBuild
                 {
                     assetBundleName = _bundleNameField.text,
-                    assetNames = _objectsToPack.Values.Select(AssetDatabase.GetAssetPath).ToArray()
+                    assetNames = _objectsToPack.Values.Select(AssetDatabase.GetAssetPath).ToArray(),
+                    addressableNames = _objectsToPack.Keys.ToArray(),
                 }
             };
             BuildPipeline.BuildAssetBundles(BuildPath, builds, BuildAssetBundleOptions.None,
@@ -49,9 +50,9 @@ namespace TicTacToe.Editor.Windows
         {
             var root = rootVisualElement;
 
-            AddSpriteField("X Sprite");
-            AddSpriteField("O Sprite");
-            AddSpriteField("Background Sprite");
+            AddSpriteField("X Sprite", "xSprite");
+            AddSpriteField("O Sprite", "oSprite");
+            AddSpriteField("Background Sprite", "bgSprite");
 
             root.Add(new Label("Bundle name:"));
             _bundleNameField = new TextField();
@@ -68,7 +69,7 @@ namespace TicTacToe.Editor.Windows
             UpdateBuildButton();
         }
 
-        private void AddSpriteField(string label)
+        private void AddSpriteField(string label, string key)
         {
             rootVisualElement.Add(new Label(label));
 
@@ -76,11 +77,11 @@ namespace TicTacToe.Editor.Windows
             field.objectType = typeof(Sprite);
             field.RegisterValueChangedCallback(_ =>
             {
-                _objectsToPack[field] = field.value;
+                _objectsToPack[key] = field.value;
                 UpdateBuildButton();
             });
 
-            _objectsToPack.Add(field, null);
+            _objectsToPack.Add(key, null);
             rootVisualElement.Add(field);
         }
 
