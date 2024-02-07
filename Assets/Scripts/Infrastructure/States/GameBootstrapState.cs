@@ -6,16 +6,16 @@ namespace TicTacToe.Infrastructure.States
 {
     public class GameBootstrapState : IState
     {
-        private readonly IAssetProvider _assetProvider;
+        private readonly IAssetBundleProvider _assetBundleProvider;
 
-        public GameBootstrapState(IAssetProvider assetProvider)
+        public GameBootstrapState(IAssetBundleProvider assetBundleProvider)
         {
-            _assetProvider = assetProvider;
+            _assetBundleProvider = assetBundleProvider;
         }
         
         public async UniTask Enter()
         {
-            var a = await _assetProvider.LoadAsset<Sprite>("Assets/StreamingAssets/123", "xSprite");
+            var a = await _assetBundleProvider.LoadAsset<Sprite>("Assets/StreamingAssets/123", "xSprite");
             Debug.Log(a.name);
         }
     }

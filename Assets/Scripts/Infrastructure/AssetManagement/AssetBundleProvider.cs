@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TicTacToe.Infrastructure.AssetManagement
 {
-    public class AssetBundleProvider : IAssetProvider
+    public class AssetBundleProvider : IAssetBundleProvider
     {
         public async UniTask<T> LoadAsset<T>(string bundlePath, string assetName) where T : Object
         {

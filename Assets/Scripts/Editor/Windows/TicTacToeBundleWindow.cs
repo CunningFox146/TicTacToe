@@ -13,8 +13,8 @@ namespace TicTacToe.Editor.Windows
         private const string BuildPath = "Assets/StreamingAssets";
 
         private readonly Dictionary<string, Object> _objectsToPack = new Dictionary<string, Object>();
+        private string _bundleName;
         private Button _buildButton;
-        private TextField _bundleNameField;
 
         public void CreateGUI()
         {
@@ -28,13 +28,33 @@ namespace TicTacToe.Editor.Windows
             window.titleContent = new GUIContent("Build TicTacToe bundle");
         }
 
+        private void RenderWindow()
+        {
+            AddSpriteField("X Sprite", "xSprite");
+            AddSpriteField("O Sprite", "oSprite");
+            AddSpriteField("Background Sprite", "bgSprite");
+
+            AddBundleNameField();
+            AddBuildButton();
+        }
+
+        private void AddBuildButton()
+        {
+            _buildButton = new Button();
+            _buildButton.text = "Build";
+            _buildButton.clicked += OnBuildButtonClicked;
+            rootVisualElement.Add(_buildButton);
+            
+            UpdateBuildButton();
+        }
+        
         private void Build()
         {
             AssetBundleBuild[] builds =
             {
                 new AssetBundleBuild
                 {
-                    assetBundleName = _bundleNameField.text,
+                    assetBundleName = _bundleName,
                     assetNames = _objectsToPack.Values.Select(AssetDatabase.GetAssetPath).ToArray(),
                     addressableNames = _objectsToPack.Keys.ToArray(),
                 }
@@ -43,30 +63,15 @@ namespace TicTacToe.Editor.Windows
                 EditorUserBuildSettings.activeBuildTarget);
             AssetDatabase.Refresh();
 
-            Debug.Log($"Asset Bundle built: {BuildPath}/{_bundleNameField.text}");
+            Debug.Log($"Asset Bundle built: {BuildPath}/{_bundleName}");
         }
 
-        private void RenderWindow()
+        private void AddBundleNameField()
         {
-            var root = rootVisualElement;
-
-            AddSpriteField("X Sprite", "xSprite");
-            AddSpriteField("O Sprite", "oSprite");
-            AddSpriteField("Background Sprite", "bgSprite");
-
-            root.Add(new Label("Bundle name:"));
-            _bundleNameField = new TextField();
-            _bundleNameField.RegisterCallback<ChangeEvent<string>>(OnBundleNameChange);
-            root.Add(_bundleNameField);
-
-            _buildButton = new Button
-            {
-                text = "Build"
-            };
-            _buildButton.clicked += OnBuildButtonClicked;
-            root.Add(_buildButton);
-
-            UpdateBuildButton();
+            rootVisualElement.Add(new Label("Bundle name:"));
+            var bundleNameField = new TextField();
+            bundleNameField.RegisterCallback<ChangeEvent<string>>(OnBundleNameChange);
+            rootVisualElement.Add(bundleNameField);
         }
 
         private void AddSpriteField(string label, string key)
@@ -85,15 +90,16 @@ namespace TicTacToe.Editor.Windows
             rootVisualElement.Add(field);
         }
 
-        private void OnBundleNameChange(ChangeEvent<string> evt)
-        {
-            UpdateBuildButton();
-        }
-
         private void UpdateBuildButton()
         {
-            _buildButton.SetEnabled(!string.IsNullOrWhiteSpace(_bundleNameField.text) &&
+            _buildButton.SetEnabled(!string.IsNullOrWhiteSpace(_bundleName) &&
                                     _objectsToPack.Values.All(v => v));
+        }
+
+        private void OnBundleNameChange(ChangeEvent<string> evt)
+        {
+            _bundleName = evt.newValue;
+            UpdateBuildButton();
         }
 
         private void OnBuildButtonClicked()
