@@ -8,6 +8,7 @@
     "com.unity.2d.spriteshape": "3.0.18",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.collab-proxy": "1.14.18",
+    "com.unity.device-simulator": "3.0.3-preview",
     "com.unity.ide.rider": "1.2.1",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "2.1.6",

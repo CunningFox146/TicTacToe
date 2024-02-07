@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using TicTacToe.Infrastructure.Factories;
 using TicTacToe.Infrastructure.States;
 using UnityEngine;
 using Zenject;
@@ -11,7 +12,7 @@ namespace TicTacToe.Infrastructure
         private StateFactory _stateFactory;
 
         [Inject]
-        private void Construct(IStateMachine gameStateMachine, StateFactory statesFactory)
+        private void Construct(IStateMachine gameStateMachine, StateFactory statesFactory, IGameFactory _)
         {
             _gameStateMachine = gameStateMachine;
             _stateFactory = statesFactory;
