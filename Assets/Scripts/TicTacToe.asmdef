@@ -3,7 +3,10 @@
     "rootNamespace": "TicTacToe",
     "references": [
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:d63bf47557a71534d82ecda7a3a700a2",
+        "GUID:5c4878a33f8e8b04cb2f76d30bb7b0b0",
+        "GUID:95dba853997792146b6131727cd6ed79"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,22 +1,22 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
+using TicTacToe.Infrastructure.SceneManagement;
 using UnityEngine;
 
 namespace TicTacToe.Infrastructure.States
 {
     public class GameBootstrapState : IState
     {
-        private readonly IAssetBundleProvider _assetBundleProvider;
+        private readonly ISceneLoader _sceneLoader;
 
-        public GameBootstrapState(IAssetBundleProvider assetBundleProvider)
+        public GameBootstrapState(ISceneLoader sceneLoader)
         {
-            _assetBundleProvider = assetBundleProvider;
+            _sceneLoader = sceneLoader;
         }
         
         public async UniTask Enter()
         {
-            var a = await _assetBundleProvider.LoadAsset<Sprite>("Assets/StreamingAssets/123", "xSprite");
-            Debug.Log(a.name);
+            await _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }
     }
 }

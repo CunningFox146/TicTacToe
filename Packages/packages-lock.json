@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.chebanovdd.unitymvvmtoolkit": {
+      "version": "https://github.com/ChebanovDD/UnityMvvmToolkit.git?path=src/UnityMvvmToolkit.UnityPackage/Assets/Plugins/UnityMvvmToolkit",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b4605555aaa8586c866f403fcecfac60ae2d443c"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
