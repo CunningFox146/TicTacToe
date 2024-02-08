@@ -3,11 +3,7 @@ using UnityMvvmToolkit.UGUI;
 
 namespace TicTacToe.UI.Views
 {
-    public class MainMenuView : CanvasView<MainMenuViewModel>
+    public class MainMenuView : ViewBase<MainMenuViewModel>
     {
-        protected override MainMenuViewModel GetBindingContext()
-        {
-            return new MainMenuViewModel();
-        }
     }
 }

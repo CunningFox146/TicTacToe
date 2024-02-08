@@ -1,3 +1,4 @@
+using TicTacToe.UI.Factories;
 using Zenject;
 
 namespace TicTacToe.Infrastructure.Factories
