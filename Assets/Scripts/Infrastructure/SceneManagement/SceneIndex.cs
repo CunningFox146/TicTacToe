@@ -2,6 +2,7 @@ namespace TicTacToe.Infrastructure.SceneManagement
 {
     public enum SceneIndex
     {
-        Boot
+        Boot,
+        MainMenu,
     }
 }

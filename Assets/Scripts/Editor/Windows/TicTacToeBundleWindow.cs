@@ -12,7 +12,7 @@ namespace TicTacToe.Editor.Windows
     {
         private const string BuildPath = "Assets/StreamingAssets";
 
-        private readonly Dictionary<string, Object> _objectsToPack = new Dictionary<string, Object>();
+        private readonly Dictionary<string, Object> _objectsToPack = new();
         private string _bundleName;
         private Button _buildButton;
 
@@ -52,7 +52,7 @@ namespace TicTacToe.Editor.Windows
         {
             AssetBundleBuild[] builds =
             {
-                new AssetBundleBuild
+                new()
                 {
                     assetBundleName = _bundleName,
                     assetNames = _objectsToPack.Values.Select(AssetDatabase.GetAssetPath).ToArray(),
