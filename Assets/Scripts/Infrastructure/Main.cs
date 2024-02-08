@@ -21,6 +21,7 @@ namespace TicTacToe.Infrastructure
         private void Start()
         {
             _gameStateMachine.RegisterState(_stateFactory.Create<GameBootstrapState>());
+            _gameStateMachine.RegisterState(_stateFactory.Create<GameQuitState>());
             _gameStateMachine.RegisterState(_stateFactory.Create<MainMenuState>());
             
             _gameStateMachine.Enter<GameBootstrapState>().Forget();

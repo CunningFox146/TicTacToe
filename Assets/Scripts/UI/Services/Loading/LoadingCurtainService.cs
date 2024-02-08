@@ -6,7 +6,7 @@ namespace TicTacToe.UI.Services.Loading
     public class LoadingCurtainService : ILoadingCurtainService
     {
         private readonly IUserInterfaceFactory _userInterfaceFactory;
-        private LoadingView _activeView;
+        private LoadingCurtainView _activeCurtainView;
 
         public LoadingCurtainService(IUserInterfaceFactory userInterfaceFactory)
         {
@@ -15,15 +15,15 @@ namespace TicTacToe.UI.Services.Loading
 
         public async void ShowLoadingCurtain()
         {
-            _activeView = await _userInterfaceFactory.CreateLoadingView();
+            _activeCurtainView = await _userInterfaceFactory.CreateLoadingView();
         }
 
         public void HideLoadingCurtain()
         {
-            if (_activeView)
-                _activeView.Hide();
+            if (_activeCurtainView)
+                _activeCurtainView.Hide();
 
-            _activeView = null;
+            _activeCurtainView = null;
         }
     }
 }

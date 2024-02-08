@@ -23,8 +23,8 @@ namespace TicTacToe.UI
         private void BindViewFactories()
         {
             Container
-                .BindFactory<string, string, UniTask<LoadingView>, LoadingView.Factory>()
-                .FromFactory<PrefabFactoryAsync<LoadingView>>();
+                .BindFactory<string, string, UniTask<LoadingCurtainView>, LoadingCurtainView.Factory>()
+                .FromFactory<PrefabFactoryAsync<LoadingCurtainView>>();
 
             Container
                 .BindFactory<string, string, UniTask<MainMenuView>, MainMenuView.Factory>()
