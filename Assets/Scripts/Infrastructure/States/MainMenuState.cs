@@ -1,24 +1,23 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.UI.Factories;
-using TicTacToe.UI.Views;
+using TicTacToe.UI.ViewStack;
 
 namespace TicTacToe.Infrastructure.States
 {
     public class MainMenuState : IState
     {
         private readonly IUserInterfaceFactory _userInterfaceFactory;
+        private readonly IViewStackSystem _viewStackSystem;
 
-        public MainMenuState(IUserInterfaceFactory userInterfaceFactory)
+        public MainMenuState(IUserInterfaceFactory userInterfaceFactory, IViewStackSystem viewStackSystem)
         {
             _userInterfaceFactory = userInterfaceFactory;
+            _viewStackSystem = viewStackSystem;
         }
         
-        public UniTask Enter()
+        public async UniTask Enter()
         {
-            var viewStack = _userInterfaceFactory.CreateViewStack();
-            viewStack.PushView<MainMenuView>();
-            
-            return UniTask.CompletedTask;
+            _viewStackSystem.PushView(await _userInterfaceFactory.CreateMainMenu());
         }
     }
 }

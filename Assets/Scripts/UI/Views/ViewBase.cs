@@ -1,5 +1,5 @@
+using TicTacToe.UI.ViewStack;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UGUI;
 using Zenject;
@@ -14,32 +14,30 @@ namespace TicTacToe.UI.Views
         protected Canvas canvas;
 
         public RectTransform Transform => (RectTransform)transform;
+        public IViewStackSystem ViewStack { get; set; }
 
         [Inject]
-        private void Constructor(TViewModel injectedViewModel)
+        private void Constructor(TViewModel viewModel)
         {
-            _viewModel = injectedViewModel;
+            _viewModel = viewModel;
         }
 
-        protected virtual void Awake()
+        protected override void OnInit()
         {
+            base.OnInit();
             canvas = GetComponent<Canvas>();
         }
 
+        public virtual void Show() 
+            => canvas.enabled = true;
 
-        public virtual void Show()
-        {
-            
-        }
-        
-        public virtual void Hide()
-        {
-            
-        }
+        public virtual void Hide() 
+            => canvas.enabled = false;
 
         public virtual void Destroy()
         {
-            Destroy(gameObject);
+            if (gameObject)
+                Destroy(gameObject);
         }
         
         protected override TViewModel GetBindingContext()

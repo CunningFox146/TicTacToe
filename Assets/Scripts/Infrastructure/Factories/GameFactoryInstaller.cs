@@ -3,7 +3,7 @@ using Zenject;
 
 namespace TicTacToe.Infrastructure.Factories
 {
-    public class GameFactoryInstaller : MonoInstaller
+    public class GameFactoryInstaller : Installer<GameFactoryInstaller>
     {
         public override void InstallBindings()
         {

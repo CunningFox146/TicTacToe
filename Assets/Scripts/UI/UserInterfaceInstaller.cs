@@ -1,16 +1,24 @@
+using Cysharp.Threading.Tasks;
+using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.UI.Factories;
-using UnityEngine;
+using TicTacToe.UI.ViewModels;
+using TicTacToe.UI.Views;
+using TicTacToe.UI.ViewStack;
 using Zenject;
 
 namespace TicTacToe.UI
 {
-    public class UserInterfaceInstaller : MonoInstaller
+    public class UserInterfaceInstaller : Installer<UserInterfaceInstaller>
     {
-        [SerializeField] private UserInterfaceAssets _uiAssets;
-        
         public override void InstallBindings()
         {
-            Container.Bind<UserInterfaceAssets>().FromInstance(_uiAssets).AsSingle();
+            Container.Bind<MainMenuViewModel>().AsTransient();
+            
+            Container
+                .BindFactory<string, string, UniTask<MainMenuView>, MainMenuView.Factory>()
+                .FromFactory<PrefabFactoryAsync<MainMenuView>>();
+
+            Container.BindInterfacesTo<ViewStackSystem>().AsSingle();
             Container.Bind<IUserInterfaceFactory>().To<UserInterfaceFactory>().AsSingle();
         }
     }

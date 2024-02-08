@@ -1,36 +1,34 @@
 using System;
 using System.Collections.Generic;
-using TicTacToe.UI.Factories;
+using Cysharp.Threading.Tasks;
 using TicTacToe.UI.Views;
-using UnityEngine;
+using Zenject;
 
 namespace TicTacToe.UI.ViewStack
 {
-    public class ViewStackSystem : MonoBehaviour, IViewStackSystem
+    public class ViewStackSystem : IViewStackSystem, IDisposable
     {
-        private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly Stack<IView> _viewStack = new();
 
         public IView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public ViewStackSystem(IUserInterfaceFactory userInterfaceFactory)
-        {
-            _userInterfaceFactory = userInterfaceFactory;
-        }
-        
-        public void PushView<TView>() where TView : IView
-        {
-            var view = _userInterfaceFactory.CreateView<TView>();
-            view.Transform.SetParent(transform);
-            _viewStack.Push(view);
-        }
+        public void PushView(IView view)
+            => _viewStack.Push(view);
 
         public void PopView()
-        {
-            if (!_viewStack.TryPop(out var view))
-                return;
+            => ActiveView?.Destroy();
 
-            view.Destroy();
+        public void ClearStack()
+        {
+            while (_viewStack.Count > 0)
+                PopView();
+            
+            _viewStack.Clear();
+        }
+        
+        public void Dispose()
+        {
+            ClearStack();
         }
     }
 }

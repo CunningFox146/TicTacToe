@@ -1,8 +1,10 @@
 ﻿using TicTacToe.Infrastructure.AssetManagement;
+using TicTacToe.Infrastructure.Factories;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
+using TicTacToe.UI;
 using Zenject;
 
 namespace TicTacToe.CompositionRoot
@@ -15,17 +17,25 @@ namespace TicTacToe.CompositionRoot
             InstallSceneLoader();
             InstallRandomService();
             InstallAssetProvider();
+            InstallGameFactory();
+            InstallUserInterface();
             InstallGameStateMachine();
         }
-        
+
         private void InstallGameStateMachine()
         {
             Container.Bind<StateFactory>().AsSingle();
             Container.Bind<IStateMachine>().To<GameStateMachine>().AsSingle();
         }
 
+        private void InstallGameFactory() 
+            => GameFactoryInstaller.Install(Container);
+
+        private void InstallUserInterface()
+            => UserInterfaceInstaller.Install(Container);
+
         private void InstallAssetProvider() 
-            => Container.Bind<IAssetBundleProvider>().To<AssetBundleProvider>().AsSingle();
+            => Container.Bind<IAssetProvider>().To<AssetBundleProvider>().AsSingle();
         
         private void InstallRandomService() 
             => Container.Bind<IRandomService>().To<RandomService>().AsSingle();

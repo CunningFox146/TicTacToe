@@ -1,32 +1,19 @@
-using System;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.UI.Views;
-using TicTacToe.UI.ViewStack;
-using Zenject;
-using Object = UnityEngine.Object;
 
 namespace TicTacToe.UI.Factories
 {
     public class UserInterfaceFactory : IUserInterfaceFactory
     {
-        private readonly IInstantiator _instantiator;
-        private readonly UserInterfaceAssets _assets;
-        private readonly Dictionary<Type, Object> _viewPrefabs;
+        private readonly MainMenuView.Factory _mainMenuFactory;
 
-        public UserInterfaceFactory(IInstantiator instantiator, UserInterfaceAssets assets)
+        public UserInterfaceFactory(MainMenuView.Factory mainMenuFactory)
         {
-            _instantiator = instantiator;
-            _assets = assets;
-            _viewPrefabs = new Dictionary<Type, Object>
-            {
-                [typeof(MainMenuView)] = assets.MainMenuViewPrefab,
-            };
+            _mainMenuFactory = mainMenuFactory;
         }
 
-        public ViewStackSystem CreateViewStack()
-            => _instantiator.InstantiatePrefab(_assets.ViewStackPrefab).GetComponent<ViewStackSystem>();
-        
-        public TView CreateView<TView>() where TView : IView
-            => _instantiator.InstantiatePrefab(_viewPrefabs[typeof(TView)]).GetComponent<TView>();
+        public UniTask<MainMenuView> CreateMainMenu() => _mainMenuFactory.Create(BundleNames.GenericBundleName, UserInterfaceAssetNames.MainView);
+
     }
 }

@@ -15,9 +15,6 @@ MonoBehaviour:
   <BundleName>k__BackingField: Generic
   _objectsToPack:
     _serializedList:
-    - Key: ViewStack
-      Value: {fileID: 7920083733497961400, guid: eef548ea3dcf341f79888649d6deae63,
-        type: 3}
     - Key: MainMenuView
-      Value: {fileID: 8506423364545523002, guid: 0b187647bdb324cfe9593111a27f6bdd,
+      Value: {fileID: 2966547572569558393, guid: c712879ead095466584eed009682bb37,
         type: 3}

@@ -1,20 +1,18 @@
 ManifestFileVersion: 0
-CRC: 563499200
+CRC: 1211766728
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c7ca4e5436a2fd3c7300990e18d5872d
+    Hash: 1159d9f13df0f3cc425e7d054c441d1b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 567722cb1a5c68eeed0627e955eea315
+    Hash: 07b7d6996df1950a5335db22505e0d18
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c7ca4e5436a2fd3c7300990e18d5872d
+    Hash: 1159d9f13df0f3cc425e7d054c441d1b
 HashAppended: 0
 ClassTypes:
 - Class: 1
-  Script: {instanceID: 0}
-- Class: 4
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
@@ -23,29 +21,23 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 1a54a49c0ab842328513a196cde4495f, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 9b88c2313c75406e97e4ecf232b8aa7d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5b6168f150ff4e64bbfa1473e060a37e, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 290511329de34b828eba0c9c129580a3, type: 3}
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1a54a49c0ab842328513a196cde4495f, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -97,5 +89,4 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/Prefabs/UI/Views/MainMenuView.prefab
-- Assets/Prefabs/UI/ViewStack.prefab
 Dependencies: []
