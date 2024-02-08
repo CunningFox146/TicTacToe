@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TicTacToe.Editor.Util;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -42,29 +43,14 @@ namespace TicTacToe.Editor.Windows
         {
             _buildButton = new Button();
             _buildButton.text = "Build";
-            _buildButton.clicked += OnBuildButtonClicked;
+            _buildButton.clicked += Build;
             rootVisualElement.Add(_buildButton);
             
             UpdateBuildButton();
         }
         
-        private void Build()
-        {
-            AssetBundleBuild[] builds =
-            {
-                new()
-                {
-                    assetBundleName = _bundleName,
-                    assetNames = _objectsToPack.Values.Select(AssetDatabase.GetAssetPath).ToArray(),
-                    addressableNames = _objectsToPack.Keys.ToArray(),
-                }
-            };
-            BuildPipeline.BuildAssetBundles(BuildPath, builds, BuildAssetBundleOptions.None,
-                EditorUserBuildSettings.activeBuildTarget);
-            AssetDatabase.Refresh();
-
-            Debug.Log($"Asset Bundle built: {BuildPath}/{_bundleName}");
-        }
+        private void Build() 
+            => BundleUtil.BuildAssetBundle(_bundleName, BuildPath, _objectsToPack.Values, _objectsToPack.Keys);
 
         private void AddBundleNameField()
         {
@@ -100,11 +86,6 @@ namespace TicTacToe.Editor.Windows
         {
             _bundleName = evt.newValue;
             UpdateBuildButton();
-        }
-
-        private void OnBuildButtonClicked()
-        {
-            Build();
         }
     }
 }

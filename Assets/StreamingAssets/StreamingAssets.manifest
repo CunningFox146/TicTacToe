@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 3070570288
+CRC: 1168909793
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: 123
+      Name: generic
       Dependencies: {}
