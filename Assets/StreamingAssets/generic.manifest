@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1211766728
+CRC: 3842154849
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1159d9f13df0f3cc425e7d054c441d1b
+    Hash: 6dad31c50058516890380f1261894a80
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 07b7d6996df1950a5335db22505e0d18
+    Hash: 01e6dbd462700bf3224b061f6cfe0938
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 1159d9f13df0f3cc425e7d054c441d1b
+    Hash: 6dad31c50058516890380f1261894a80
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -47,6 +47,8 @@ ClassTypes:
 - Class: 223
   Script: {instanceID: 0}
 - Class: 224
+  Script: {instanceID: 0}
+- Class: 225
   Script: {instanceID: 0}
 - Class: 687078895
   Script: {instanceID: 0}
@@ -88,5 +90,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
+- Assets/Prefabs/UI/Views/LoadingView.prefab
 - Assets/Prefabs/UI/Views/MainMenuView.prefab
 Dependencies: []

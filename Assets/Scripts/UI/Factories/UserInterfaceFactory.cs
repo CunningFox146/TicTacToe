@@ -6,14 +6,18 @@ namespace TicTacToe.UI.Factories
 {
     public class UserInterfaceFactory : IUserInterfaceFactory
     {
+        private readonly LoadingView.Factory _loadingViewFactory;
         private readonly MainMenuView.Factory _mainMenuFactory;
 
-        public UserInterfaceFactory(MainMenuView.Factory mainMenuFactory)
+        public UserInterfaceFactory(LoadingView.Factory loadingViewFactory, MainMenuView.Factory mainMenuFactory)
         {
+            _loadingViewFactory = loadingViewFactory;
             _mainMenuFactory = mainMenuFactory;
         }
 
-        public UniTask<MainMenuView> CreateMainMenu() => _mainMenuFactory.Create(BundleNames.GenericBundleName, UserInterfaceAssetNames.MainView);
-
+        public UniTask<MainMenuView> CreateMainMenuView() 
+            => _mainMenuFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.MainView);
+        public UniTask<LoadingView> CreateLoadingView()
+            => _loadingViewFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.MainView);
     }
 }

@@ -5,6 +5,7 @@ namespace TicTacToe.UI.Factories
 {
     public interface IUserInterfaceFactory
     {
-        UniTask<MainMenuView> CreateMainMenu();
+        UniTask<MainMenuView> CreateMainMenuView();
+        UniTask<LoadingView> CreateLoadingView();
     }
 }

@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using TicTacToe.UI.Views;
-using Zenject;
 
 namespace TicTacToe.UI.ViewStack
 {
-    public class ViewStackSystem : IViewStackSystem, IDisposable
+    public class ViewStackSystem : IViewStackSystem
     {
         private readonly Stack<IView> _viewStack = new();
 
@@ -24,11 +21,6 @@ namespace TicTacToe.UI.ViewStack
                 PopView();
             
             _viewStack.Clear();
-        }
-        
-        public void Dispose()
-        {
-            ClearStack();
         }
     }
 }

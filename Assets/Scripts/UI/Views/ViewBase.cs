@@ -1,4 +1,3 @@
-using TicTacToe.UI.ViewStack;
 using UnityEngine;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UGUI;
@@ -12,9 +11,6 @@ namespace TicTacToe.UI.Views
         private IValueConverter[] _valueConverters;
         private TViewModel _viewModel;
         protected Canvas canvas;
-
-        public RectTransform Transform => (RectTransform)transform;
-        public IViewStackSystem ViewStack { get; set; }
 
         [Inject]
         private void Constructor(TViewModel viewModel)
