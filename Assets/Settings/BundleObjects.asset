@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad481f05bec491e890c36ed4a6e5919, type: 3}
   m_Name: BundleObjects
   m_EditorClassIdentifier: 
-  <BundleName>k__BackingField: Generic
+  <BundleName>k__BackingField: generic
+  <BuildTarget>k__BackingField: 2
   _objectsToPack:
     _serializedList:
     - Key: LoadingCurtainView

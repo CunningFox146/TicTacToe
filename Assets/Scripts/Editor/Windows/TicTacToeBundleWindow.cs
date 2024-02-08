@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Editor.Util;
+using TicTacToe.Infrastructure.AssetManagement;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -11,11 +12,11 @@ namespace TicTacToe.Editor.Windows
 {
     public class TicTacToeBundleWindow : EditorWindow
     {
-        private const string BuildPath = "Assets/StreamingAssets";
 
         private readonly Dictionary<string, Object> _objectsToPack = new();
         private string _bundleName;
         private Button _buildButton;
+        private BuildTarget _platform;
 
         public void CreateGUI()
         {
@@ -34,9 +35,18 @@ namespace TicTacToe.Editor.Windows
             AddSpriteField("X Sprite", "xSprite");
             AddSpriteField("O Sprite", "oSprite");
             AddSpriteField("Background Sprite", "bgSprite");
+            AddPlatformPopup();
 
             AddBundleNameField();
             AddBuildButton();
+        }
+
+        private void AddPlatformPopup()
+        {
+            rootVisualElement.Add(new Label("Platform:"));
+            var popup = new PopupField<BuildTarget>();
+            popup.RegisterValueChangedCallback(evt => _platform = evt.newValue);
+            rootVisualElement.Add(popup);
         }
 
         private void AddBuildButton()
@@ -48,9 +58,9 @@ namespace TicTacToe.Editor.Windows
             
             UpdateBuildButton();
         }
-        
-        private void Build() 
-            => BundleUtil.BuildAssetBundle(_bundleName, BuildPath, _objectsToPack.Values, _objectsToPack.Keys);
+
+        private void Build()
+            => BundleUtil.BuildAssetBundle(_bundleName, Application.streamingAssetsPath, _objectsToPack.Values, _objectsToPack.Keys, _platform);
 
         private void AddBundleNameField()
         {

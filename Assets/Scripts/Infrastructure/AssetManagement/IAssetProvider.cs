@@ -8,5 +8,6 @@ namespace TicTacToe.Infrastructure.AssetManagement
         UniTask LoadBundle(string bundleName);
         UniTask<T> LoadAsset<T>(string bundleName, string assetName) where T : Object;
         UniTask<T> LoadAsset<T>(string assetName) where T : Object;
+        void UnloadAssets();
     }
 }

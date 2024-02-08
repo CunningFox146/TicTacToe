@@ -2,7 +2,8 @@
     "name": "Editor",
     "rootNamespace": "TicTacToe",
     "references": [
-        "GUID:d525ad6bd40672747bde77962f1c401e"
+        "GUID:d525ad6bd40672747bde77962f1c401e",
+        "GUID:41493e151dca0487b9249dc4707e1b37"
     ],
     "includePlatforms": [
         "Editor"

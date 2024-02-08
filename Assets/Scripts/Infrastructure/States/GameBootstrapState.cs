@@ -22,6 +22,7 @@ namespace TicTacToe.Infrastructure.States
         
         public async UniTask Enter()
         {
+            _assetProvider.UnloadAssets();
             await _assetProvider.LoadBundle(BundleNames.GenericBundle);
             _loadingCurtain.ShowLoadingCurtain();
             await _sceneLoader.LoadScene(SceneIndex.MainMenu);

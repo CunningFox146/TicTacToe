@@ -1,5 +1,6 @@
 using System.IO;
 using TicTacToe.Editor.Util;
+using TicTacToe.Infrastructure.AssetManagement;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -10,7 +11,6 @@ namespace TicTacToe.Editor.Windows
     public class BundleBuilderWindow : EditorWindow
     {
         private const string SettingsPath = "Assets/Settings/BundleObjects.asset";
-        private const string BuildPath = "Assets/StreamingAssets";
         private BundleObjects _bundleObjects;
 
         private void OnEnable()
@@ -47,7 +47,7 @@ namespace TicTacToe.Editor.Windows
         }
         
         private void Build() 
-            => BundleUtil.BuildAssetBundle(_bundleObjects.BundleName, BuildPath, _bundleObjects.ObjectsToPack.Values, _bundleObjects.ObjectsToPack.Keys);
+            => BundleUtil.BuildAssetBundle(_bundleObjects.BundleName, Application.streamingAssetsPath, _bundleObjects.ObjectsToPack.Values, _bundleObjects.ObjectsToPack.Keys, _bundleObjects.BuildTarget);
 
         private void AddBundleObjectsList()
         {

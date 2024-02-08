@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace TicTacToe.Infrastructure.AssetManagement
 
         public async UniTask LoadBundle(string bundleName)
         {
-            var bundle = await AssetBundle.LoadFromFileAsync($"{BundleNames.LocalBundlePath}/{bundleName}").ToUniTask();
+            var bundle = await AssetBundle.LoadFromFileAsync($"{Application.streamingAssetsPath}/{bundleName}").ToUniTask();
             _loadedBundles.Add(bundleName, bundle);
         }
         
@@ -21,7 +20,7 @@ namespace TicTacToe.Infrastructure.AssetManagement
         public async UniTask<T> LoadAsset<T>(string assetName) where T : Object 
             => await LoadAsset<T>(BundleNames.GenericBundle, assetName);
 
-        private static async UniTask<AssetBundle> LoadLocalBundle(string bundlePath)
-            => await AssetBundle.LoadFromFileAsync($"{BundleNames.LocalBundlePath}/{bundlePath}").ToUniTask();
+        public void UnloadAssets() 
+            => AssetBundle.UnloadAllAssetBundles(true);
     }
 }

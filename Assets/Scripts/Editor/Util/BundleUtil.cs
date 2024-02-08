@@ -7,8 +7,9 @@ namespace TicTacToe.Editor.Util
 {
     public static class BundleUtil
     {
-        public static void BuildAssetBundle(string bundleName, string bundlePath, IEnumerable<Object> objectsToPack, IEnumerable<string> assetAlias)
+        public static void BuildAssetBundle(string bundleName, string bundlePath, IEnumerable<Object> objectsToPack, IEnumerable<string> assetAlias, BuildTarget buildTarget)
         {
+            bundleName = bundleName.ToLower();
             AssetBundleBuild[] builds =
             {
                 new()
@@ -19,7 +20,7 @@ namespace TicTacToe.Editor.Util
                 }
             };
             BuildPipeline.BuildAssetBundles(bundlePath, builds, BuildAssetBundleOptions.None,
-                EditorUserBuildSettings.activeBuildTarget);
+                buildTarget);
             AssetDatabase.Refresh();
 
             Debug.Log($"Asset Bundle built: {bundlePath}/{bundleName}");

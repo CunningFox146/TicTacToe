@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using UnityEditor;
 using UnityEngine;
 
 namespace TicTacToe.Editor
@@ -8,6 +9,7 @@ namespace TicTacToe.Editor
     public class BundleObjects : ScriptableObject
     {
         [field: SerializeField] public string BundleName { get; private set; }
+        [field: SerializeField] public BuildTarget BuildTarget { get; private set; }
         [SerializeField] private SerializedDictionary<string, Object> _objectsToPack;
         public Dictionary<string, Object> ObjectsToPack => _objectsToPack;
     }
