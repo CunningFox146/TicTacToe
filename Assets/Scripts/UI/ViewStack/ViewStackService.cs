@@ -3,7 +3,7 @@ using TicTacToe.UI.Views;
 
 namespace TicTacToe.UI.ViewStack
 {
-    public class ViewStackSystem : IViewStackSystem
+    public class ViewStackService : IViewStackService
     {
         private readonly Stack<IView> _viewStack = new();
 
@@ -13,7 +13,10 @@ namespace TicTacToe.UI.ViewStack
             => _viewStack.Push(view);
 
         public void PopView()
-            => ActiveView?.Destroy();
+        {
+            if (_viewStack.Count > 0)
+                _viewStack.Pop().Destroy();
+        }
 
         public void ClearStack()
         {

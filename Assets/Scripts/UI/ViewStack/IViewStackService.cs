@@ -2,7 +2,7 @@ using TicTacToe.UI.Views;
 
 namespace TicTacToe.UI.ViewStack
 {
-    public interface IViewStackSystem
+    public interface IViewStackService
     {
         IView ActiveView { get; }
         void PushView(IView view);

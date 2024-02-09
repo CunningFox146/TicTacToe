@@ -1,12 +1,14 @@
+using System;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
+using TicTacToe.Gameplay.States;
 using TicTacToe.Infrastructure.States;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Infrastructure
+namespace TicTacToe.Gameplay
 {
-    public class Main : MonoBehaviour
+    public class GameplayMain : MonoBehaviour
     {
         private IStateMachine _gameStateMachine;
         private StateFactory _stateFactory;
@@ -20,12 +22,9 @@ namespace TicTacToe.Infrastructure
         
         private void Start()
         {
-            _gameStateMachine.RegisterState(_stateFactory.Create<GameBootstrapState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<GameQuitState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<MainMenuState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<GameplayLoadState>());
+            _gameStateMachine.RegisterState(_stateFactory.Create<GameplayInitState>());
             
-            _gameStateMachine.Enter<GameBootstrapState>().Forget();
+            _gameStateMachine.Enter<GameplayInitState>().Forget();
         }
     }
 }

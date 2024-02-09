@@ -43,7 +43,7 @@ namespace TicTacToe.UI
             => Container.Bind<IUserInterfaceFactory>().To<UserInterfaceFactory>().AsSingle();
 
         private void BindViewStack() 
-            => Container.BindInterfacesTo<ViewStackSystem>().AsSingle();
+            => Container.BindInterfacesTo<ViewStackService>().AsSingle();
         
 
     }

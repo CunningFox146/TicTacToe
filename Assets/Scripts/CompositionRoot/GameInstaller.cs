@@ -1,5 +1,5 @@
-﻿using TicTacToe.Infrastructure.AssetManagement;
-using TicTacToe.Infrastructure.Factories;
+﻿using TicTacToe.Gameplay.Factories;
+using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.Log;
@@ -17,7 +17,6 @@ namespace TicTacToe.CompositionRoot
             InstallSceneLoader();
             InstallRandomService();
             InstallAssetProvider();
-            InstallGameFactory();
             InstallUserInterface();
             InstallGameStateMachine();
         }
@@ -27,9 +26,6 @@ namespace TicTacToe.CompositionRoot
             Container.Bind<StateFactory>().AsSingle();
             Container.Bind<IStateMachine>().To<GameStateMachine>().AsSingle();
         }
-
-        private void InstallGameFactory() 
-            => GameFactoryInstaller.Install(Container);
 
         private void InstallUserInterface()
             => UserInterfaceInstaller.Install(Container);

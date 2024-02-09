@@ -8,13 +8,13 @@ namespace TicTacToe.UI.ViewModels
     public class MainMenuViewModel : IBindingContext
     {
         private readonly IStateMachine _gameStateMachine;
-        private readonly IViewStackSystem _viewStack;
+        private readonly IViewStackService _viewStack;
         public IProperty<int> Count { get; }
         public ICommand StartCommand { get; }
         public ICommand ReskinCommand { get; }
         public ICommand QuitCommand { get; }
         
-        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackSystem viewStack)
+        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack)
         {
             _gameStateMachine = gameStateMachine;
             _viewStack = viewStack;
@@ -27,6 +27,7 @@ namespace TicTacToe.UI.ViewModels
 
         private void StartGame()
         {
+            _gameStateMachine.Enter<GameplayLoadState>();
         }
 
         private void ShowReskinView()
