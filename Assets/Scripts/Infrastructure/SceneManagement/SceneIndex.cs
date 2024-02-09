@@ -4,5 +4,6 @@ namespace TicTacToe.Infrastructure.SceneManagement
     {
         Boot,
         MainMenu,
+        Gameplay,
     }
 }

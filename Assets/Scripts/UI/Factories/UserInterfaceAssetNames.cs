@@ -1,4 +1,4 @@
-namespace TicTacToe.UI
+namespace TicTacToe.UI.Factories
 {
     public static class UserInterfaceAssetNames
     {
