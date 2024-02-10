@@ -36,7 +36,7 @@ namespace TicTacToe.CompositionRoot
         private void BindInputService()
         {
             Container.Bind<GameplayInput>().AsTransient();
-            Container.BindInterfacesTo<InputService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<InputService>().AsSingle();
         }
         
         private void BindEventSystem()
