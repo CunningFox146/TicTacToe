@@ -11,12 +11,17 @@ PrefabInstance:
     - target: {fileID: 198265975304346329, guid: c7a2f776eb3a04c3ea9cd27d6145ad07,
         type: 3}
       propertyPath: m_Name
-      value: LoadingView
+      value: LoadingCurtainView
       objectReference: {fileID: 0}
     - target: {fileID: 4773012798739314262, guid: c7a2f776eb3a04c3ea9cd27d6145ad07,
         type: 3}
       propertyPath: m_SortingOrder
       value: 32767
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770055329185827794, guid: c7a2f776eb3a04c3ea9cd27d6145ad07,
+        type: 3}
+      propertyPath: m_BlockingObjects
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6047243389742760655, guid: c7a2f776eb3a04c3ea9cd27d6145ad07,
         type: 3}
@@ -152,3 +157,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 869423108924325465}
+  _fadeInTime: 0.25
+  _fadeTime: 1

@@ -13,11 +13,13 @@ namespace TicTacToe.UI.Views
         public void Hide()
         {
             _canvasGroup.DOFade(0f, _fadeTime)
+                .SetEase(Ease.OutSine)
                 .OnComplete(() => Destroy(gameObject));
         }
         
         public class Factory : PlaceholderFactory<string, string, UniTask<LoadingCurtainView>>
         {
         }
+
     }
 }

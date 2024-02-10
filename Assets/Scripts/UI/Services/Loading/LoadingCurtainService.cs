@@ -13,10 +13,8 @@ namespace TicTacToe.UI.Services.Loading
             _userInterfaceFactory = userInterfaceFactory;
         }
 
-        public async void ShowLoadingCurtain()
-        {
-            _activeCurtainView = await _userInterfaceFactory.CreateLoadingView();
-        }
+        public async void ShowLoadingCurtain() 
+            => _activeCurtainView = await _userInterfaceFactory.CreateLoadingView();
 
         public void HideLoadingCurtain()
         {
