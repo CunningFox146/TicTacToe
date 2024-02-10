@@ -1,3 +1,4 @@
+using TicTacToe.UI.Factories;
 using UnityEngine;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UGUI;
@@ -9,18 +10,20 @@ namespace TicTacToe.UI.Views
         where TViewModel : class, IBindingContext
     {
         private IValueConverter[] _valueConverters;
+        private ViewModelFactory _viewModelFactory;
         private TViewModel _viewModel;
         protected Canvas canvas;
 
         [Inject]
-        private void Constructor(TViewModel viewModel)
+        private void Constructor(ViewModelFactory viewModelFactory)
         {
-            _viewModel = viewModel;
+            _viewModelFactory = viewModelFactory;
         }
 
         protected override void OnInit()
         {
             base.OnInit();
+            _viewModel = _viewModelFactory.Create<TViewModel>();
             canvas = GetComponent<Canvas>();
         }
 

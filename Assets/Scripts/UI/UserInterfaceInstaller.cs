@@ -33,7 +33,7 @@ namespace TicTacToe.UI
         
         private void BindViewModels()
         {
-            Container.Bind<MainMenuViewModel>().AsTransient();
+            Container.Bind<ViewModelFactory>().AsSingle();
         }
 
         private void BindLoadingService() 
