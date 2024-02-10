@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using TicTacToe.Services.Input;
 using TicTacToe.Util;
 using UnityEngine;
@@ -7,12 +6,11 @@ using Zenject;
 
 namespace TicTacToe.Services.Interactable
 {
-    public class InteractionService : IInitializable, IDisposable, IFixedTickable
+    public class InteractionService : IInitializable, IDisposable
     {
         private readonly IInputService _input;
         private readonly Camera _camera;
         private readonly int _layerMask;
-        private readonly Queue<Vector2> _clickQueue = new();
 
         public InteractionService(IInputService input, Camera camera)
         {
@@ -31,12 +29,6 @@ namespace TicTacToe.Services.Interactable
             _input.Clicked -= OnClick;
         }
 
-        public void FixedTick()
-        {
-            while (_clickQueue.TryDequeue(out var pos))
-                GetInteractableAtPoint(pos)?.Interact();
-        }
-
         private IInteractable GetInteractableAtPoint(Vector2 pos)
         {
             var point = new Vector3(pos.x, pos.y, _camera.nearClipPlane);
@@ -44,7 +36,9 @@ namespace TicTacToe.Services.Interactable
             return collider ? collider.GetComponentInParent<IInteractable>() : null;
         }
         
-        private void OnClick() 
-            => _clickQueue.Enqueue(_input.PointerPosition);
+        private void OnClick()
+        {
+            GetInteractableAtPoint(_input.PointerPosition)?.Interact();
+        }
     }
 }
