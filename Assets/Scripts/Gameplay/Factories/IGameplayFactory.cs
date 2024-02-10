@@ -1,10 +1,10 @@
 using Cysharp.Threading.Tasks;
-using TicTacToe.Gameplay.GameplayBg;
+using TicTacToe.Gameplay.Field;
 
 namespace TicTacToe.Gameplay.Factories
 {
     public interface IGameplayFactory
     {
-        public UniTask<IGameplayBackground> CreateBackground();
+        public UniTask<IGameField> CreateBackground();
     }
 }

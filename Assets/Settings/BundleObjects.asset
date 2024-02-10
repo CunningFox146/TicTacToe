@@ -22,7 +22,7 @@ MonoBehaviour:
     - Key: MainMenuView
       Value: {fileID: 2966547572569558393, guid: c712879ead095466584eed009682bb37,
         type: 3}
-    - Key: GameplayBg
+    - Key: GameField
       Value: {fileID: 1522749841062449276, guid: f2bcae2f68b0d442ba5e08a85d0bd53d,
         type: 3}
     - Key: Line

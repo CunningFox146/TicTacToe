@@ -1,10 +1,9 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
-using TicTacToe.Gameplay.GameplayBg;
+using TicTacToe.Gameplay.Field;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
-using TicTacToe.UI.Views;
-using UnityEngine;
+using TicTacToe.UI.Factories;
 using Zenject;
 
 namespace TicTacToe.Gameplay
@@ -14,16 +13,19 @@ namespace TicTacToe.Gameplay
         public override void InstallBindings()
         {
             Container
-                .BindFactory<string, string, UniTask<GameplayBackground>, GameplayBackground.Factory>()
-                .FromFactory<PrefabFactoryAsync<GameplayBackground>>();
+                .BindFactory<string, string, UniTask<GameField>, GameField.Factory>()
+                .FromFactory<PrefabFactoryAsync<GameField>>();
             
-            Container.Bind<StateFactory>().AsSingle();
+            BindStateFactory();
+            BindViewModelFactory();
             BindGameplayFactory();
-            BindCamera();
         }
 
-        private void BindCamera() 
-            => Container.Bind<Camera>().FromInstance(Camera.main);
+        private void BindViewModelFactory() 
+            => Container.Bind<ViewModelFactory>().AsSingle();
+
+        private void BindStateFactory() 
+            => Container.Bind<StateFactory>().AsSingle();
 
         private void BindGameplayFactory() 
             => Container.Bind<IGameplayFactory>().To<GameplayFactory>().AsSingle();

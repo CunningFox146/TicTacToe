@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.UI.Factories;
 using TicTacToe.UI.Services.Loading;
-using TicTacToe.UI.ViewModels;
 using TicTacToe.UI.Views;
 using TicTacToe.UI.ViewStack;
 using Zenject;
@@ -13,7 +12,7 @@ namespace TicTacToe.UI
     {
         public override void InstallBindings()
         {
-            BindViewModels();
+            BindViewModelFactory();
             BindViewFactories();
             BindLoadingService();
             BindUserInterfaceFactory();
@@ -31,10 +30,8 @@ namespace TicTacToe.UI
                 .FromFactory<PrefabFactoryAsync<MainMenuView>>();
         }
         
-        private void BindViewModels()
-        {
-            Container.Bind<ViewModelFactory>().AsSingle();
-        }
+        private void BindViewModelFactory()
+            => Container.Bind<ViewModelFactory>().AsSingle();
 
         private void BindLoadingService() 
             => Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
@@ -44,7 +41,5 @@ namespace TicTacToe.UI
 
         private void BindViewStack() 
             => Container.BindInterfacesTo<ViewStackService>().AsSingle();
-        
-
     }
 }
