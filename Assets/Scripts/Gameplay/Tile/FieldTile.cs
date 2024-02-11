@@ -1,18 +1,39 @@
+using System;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.Interactable;
 using UnityEngine;
 using Zenject;
 
 namespace TicTacToe.Gameplay.Tile
 {
-    public class FieldTile : MonoBehaviour, IFieldTile
+    public class FieldTile : MonoBehaviour, IFieldTile, IInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        private IGameBoardService _board;
         private GameTile _tile;
+
+        [Inject]
+        private void Constructor(IGameBoardService board)
+        {
+            _board = board;
+        }
+        
+        private void Awake()
+        {
+            _spriteRenderer.sprite = null;
+        }
 
         private void OnDestroy()
         {
             _tile.StateChanged -= OnStateChanged;
+        }
+        
+        public void Interact()
+        {
+            if (_board.CurrentPlayer is ISettableTurn player)
+                player.SetTurn(_tile.Position);
         }
 
         public void SetPosition(Vector3 position)
@@ -35,13 +56,5 @@ namespace TicTacToe.Gameplay.Tile
         public class Factory : PlaceholderFactory<string, string, UniTask<FieldTile>>
         {
         }
-
-    }
-
-    public interface IFieldTile
-    {
-        void SetPosition(Vector3 position);
-        void SetScale(Vector3 scale);
-        void SetGameTile(GameTile tile);
     }
 }

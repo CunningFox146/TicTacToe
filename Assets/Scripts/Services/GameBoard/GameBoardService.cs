@@ -13,20 +13,31 @@ namespace TicTacToe.Services.GameBoard
         private readonly List<IPlayer> _players = new();
         
         public int BoardSize { get; private set; }
+        public IPlayer CurrentPlayer { get; private set; }
 
         public async UniTask PickTurn()
         {
             foreach (var player in _players)
             {
+                CurrentPlayer = player;
+                
                 using var token = new CancellationTokenSource();
                 token.CancelAfter(TimeSpan.FromSeconds(5));
-                
-                var turn = await player.PickTurn(token.Token);
-                _board[turn.x, turn.y].SetPlayer(player);
+
+                var turn = await CurrentPlayer.PickTurn(token.Token);
+                if (turn is null)
+                {
+                    // TODO: Player lost
+                    return;
+                }
+
+                _board[turn.Value.x, turn.Value.y].SetPlayer(player);
                 
                 if (IsTie() || GetWinner() is not null)
                     break;
             }
+
+            CurrentPlayer = null;
         }
 
         public IPlayer GetWinner()
@@ -56,7 +67,7 @@ namespace TicTacToe.Services.GameBoard
             _board = new GameTile[size, size];
             for (var x = 0; x < size; x++)
             for (var y = 0; y < size; y++)
-                _board[x, y] = new GameTile();
+                _board[x, y] = new GameTile(x, y);
         }
 
         public void SetPlayers(IEnumerable<IPlayer> players)

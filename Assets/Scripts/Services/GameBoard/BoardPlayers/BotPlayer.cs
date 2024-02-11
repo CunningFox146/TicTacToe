@@ -15,16 +15,16 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             _board = board;
         }
         
-        public UniTask<Vector2Int> PickTurn(CancellationToken cancellationToken)
+        public UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken)
         {
             for (var x = 0; x < _board.BoardSize; x++)
             for (var y = 0; y < _board.BoardSize; y++)
             {
                 var tile = _board.GetTile(x, y);
                 if (!tile.IsOccupied)
-                    return new UniTask<Vector2Int>(new Vector2Int(x, y));
+                    return new UniTask<Vector2Int?>(new Vector2Int(x, y));
             }
-            return new UniTask<Vector2Int>(Vector2Int.zero);
+            return new UniTask<Vector2Int?>(Vector2Int.zero);
         }
     }
 }

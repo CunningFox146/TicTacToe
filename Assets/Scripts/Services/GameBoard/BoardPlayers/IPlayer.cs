@@ -6,7 +6,7 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
 {
     public interface IPlayer
     {
-        Sprite PlayerSprite { get; }
-        UniTask<Vector2Int> PickTurn(CancellationToken cancellationToken);
+        Sprite PlayerSprite { get; set; }
+        UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken);
     }
 }

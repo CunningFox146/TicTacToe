@@ -60,13 +60,13 @@ namespace TicTacToe.Gameplay.States
         private async UniTask InitGameBoard(IGameplaySettings settings)
         {
             _gameBoard.SetBoardSize(settings.FieldSize);
-            var playerX = _controllerFactory.Create<BotPlayer>();
+            var playerX = _controllerFactory.Create<Player>();
             var playerO = _controllerFactory.Create<BotPlayer>();
 
             playerX.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("X");
             playerO.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("O");
             
-            _gameBoard.SetPlayers(new[] { playerX, playerO });
+            _gameBoard.SetPlayers(new IPlayer[] { playerX, playerO });
         }
     }
 }

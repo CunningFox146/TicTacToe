@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7471826723334721545}
   - component: {fileID: 2253331181611931089}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 6
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8293571431369367619}
   - component: {fileID: 2662795142322692732}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,8 +142,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5871040798703586680}
   - component: {fileID: 1731117158901321218}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 6
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

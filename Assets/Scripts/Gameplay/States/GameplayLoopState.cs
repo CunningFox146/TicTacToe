@@ -15,10 +15,8 @@ namespace TicTacToe.Gameplay.States
         }
         public async UniTask Enter()
         {
-            await _board.PickTurn();
-            for (int x = 0; x < _board.BoardSize; x++)
-            for (int y = 0; y < _board.BoardSize; y++)
-                Debug.Log($"[{x},{y}] = {_board.GetTile(x, y).IsOccupied}");
+            while(!_board.IsTie() && _board.GetWinner() is null)
+               await _board.PickTurn();
             
             if (_board.IsTie())
             {

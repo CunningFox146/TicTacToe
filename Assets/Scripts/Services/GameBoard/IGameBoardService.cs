@@ -7,6 +7,7 @@ namespace TicTacToe.Services.GameBoard
     public interface IGameBoardService
     {
         int BoardSize { get; }
+        IPlayer CurrentPlayer { get; }
         UniTask PickTurn();
         GameTile GetTile(int x, int y);
         bool IsTie();
