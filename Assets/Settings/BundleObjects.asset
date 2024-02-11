@@ -28,5 +28,8 @@ MonoBehaviour:
     - Key: Line
       Value: {fileID: 2453410936557460808, guid: 8ce09bbe72c7a4202b5fe4e70f0f17f2,
         type: 3}
+    - Key: Tile
+      Value: {fileID: 4470853565533703422, guid: d55773ed121b540ab8c2c51dc707165b,
+        type: 3}
     - Key: GameplaySettings
       Value: {fileID: 11400000, guid: 133d08281f6044a37881ae8e38521be2, type: 2}

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2703381571
+CRC: 2021921142
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2076bbf33752758fd67153ee21317cc3
+    Hash: af6d13235b2ef9ccae3a219cd46f797e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 73d98c5a6c3853c6de8a2372140d5ca3
+    Hash: 4d54c733cf3a118923af86711b1e49f0
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 2076bbf33752758fd67153ee21317cc3
+    Hash: af6d13235b2ef9ccae3a219cd46f797e
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -21,6 +21,8 @@ ClassTypes:
 - Class: 28
   Script: {instanceID: 0}
 - Class: 48
+  Script: {instanceID: 0}
+- Class: 61
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
@@ -48,6 +50,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 5b6168f150ff4e64bbfa1473e060a37e, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 2fb9dbfa50b9457ca7bec0c4790e1c93, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c83e6618322c4dc4bb6f418601781c82, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 120
@@ -109,4 +113,5 @@ Assets:
 - Assets/Prefabs/Gameplay/GameField.prefab
 - Assets/Prefabs/Gameplay/Line.prefab
 - Assets/Settings/Gameplay Settings.asset
+- Assets/Prefabs/Gameplay/Tile.prefab
 Dependencies: []
