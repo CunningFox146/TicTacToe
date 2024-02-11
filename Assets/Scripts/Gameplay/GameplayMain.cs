@@ -23,6 +23,7 @@ namespace TicTacToe.Gameplay
         private void Start()
         {
             _gameStateMachine.RegisterState(_stateFactory.Create<GameplayInitState>());
+            _gameStateMachine.RegisterState(_stateFactory.Create<GameplayLoopState>());
             _gameStateMachine.Enter<GameplayInitState>().Forget();
         }
     }

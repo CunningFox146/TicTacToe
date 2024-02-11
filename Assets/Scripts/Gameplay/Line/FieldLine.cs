@@ -21,11 +21,6 @@ namespace TicTacToe.Gameplay.Line
 
         public void SetPositions(Vector3[] positions)
         {
-            foreach (var position in positions)
-            {
-                Debug.Log(position);
-            }
-
             _renderer.positionCount = positions.Length;
             _renderer.SetPositions(positions);
         }

@@ -5,6 +5,7 @@ using TicTacToe.Gameplay.Line;
 using TicTacToe.Gameplay.Tile;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
+using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Interactable;
 using TicTacToe.UI.Factories;
 using UnityEngine;
@@ -21,6 +22,13 @@ namespace TicTacToe.Gameplay
             BindStateFactory();
             BindViewModelFactory();
             BindGameplayFactory();
+            BindGameBoard();
+        }
+
+        private void BindGameBoard()
+        {
+            Container.Bind<BoardControllerFactory>().AsSingle();
+            Container.Bind<IGameBoardService>().To<GameBoardService>().AsSingle();
         }
 
         private void BindMainCamera()
