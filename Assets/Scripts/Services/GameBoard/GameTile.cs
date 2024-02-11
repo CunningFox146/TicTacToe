@@ -1,5 +1,5 @@
 using System;
-using TicTacToe.Services.GameBoard.Controllers;
+using TicTacToe.Services.GameBoard.BoardPlayers;
 
 namespace TicTacToe.Services.GameBoard
 {
@@ -7,12 +7,12 @@ namespace TicTacToe.Services.GameBoard
     {
         public event Action StateChanged;
         
-        private IBoardController _player;
-        public bool IsOccupied => _player is not null;
+        public IPlayer Player { get; private set; }
+        public bool IsOccupied => Player is not null;
 
-        public void SetPlayer(IBoardController player)
+        public void SetPlayer(IPlayer player)
         {
-            _player = player;
+            Player = player;
             StateChanged?.Invoke();
         }
     }

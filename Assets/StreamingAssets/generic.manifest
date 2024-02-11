@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2228437341
+CRC: 2526807785
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 13e8c6a2b9b13a92402c448919bebec3
+    Hash: 303d3cc7e6867eafa21df4a2c1041e63
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 594b3518b120aa8dd69b8c89622eddbc
+    Hash: e641c9ba660e9cf8fdef5a03d72fdda3
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 13e8c6a2b9b13a92402c448919bebec3
+    Hash: 303d3cc7e6867eafa21df4a2c1041e63
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -108,10 +108,12 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
+- Assets/Textures/Moon Active/ExTarget.png
 - Assets/Prefabs/UI/Views/LoadingCurtainView.prefab
 - Assets/Prefabs/UI/Views/MainMenuView.prefab
 - Assets/Prefabs/Gameplay/GameField.prefab
 - Assets/Prefabs/Gameplay/Line.prefab
 - Assets/Settings/Gameplay Settings.asset
+- Assets/Textures/Moon Active/CircleTarget.png
 - Assets/Prefabs/Gameplay/Tile.prefab
 Dependencies: []

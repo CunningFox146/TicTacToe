@@ -2,26 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Services.GameBoard.Controllers;
+using TicTacToe.Services.GameBoard.BoardPlayers;
 using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard
 {
-    public interface IGameBoardService
-    {
-        int BoardSize { get; }
-        UniTask PickTurn();
-        GameTile GetTile(int x, int y);
-        bool IsTie();
-        IBoardController GetWinner();
-        void SetBoardSize(int size);
-        void SetPlayers(IEnumerable<IBoardController> players);
-    }
-
     public class GameBoardService : IGameBoardService
     {
         private GameTile[,] _board;
-        private readonly List<IBoardController> _players = new();
+        private readonly List<IPlayer> _players = new();
         
         public int BoardSize { get; private set; }
 
@@ -32,7 +21,7 @@ namespace TicTacToe.Services.GameBoard
                 using var token = new CancellationTokenSource();
                 token.CancelAfter(TimeSpan.FromSeconds(5));
                 
-                var turn = await player.GetTurn(token.Token);
+                var turn = await player.PickTurn(token.Token);
                 _board[turn.x, turn.y].SetPlayer(player);
                 
                 if (IsTie() || GetWinner() is not null)
@@ -40,13 +29,12 @@ namespace TicTacToe.Services.GameBoard
             }
         }
 
-        public IBoardController GetWinner()
+        public IPlayer GetWinner()
         {
             Debug.Log("Check winner");
             return null;
         }
-
-        // No LINQ not to allocate memory
+        
         public bool IsTie()
         {
             var tilesCount = 0;
@@ -71,7 +59,7 @@ namespace TicTacToe.Services.GameBoard
                 _board[x, y] = new GameTile();
         }
 
-        public void SetPlayers(IEnumerable<IBoardController> players)
+        public void SetPlayers(IEnumerable<IPlayer> players)
         {
             _players.AddRange(players);
         }

@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
+using TicTacToe.Gameplay.Tile;
+using TicTacToe.Services.GameBoard;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +13,13 @@ namespace TicTacToe.Gameplay.Field
         [SerializeField] private SpriteRenderer _bgSpriteRenderer;
         [SerializeField] private float _fieldWidth = 3f;
         private IGameplayFactory _gameplayFactory;
+        private IGameBoardService _gameBoard;
         private int _fieldSize = 2;
 
         [Inject]
-        private void Constructor(IGameplayFactory gameplayFactory)
+        private void Constructor(IGameplayFactory gameplayFactory, IGameBoardService gameBoard)
         {
+            _gameBoard = gameBoard;
             _gameplayFactory = gameplayFactory;
         }
         
@@ -27,21 +31,12 @@ namespace TicTacToe.Gameplay.Field
         
         public async UniTask Init()
         {
-            var size = _fieldSize - 1;
-            var spacing = 2f / _fieldSize;
-            
-            for (var x = 0; x < size; x++)
-            {
-                var offset = Vector3.up * _fieldWidth * spacing * ((-size + 1) * 0.5f + x);
-                await CreateLine(offset + Vector3.left * _fieldWidth,  offset + Vector3.right * _fieldWidth);
-            }
-            
-            for (var y = 0; y < size; y++)
-            {
-                var offset = Vector3.left * _fieldWidth * spacing * ((-size + 1) * 0.5f + y);
-                await CreateLine(offset + Vector3.down * _fieldWidth,  offset + Vector3.up * _fieldWidth);
-            }
+            await CreateLines();
+            await CreateTiles();
+        }
 
+        private async UniTask CreateTiles()
+        {
             var startOffset = -(_fieldSize + 1f) * 0.5f;
             var scale = _fieldWidth * 2 / _fieldSize;
             if (_fieldSize > 3)
@@ -50,18 +45,45 @@ namespace TicTacToe.Gameplay.Field
             for (var x = 0; x < _fieldSize; x++)
             for (var y = 0; y < _fieldSize; y++)
             {
-                var posX = (2 * _fieldWidth * x) / _fieldSize;
-                var posY = (2 * _fieldWidth * y) / _fieldSize;
+                var posX = startOffset + (2 * _fieldWidth * x) / _fieldSize;
+                var posY = startOffset + (2 * _fieldWidth * y) / _fieldSize;
+                var tile = _gameBoard.GetTile(x, y);
                 
-                await CreateTile(new Vector3(startOffset + posX, startOffset + posY), scale);
+                await CreateTile(new Vector3(posX, posY), scale, tile);
             }
         }
 
-        private async UniTask CreateTile(Vector3 pos, float scale)
+        private async UniTask CreateLines()
+        {
+            var size = _fieldSize - 1;
+            var spacing = 2f / _fieldSize;
+            
+            for (var x = 0; x < size; x++)
+            {
+                var offset = Vector3.up * _fieldWidth * spacing * ((-size + 1) * 0.5f + x);
+                var start = offset + Vector3.left * _fieldWidth;
+                var end = offset + Vector3.right * _fieldWidth;
+                
+                await CreateLine(start,  end);
+            }
+            
+            for (var y = 0; y < size; y++)
+            {
+                var offset = Vector3.left * _fieldWidth * spacing * ((-size + 1) * 0.5f + y);
+                var start = offset + Vector3.down * _fieldWidth;
+                var end = offset + Vector3.up * _fieldWidth;
+                
+                await CreateLine(start, end);
+            }
+        }
+
+        private async UniTask<IFieldTile> CreateTile(Vector3 position, float scale, GameTile gameTile)
         {
             var tile = await _gameplayFactory.CreateFieldTile();
-            ((MonoBehaviour)tile).transform.position = pos;
-            ((MonoBehaviour)tile).transform.localScale = Vector3.one * scale;
+            tile.SetPosition(position);
+            tile.SetScale(Vector3.one * scale);
+            tile.SetGameTile(gameTile);
+            return tile;
         }
 
         private async Task CreateLine(Vector3 start, Vector3 end)

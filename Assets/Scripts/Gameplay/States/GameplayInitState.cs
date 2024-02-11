@@ -1,12 +1,14 @@
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.Controllers;
+using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.ViewStack;
+using UnityEngine;
 
 namespace TicTacToe.Gameplay.States
 {
@@ -39,16 +41,32 @@ namespace TicTacToe.Gameplay.States
             _viewStack.ClearStack();
 
             var settings = await _assetProvider.LoadAsset<GameplaySettings>(GameplayAssetNames.GameplaySettings);
+            
+            InitGameBoard(settings);
+            await InitGameField(settings);
+
+            _loadingCurtain.HideLoadingCurtain();
+
+            _gameStateMachine.Enter<GameplayLoopState>().Forget();
+        }
+
+        private async UniTask InitGameField(IGameplaySettings settings)
+        {
             var field = await _factory.CreateGameField();
             field.SetFieldSize(settings.FieldSize);
             await field.Init();
+        }
 
-            _loadingCurtain.HideLoadingCurtain();
+        private async UniTask InitGameBoard(IGameplaySettings settings)
+        {
             _gameBoard.SetBoardSize(settings.FieldSize);
-            _gameBoard.SetPlayers(new[]
-                { _controllerFactory.Create<BotBoardController>(), _controllerFactory.Create<BotBoardController>() });
+            var playerX = _controllerFactory.Create<BotPlayer>();
+            var playerO = _controllerFactory.Create<BotPlayer>();
 
-            _gameStateMachine.Enter<GameplayLoopState>().Forget();
+            playerX.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("X");
+            playerO.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("O");
+            
+            _gameBoard.SetPlayers(new[] { playerX, playerO });
         }
     }
 }

@@ -2,18 +2,20 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace TicTacToe.Services.GameBoard.Controllers
+namespace TicTacToe.Services.GameBoard.BoardPlayers
 {
-    public class BotBoardController : IBoardController
+    public class BotPlayer : IPlayer
     {
         private readonly IGameBoardService _board;
+        
+        public Sprite PlayerSprite { get; set; }
 
-        public BotBoardController(IGameBoardService board)
+        public BotPlayer(IGameBoardService board)
         {
             _board = board;
         }
         
-        public UniTask<Vector2Int> GetTurn(CancellationToken cancellationToken)
+        public UniTask<Vector2Int> PickTurn(CancellationToken cancellationToken)
         {
             for (var x = 0; x < _board.BoardSize; x++)
             for (var y = 0; y < _board.BoardSize; y++)
