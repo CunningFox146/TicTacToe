@@ -29,6 +29,7 @@ namespace TicTacToe.Gameplay.States
             
             var settings = await _assetProvider.LoadAsset<GameplaySettings>(GameplayAssetNames.GameplaySettings);
             var field = await _factory.CreateGameField();
+            field.SetFieldSize(settings.FieldSize);
             await field.Init();
             
             _loadingCurtain.HideLoadingCurtain();

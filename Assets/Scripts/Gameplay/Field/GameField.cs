@@ -9,10 +9,9 @@ namespace TicTacToe.Gameplay.Field
     public class GameField : MonoBehaviour, IGameField
     {
         [SerializeField] private SpriteRenderer _bgSpriteRenderer;
+        [SerializeField] private float _fieldWidth = 3f;
         private IGameplayFactory _gameplayFactory;
-        private int _fieldSize = 4;
-        private float _fieldWidth = 3f;
-
+        private int _fieldSize = 2;
 
         [Inject]
         private void Constructor(IGameplayFactory gameplayFactory)
@@ -23,6 +22,9 @@ namespace TicTacToe.Gameplay.Field
         public void SetBackground(Sprite sprite)
             => _bgSpriteRenderer.sprite = sprite;
 
+        public void SetFieldSize(int fieldSize)
+            => _fieldSize = fieldSize;
+        
         public async UniTask Init()
         {
             var size = _fieldSize - 1;
@@ -42,7 +44,8 @@ namespace TicTacToe.Gameplay.Field
 
             var startOffset = -(_fieldSize + 1f) * 0.5f;
             var scale = _fieldWidth * 2 / _fieldSize;
-            startOffset += 1f - _fieldWidth / _fieldSize;
+            if (_fieldSize > 3)
+                startOffset += 1f - _fieldWidth / _fieldSize;
             
             for (var x = 0; x < _fieldSize; x++)
             for (var y = 0; y < _fieldSize; y++)
@@ -52,7 +55,6 @@ namespace TicTacToe.Gameplay.Field
                 
                 await CreateTile(new Vector3(startOffset + posX, startOffset + posY), scale);
             }
-
         }
 
         private async UniTask CreateTile(Vector3 pos, float scale)
