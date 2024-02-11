@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
 using TicTacToe.Gameplay.Field;
+using TicTacToe.Gameplay.Line;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.Interactable;
@@ -14,10 +15,6 @@ namespace TicTacToe.Gameplay
     {
         public override void InstallBindings()
         {
-            Container
-                .BindFactory<string, string, UniTask<GameField>, GameField.Factory>()
-                .FromFactory<PrefabFactoryAsync<GameField>>();
-            
             BindMainCamera();
             BindInteractionService();
             BindStateFactory();
@@ -37,7 +34,18 @@ namespace TicTacToe.Gameplay
         private void BindStateFactory() 
             => Container.Bind<StateFactory>().AsSingle();
 
-        private void BindGameplayFactory() 
-            => Container.Bind<IGameplayFactory>().To<GameplayFactory>().AsSingle();
+        private void BindGameplayFactory()
+        {
+            Container
+                .BindFactory<string, string, UniTask<GameField>, GameField.Factory>()
+                .FromFactory<PrefabFactoryAsync<GameField>>();
+            
+            
+            Container
+                .BindFactory<string, string, UniTask<FieldLine>, FieldLine.Factory>()
+                .FromFactory<PrefabFactoryAsync<FieldLine>>();
+            
+            Container.Bind<IGameplayFactory>().To<GameplayFactory>().AsSingle();
+        }
     }
 }
