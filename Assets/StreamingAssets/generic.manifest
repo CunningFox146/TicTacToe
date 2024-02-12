@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 225944785
+CRC: 1680030782
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 83fea319d264334fe53e1210f237b38d
+    Hash: 4abd591d001bf552d08c6cd095deaa86
   TypeTreeHash:
     serializedVersion: 2
-    Hash: cd3ce59e5630b0d2086459e2bcbc8ac9
+    Hash: 9db8056406bc2d8d6a360f44c0486f0a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 83fea319d264334fe53e1210f237b38d
+    Hash: 4abd591d001bf552d08c6cd095deaa86
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -112,6 +112,7 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Prefabs/UI/Views/LoadingCurtainView.prefab
 - Assets/Prefabs/UI/Views/MainMenuView.prefab
+- Assets/Prefabs/UI/Views/HUDView.prefab
 - Assets/Prefabs/Gameplay/GameField.prefab
 - Assets/Prefabs/Gameplay/Line.prefab
 - Assets/Settings/Gameplay Settings.asset

@@ -7,6 +7,7 @@ using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
+using TicTacToe.UI.Factories;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.ViewStack;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace TicTacToe.Gameplay.States
     {
         private readonly IAssetProvider _assetProvider;
         private readonly BoardControllerFactory _controllerFactory;
+        private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly IGameplayFactory _factory;
         private readonly IGameBoardService _gameBoard;
         private readonly ISkinService _skinService;
@@ -27,7 +29,7 @@ namespace TicTacToe.Gameplay.States
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
             ILoadingCurtainService loadingCurtain, IAssetProvider assetProvider, IStateMachine gameStateMachine,
             IGameBoardService gameBoard, ISkinService skinService, BoardControllerFactory
-                controllerFactory)
+                controllerFactory, IUserInterfaceFactory userInterfaceFactory)
         {
             _factory = factory;
             _viewStack = viewStack;
@@ -37,6 +39,7 @@ namespace TicTacToe.Gameplay.States
             _gameBoard = gameBoard;
             _skinService = skinService;
             _controllerFactory = controllerFactory;
+            _userInterfaceFactory = userInterfaceFactory;
         }
 
         public async UniTask Enter()
@@ -47,6 +50,7 @@ namespace TicTacToe.Gameplay.States
             
             await InitGameBoard(settings);
             await InitGameField(settings);
+            await _userInterfaceFactory.CreateHUDView(); 
 
             _loadingCurtain.HideLoadingCurtain();
 

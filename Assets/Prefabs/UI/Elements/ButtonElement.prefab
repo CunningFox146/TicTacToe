@@ -233,7 +233,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -270,8 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a54a49c0ab842328513a196cde4495f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textTransform: {fileID: 8490113672469697453}
-  _textPressedOffset: -4
 --- !u!114 &4587285416938188710
 MonoBehaviour:
   m_ObjectHideFlags: 0

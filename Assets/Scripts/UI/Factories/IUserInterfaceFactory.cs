@@ -7,5 +7,6 @@ namespace TicTacToe.UI.Factories
     {
         UniTask<MainMenuView> CreateMainMenuView();
         UniTask<LoadingCurtainView> CreateLoadingView();
+        UniTask<HUDView> CreateHUDView();
     }
 }
