@@ -1,4 +1,6 @@
+using System;
 using TicTacToe.Services.GameBoard.BoardPlayers;
+using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard.Rules
 {
@@ -6,15 +8,15 @@ namespace TicTacToe.Services.GameBoard.Rules
     {
         public IPlayer GetWinner(GameTile[,] board, out int score)
         {
-            var i = 0;
-            foreach (var c in board)
+            var freeTiles = 0;
+            foreach (var tile in board)
             {
-                if (c != default)
-                    i++;
+                if (!tile.IsOccupied)
+                    freeTiles++;
             }
 
-            score = 1 + board.Length - i;
-            
+            score = 1 + board.Length - freeTiles;
+
             return CheckHorizontal(board)
                    ?? CheckVertical(board)
                    ?? CheckDiagonal(board);

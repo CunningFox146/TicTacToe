@@ -19,11 +19,11 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
         {
             var winner = _gameRules.GetWinner(board, out var score);
             if (winner is not null)
-                return score;
+                return winner == _player ? score : -score;;
 
             if (_gameRules.IsTie(board))
                 return 0;
-            
+
             var boardSize = board.GetLength(0);
             if (isMaximizing)
             {
