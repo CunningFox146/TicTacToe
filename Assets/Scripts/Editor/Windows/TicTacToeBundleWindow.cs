@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Editor.Util;
 using TicTacToe.Infrastructure.AssetManagement;
+using TicTacToe.Services.Skin;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace TicTacToe.Editor.Windows
         private Button _buildButton;
         private BuildTarget _platform;
 
+        private void OnEnable()
+        {
+            _platform = EditorUserBuildSettings.activeBuildTarget;
+        }
+
         public void CreateGUI()
         {
             RenderWindow();
@@ -33,9 +39,9 @@ namespace TicTacToe.Editor.Windows
 
         private void RenderWindow()
         {
-            AddSpriteField("X Sprite", "xSprite");
-            AddSpriteField("O Sprite", "oSprite");
-            AddSpriteField("Background Sprite", "bgSprite");
+            AddSpriteField("X Sprite", SkinItemNames.X);
+            AddSpriteField("O Sprite", SkinItemNames.O);
+            AddSpriteField("Background Sprite", SkinItemNames.Background);
             AddPlatformPopup();
 
             AddBundleNameField();

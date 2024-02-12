@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 630192494
+CRC: 1946941183
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: generic
+      Name: skin_default
       Dependencies: {}

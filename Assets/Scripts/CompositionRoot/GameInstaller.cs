@@ -4,6 +4,7 @@ using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.Input;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
+using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace TicTacToe.CompositionRoot
             BindRandomService();
             BindInputService();
             BindAssetProvider();
+            BindSkinService();
             BindUserInterface();
             BindGameStateMachine();
         }
@@ -39,6 +41,9 @@ namespace TicTacToe.CompositionRoot
             Container.Bind<GameplayInput>().AsTransient();
             Container.BindInterfacesTo<InputService>().AsSingle();
         }
+        
+        private void BindSkinService() 
+            => Container.Bind<ISkinService>().To<SkinService>().AsSingle();
         
         private void BindEventSystem()
             => Container.Bind<EventSystem>().FromInstance(_eventSystem).AsSingle();

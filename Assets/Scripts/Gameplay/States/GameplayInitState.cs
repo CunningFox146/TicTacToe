@@ -5,6 +5,7 @@ using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.ViewStack;
@@ -18,13 +19,14 @@ namespace TicTacToe.Gameplay.States
         private readonly BoardControllerFactory _controllerFactory;
         private readonly IGameplayFactory _factory;
         private readonly IGameBoardService _gameBoard;
+        private readonly ISkinService _skinService;
         private readonly IStateMachine _gameStateMachine;
         private readonly ILoadingCurtainService _loadingCurtain;
         private readonly IViewStackService _viewStack;
 
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
             ILoadingCurtainService loadingCurtain, IAssetProvider assetProvider, IStateMachine gameStateMachine,
-            IGameBoardService gameBoard, BoardControllerFactory
+            IGameBoardService gameBoard, ISkinService skinService, BoardControllerFactory
                 controllerFactory)
         {
             _factory = factory;
@@ -33,6 +35,7 @@ namespace TicTacToe.Gameplay.States
             _assetProvider = assetProvider;
             _gameStateMachine = gameStateMachine;
             _gameBoard = gameBoard;
+            _skinService = skinService;
             _controllerFactory = controllerFactory;
         }
 
@@ -53,6 +56,7 @@ namespace TicTacToe.Gameplay.States
         private async UniTask InitGameField(IGameplaySettings settings)
         {
             var field = await _factory.CreateGameField();
+            field.SetBackground(await _skinService.LoadBackground());
             field.SetFieldSize(settings.FieldSize);
             await field.Init();
         }
@@ -63,8 +67,8 @@ namespace TicTacToe.Gameplay.States
             var playerX = _controllerFactory.Create<Player>();
             var playerO = _controllerFactory.Create<BotPlayer>();
 
-            playerX.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("X");
-            playerO.PlayerSprite = await _assetProvider.LoadAsset<Sprite>("O");
+            playerX.PlayerSprite = await _skinService.LoadX();
+            playerO.PlayerSprite = await _skinService.LoadO();
             
             _gameBoard.SetPlayers(new IPlayer[] { playerX, playerO });
         }
