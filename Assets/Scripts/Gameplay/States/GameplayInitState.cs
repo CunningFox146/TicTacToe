@@ -42,7 +42,7 @@ namespace TicTacToe.Gameplay.States
 
             var settings = await _assetProvider.LoadAsset<GameplaySettings>(GameplayAssetNames.GameplaySettings);
             
-            InitGameBoard(settings);
+            await InitGameBoard(settings);
             await InitGameField(settings);
 
             _loadingCurtain.HideLoadingCurtain();

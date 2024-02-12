@@ -19,15 +19,7 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             return turn;
         }
 
-        public void SetTurn(Vector2Int turn)
-        {
-            Debug.Log($"SetTurn: {turn}");
-            _pickedTurn = turn;
-        }
-    }
-
-    public interface ISettableTurn
-    {
-        void SetTurn(Vector2Int turn);
+        public void SetTurn(Vector2Int turn) 
+            => _pickedTurn = turn;
     }
 }

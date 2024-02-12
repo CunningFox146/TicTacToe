@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using UnityEngine;
 
@@ -9,8 +10,9 @@ namespace TicTacToe.Services.GameBoard
 {
     public class GameBoardService : IGameBoardService
     {
-        private GameTile[,] _board;
         private readonly List<IPlayer> _players = new();
+        private readonly Stack<ICommand> _actions = new();
+        private GameTile[,] _board;
         
         public int BoardSize { get; private set; }
         public IPlayer CurrentPlayer { get; private set; }
@@ -30,8 +32,11 @@ namespace TicTacToe.Services.GameBoard
                     // TODO: Player lost
                     return;
                 }
-
-                _board[turn.Value.x, turn.Value.y].SetPlayer(player);
+                
+                void RunAction() => _board[turn.Value.x, turn.Value.y].SetPlayer(player);
+                void UndoAction() => _board[turn.Value.x, turn.Value.y].SetPlayer(null);
+                var command = new Command(RunAction, UndoAction);
+                _actions.Push(command);
                 
                 if (IsTie() || GetWinner() is not null)
                     break;

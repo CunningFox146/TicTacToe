@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TicTacToe.Editor.Util;
@@ -44,7 +45,13 @@ namespace TicTacToe.Editor.Windows
         private void AddPlatformPopup()
         {
             rootVisualElement.Add(new Label("Platform:"));
-            var popup = new PopupField<BuildTarget>();
+
+            var values = Enum.GetValues(typeof(BuildTarget)).Cast<BuildTarget>().ToList();
+            var popup = new PopupField<BuildTarget>
+            {
+                choices = values
+            };
+            popup.value = EditorUserBuildSettings.activeBuildTarget;
             popup.RegisterValueChangedCallback(evt => _platform = evt.newValue);
             rootVisualElement.Add(popup);
         }
