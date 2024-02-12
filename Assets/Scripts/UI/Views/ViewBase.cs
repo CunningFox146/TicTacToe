@@ -33,12 +33,9 @@ namespace TicTacToe.UI.Views
         public virtual void Hide() 
             => canvas.enabled = false;
 
-        public virtual void Destroy()
-        {
-            if (gameObject)
-                Destroy(gameObject);
-        }
-        
+        public virtual void Kill() 
+            => Destroy(gameObject);
+
         protected override TViewModel GetBindingContext()
             => _viewModel;
 

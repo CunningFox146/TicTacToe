@@ -20,7 +20,6 @@ namespace TicTacToe.Infrastructure.States
         
         public async UniTask Enter()
         {
-            _viewStackService.ClearStack();
             _viewStackService.PushView(await _userInterfaceFactory.CreateMainMenuView());
             _loadingCurtain.HideLoadingCurtain();
         }

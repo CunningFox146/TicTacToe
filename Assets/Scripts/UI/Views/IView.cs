@@ -7,6 +7,6 @@ namespace TicTacToe.UI.Views
     {
         void Show();
         void Hide();
-        void Destroy();
+        void Kill();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TicTacToe.UI.Views;
 
@@ -15,7 +16,7 @@ namespace TicTacToe.UI.ViewStack
         public void PopView()
         {
             if (_viewStack.Count > 0)
-                _viewStack.Pop().Destroy();
+                _viewStack.Pop().Kill();
         }
 
         public void ClearStack()

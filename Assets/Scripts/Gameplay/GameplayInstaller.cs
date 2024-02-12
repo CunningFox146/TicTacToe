@@ -8,6 +8,7 @@ using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Interactable;
+using TicTacToe.UI;
 using TicTacToe.UI.Factories;
 using UnityEngine;
 using Zenject;
@@ -21,10 +22,10 @@ namespace TicTacToe.Gameplay
             BindMainCamera();
             BindInteractionService();
             BindStateFactory();
-            BindViewModelFactory();
             BindGameplayFactory();
             BindRules();
             BindGameBoard();
+            BindUserInterface();
         }
 
         private void BindGameBoard()
@@ -42,8 +43,8 @@ namespace TicTacToe.Gameplay
         private void BindInteractionService()
             => Container.BindInterfacesTo<InteractionService>().AsSingle().NonLazy();
 
-        private void BindViewModelFactory() 
-            => Container.Bind<ViewModelFactory>().AsSingle();
+        private void BindUserInterface()
+            => UserInterfaceInstaller.Install(Container);
 
         private void BindStateFactory() 
             => Container.Bind<StateFactory>().AsSingle();

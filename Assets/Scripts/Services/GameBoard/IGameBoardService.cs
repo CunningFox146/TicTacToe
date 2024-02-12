@@ -4,7 +4,7 @@ using TicTacToe.Services.GameBoard.BoardPlayers;
 
 namespace TicTacToe.Services.GameBoard
 {
-    public interface IGameBoardService
+    public interface IGameBoardService : IUndoable
     {
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }

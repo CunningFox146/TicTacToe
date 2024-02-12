@@ -1,6 +1,8 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.SceneManagement;
+using TicTacToe.Services.GameBoard;
 using TicTacToe.UI.Services.Loading;
 using UnityEngine;
 using UnityMvvmToolkit.Core;
@@ -13,16 +15,18 @@ namespace TicTacToe.UI.ViewModels
     {
         private readonly ISceneLoader _sceneLoader;
         private readonly ILoadingCurtainService _loadingCurtain;
+        private readonly IGameBoardService _gameBoard;
         public IProperty<bool> IsHintVisible { get; }
         public IProperty<Vector3> HintPosition { get; }
         public ICommand HintCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand ExitCommand { get; }
         
-        public HUDViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain)
+        public HUDViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain, IGameBoardService gameBoard)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
+            _gameBoard = gameBoard;
 
             IsHintVisible = new Property<bool>(false);
             HintPosition = new Property<Vector3>();
@@ -34,12 +38,16 @@ namespace TicTacToe.UI.ViewModels
 
         private void ShowHint()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void Undo()
         {
-            throw new System.NotImplementedException();
+            // Undo two times so that we also undo bots turn
+            for (int i = 0; i < 2; i++)
+            {
+                _gameBoard.Undo();
+            }
         }
 
         private UniTask Exit(CancellationToken cancellationToken)

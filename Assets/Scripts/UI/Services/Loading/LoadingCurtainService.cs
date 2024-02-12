@@ -1,20 +1,24 @@
+using System.Threading.Tasks;
+using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.UI.Factories;
 using TicTacToe.UI.Views;
+using Zenject;
 
 namespace TicTacToe.UI.Services.Loading
 {
     public class LoadingCurtainService : ILoadingCurtainService
     {
-        private readonly IUserInterfaceFactory _userInterfaceFactory;
         private LoadingCurtainView _activeCurtainView;
+        private LoadingCurtainView.Factory _loadingCurtainFactory;
 
-        public LoadingCurtainService(IUserInterfaceFactory userInterfaceFactory)
+        [Inject]
+        private void Constructor(LoadingCurtainView.Factory loadingCurtainFactory)
         {
-            _userInterfaceFactory = userInterfaceFactory;
+            _loadingCurtainFactory = loadingCurtainFactory;
         }
 
         public async void ShowLoadingCurtain() 
-            => _activeCurtainView = await _userInterfaceFactory.CreateLoadingView();
+            => _activeCurtainView = await CreateLoadingView();
 
         public void HideLoadingCurtain()
         {
@@ -23,5 +27,8 @@ namespace TicTacToe.UI.Services.Loading
 
             _activeCurtainView = null;
         }
+
+        private async Task<LoadingCurtainView> CreateLoadingView() 
+            => await _loadingCurtainFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.LoadingCurtainView);
     }
 }

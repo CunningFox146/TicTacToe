@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
-using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard
 {
@@ -49,6 +48,12 @@ namespace TicTacToe.Services.GameBoard
             }
 
             CurrentPlayer = null;
+        }
+
+        public void Undo()
+        {
+            if (_actions.TryPop(out var command))
+                command.Undo();
         }
 
         public IPlayer GetWinner(out int score) 

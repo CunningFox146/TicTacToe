@@ -44,8 +44,6 @@ namespace TicTacToe.Gameplay.States
 
         public async UniTask Enter()
         {
-            _viewStack.ClearStack();
-
             var settings = await _assetProvider.LoadAsset<GameplaySettings>(GameplayAssetNames.GameplaySettings);
             
             await InitGameBoard(settings);
