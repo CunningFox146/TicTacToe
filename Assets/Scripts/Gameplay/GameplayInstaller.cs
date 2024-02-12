@@ -8,7 +8,6 @@ using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Interactable;
-using TicTacToe.Services.Skin;
 using TicTacToe.UI.Factories;
 using UnityEngine;
 using Zenject;
