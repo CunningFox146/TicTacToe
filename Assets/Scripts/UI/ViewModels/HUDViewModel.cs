@@ -38,18 +38,20 @@ namespace TicTacToe.UI.ViewModels
             IsHintVisible = new Property<bool>(false);
             HintPosition = new Property<Vector3>();
             
-            HintCommand = new Command(ShowHint);
+            HintCommand = new AsyncCommand(ShowHint);
             UndoCommand = new Command(Undo);
             ExitCommand = new AsyncCommand(Exit);
         }
 
-        private void ShowHint()
+        private async UniTask ShowHint(CancellationToken token)
         {
             var otherPlayer = _gameBoard.Players.First(p => p != _gameBoard.CurrentPlayer);
             var move = _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
             var tile = _gameBoard.Field.GetTile(move);
             HintPosition.Value = tile.GetScreenPosition(_mainCamera);
             IsHintVisible.Value = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+            IsHintVisible.Value = false;
         }
 
         private void Undo()
