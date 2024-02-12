@@ -7,6 +7,7 @@ using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
+using TicTacToe.Services.Hint;
 using TicTacToe.Services.Interactable;
 using TicTacToe.UI;
 using TicTacToe.UI.Factories;
@@ -21,12 +22,14 @@ namespace TicTacToe.Gameplay
         {
             BindMainCamera();
             BindInteractionService();
+            BindHintService();
             BindStateFactory();
             BindGameplayFactory();
             BindRules();
             BindGameBoard();
             BindUserInterface();
         }
+
 
         private void BindGameBoard()
         {
@@ -39,7 +42,10 @@ namespace TicTacToe.Gameplay
 
         private void BindMainCamera()
             => Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();
-
+        
+        private void BindHintService() 
+            => Container.Bind<IHintService>().To<HintService>().AsSingle();
+        
         private void BindInteractionService()
             => Container.BindInterfacesTo<InteractionService>().AsSingle().NonLazy();
 

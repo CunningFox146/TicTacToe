@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Gameplay.Field;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 
 namespace TicTacToe.Services.GameBoard
 {
     public interface IGameBoardService : IUndoable
     {
+        IGameField Field { get; set; }
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }
         List<IPlayer> Players { get; }

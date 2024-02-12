@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Gameplay.Field;
 using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
@@ -12,7 +13,8 @@ namespace TicTacToe.Services.GameBoard
     {
         private readonly IGameRules _gameRules;
         private readonly Stack<ICommand> _actions = new();
-        
+
+        public IGameField Field { get; set; }
         public GameTile[,] Board { get; private set; }
         public IPlayer CurrentPlayer { get; private set; }
         public List<IPlayer> Players { get; } = new();

@@ -12,6 +12,8 @@ namespace TicTacToe.Gameplay.Field
     {
         [SerializeField] private SpriteRenderer _bgSpriteRenderer;
         [SerializeField] private float _fieldWidth = 3f;
+
+        private IFieldTile[,] _tiles;
         private IGameplayFactory _gameplayFactory;
         private IGameBoardService _gameBoard;
         private int _fieldSize = 2;
@@ -21,6 +23,8 @@ namespace TicTacToe.Gameplay.Field
         {
             _gameBoard = gameBoard;
             _gameplayFactory = gameplayFactory;
+
+            _gameBoard.Field = this;
         }
         
         public void SetBackground(Sprite sprite)
@@ -28,7 +32,11 @@ namespace TicTacToe.Gameplay.Field
 
         public void SetFieldSize(int fieldSize)
             => _fieldSize = fieldSize;
-        
+
+        public IFieldTile GetTile(Vector2Int position)
+            => _tiles[position.x, position.y];
+
+
         public async UniTask Init()
         {
             await CreateLines();
@@ -37,6 +45,7 @@ namespace TicTacToe.Gameplay.Field
 
         private async UniTask CreateTiles()
         {
+            _tiles = new IFieldTile[_fieldSize, _fieldSize];
             var startOffset = -(_fieldSize + 1f) * 0.5f;
             var scale = _fieldWidth * 2 / _fieldSize;
             if (_fieldSize > 3)
@@ -49,7 +58,7 @@ namespace TicTacToe.Gameplay.Field
                 var posY = startOffset + (2 * _fieldWidth * y) / _fieldSize;
                 var tile = _gameBoard.GetTile(x, y);
                 
-                await CreateTile(new Vector3(posX, posY), scale, tile);
+                _tiles[x, y] = await CreateTile(new Vector3(posX, posY), scale, tile);
             }
         }
 

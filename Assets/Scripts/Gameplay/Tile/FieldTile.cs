@@ -42,6 +42,9 @@ namespace TicTacToe.Gameplay.Tile
         public void SetScale(Vector3 scale)
             => transform.localScale = scale;
 
+        public Vector3 GetScreenPosition(Camera mainCamera) 
+            => mainCamera.WorldToScreenPoint(transform.position);
+
         public void SetGameTile(GameTile tile)
         {
             _tile = tile;

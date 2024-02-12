@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Services.GameBoard.Rules;
+using TicTacToe.Services.Hint;
 using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard.BoardPlayers
@@ -9,23 +9,20 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
     public class BotPlayer : IPlayer
     {
         private readonly IGameBoardService _board;
-        private readonly IGameRules _gameRules;
-        private readonly MiniMax _miniMax;
-
+        private readonly IHintService _hintService;
         public Sprite PlayerSprite { get; set; }
 
-        public BotPlayer(IGameBoardService board, IGameRules gameRules)
+        public BotPlayer(IGameBoardService board, IHintService hintService)
         {
             _board = board;
-            _gameRules = gameRules;
-            _miniMax = new MiniMax(gameRules, this);
+            _hintService = hintService;
         }
         
         public UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken)
         {
             var otherPlayer = _board.Players.First(p => p != this);
             var board = (GameTile[,])_board.Board.Clone();
-            return new UniTask<Vector2Int?>(_miniMax.GetBestTurn(board, otherPlayer));
+            return new UniTask<Vector2Int?>(_hintService.GetBestMove(board, this, otherPlayer));
         }
     }
 }
