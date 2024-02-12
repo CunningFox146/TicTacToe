@@ -8,7 +8,7 @@ namespace TicTacToe.Infrastructure.States
     public class StateMachine : IStateMachine
     {
         private readonly ILogService _log;
-        private readonly Dictionary<Type, IState> _registeredStates = new Dictionary<Type, IState>();
+        private readonly Dictionary<Type, IState> _registeredStates = new();
         private IState _currentState;
 
         public StateMachine(ILogService log)
@@ -23,8 +23,13 @@ namespace TicTacToe.Infrastructure.States
             _log.Log($"Enter state: {newState.GetType().Name}");
         }
 
-        public void RegisterState<TState>(TState state) where TState : class, IState =>
-            _registeredStates.Add(typeof(TState), state);
+        public void RegisterState<TState>(TState state) where TState : class, IState
+        {
+            if (_registeredStates.ContainsKey(typeof(TState)))
+                _registeredStates[typeof(TState)] = state;
+            else
+                _registeredStates.Add(typeof(TState), state);
+        }
 
         private async UniTask<TState> ChangeState<TState>() where TState : class, IState
         {

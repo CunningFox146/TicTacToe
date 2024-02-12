@@ -30,7 +30,6 @@ namespace TicTacToe.Infrastructure.States
             _loadingCurtain.ShowLoadingCurtain();
             await _skinService.SetSkin(SkinItemNames.DefaultSkin);
             await _sceneLoader.LoadScene(SceneIndex.MainMenu);
-            await _stateMachine.Enter<MainMenuState>();
         }
     }
 }

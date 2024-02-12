@@ -43,7 +43,7 @@ namespace TicTacToe.CompositionRoot
         }
         
         private void BindSkinService() 
-            => Container.Bind<ISkinService>().To<SkinService>().AsSingle();
+            => Container.BindInterfacesTo<SkinService>().AsSingle();
         
         private void BindEventSystem()
             => Container.Bind<EventSystem>().FromInstance(_eventSystem).AsSingle();
