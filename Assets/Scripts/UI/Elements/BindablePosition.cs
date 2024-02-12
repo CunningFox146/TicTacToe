@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Extensions;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -23,9 +22,6 @@ namespace TicTacToe.UI.Elements
             SetPosition(_positionProperty.Value);
         }
 
-        private void SetPosition(Vector3 position)
-            => transform.position = position;
-
         public void ResetBindingContext(IObjectProvider objectProvider)
         {
             if (_positionProperty is null)
@@ -35,6 +31,9 @@ namespace TicTacToe.UI.Elements
             objectProvider.ReturnReadOnlyProperty(_positionProperty);
             _positionProperty = null;
         }
+
+        private void SetPosition(Vector3 position)
+            => transform.position = position;
 
         private void OnPropertyValueChanged(object sender, Vector3 position)
             => SetPosition(position);

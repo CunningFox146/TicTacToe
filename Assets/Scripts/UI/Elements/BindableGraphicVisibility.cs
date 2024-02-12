@@ -24,12 +24,6 @@ namespace TicTacToe.UI.Elements
             UpdateVisibility(_visibilityProperty.Value);
         }
 
-        private void OnPropertyValueChanged(object sender, bool value) 
-            => UpdateVisibility(value);
-
-        private void UpdateVisibility(bool value) 
-            => _graphic.enabled = value;
-
         public void ResetBindingContext(IObjectProvider objectProvider)
         {
             if (_visibilityProperty is null)
@@ -41,5 +35,11 @@ namespace TicTacToe.UI.Elements
 
             UpdateVisibility(default);
         }
+
+        private void OnPropertyValueChanged(object sender, bool value) 
+            => UpdateVisibility(value);
+
+        private void UpdateVisibility(bool value) 
+            => _graphic.enabled = value;
     }
 }
