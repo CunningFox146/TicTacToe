@@ -6,6 +6,7 @@ using TicTacToe.Gameplay.Tile;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Interactable;
 using TicTacToe.Services.Skin;
 using TicTacToe.UI.Factories;
@@ -23,6 +24,7 @@ namespace TicTacToe.Gameplay
             BindStateFactory();
             BindViewModelFactory();
             BindGameplayFactory();
+            BindRules();
             BindGameBoard();
         }
 
@@ -31,6 +33,9 @@ namespace TicTacToe.Gameplay
             Container.Bind<BoardControllerFactory>().AsSingle();
             Container.Bind<IGameBoardService>().To<GameBoardService>().AsSingle();
         }
+
+        private void BindRules()
+            => Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
 
         private void BindMainCamera()
             => Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();

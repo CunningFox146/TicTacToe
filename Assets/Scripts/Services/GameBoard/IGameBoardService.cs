@@ -6,12 +6,13 @@ namespace TicTacToe.Services.GameBoard
 {
     public interface IGameBoardService
     {
-        int BoardSize { get; }
+        GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }
+        List<IPlayer> Players { get; }
         UniTask PickTurn();
         GameTile GetTile(int x, int y);
         bool IsTie();
-        IPlayer GetWinner();
+        IPlayer GetWinner(out int score);
         void SetBoardSize(int size);
         void SetPlayers(IEnumerable<IPlayer> players);
     }

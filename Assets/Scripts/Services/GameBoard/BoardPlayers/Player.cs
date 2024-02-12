@@ -6,8 +6,14 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
 {
     public class Player : IPlayer, ISettableTurn
     {
+        private readonly IGameBoardService _gameBoard;
         public Sprite PlayerSprite { get; set; }
         private Vector2Int? _pickedTurn;
+
+        public Player(IGameBoardService gameBoard)
+        {
+            _gameBoard = gameBoard;
+        }
         
         public async UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken)
         {
@@ -19,7 +25,10 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             return turn;
         }
 
-        public void SetTurn(Vector2Int turn) 
-            => _pickedTurn = turn;
+        public void SetTurn(Vector2Int turn)
+        {
+            if (!_gameBoard.Board[turn.x, turn.y].IsOccupied)
+                _pickedTurn = turn;
+        }
     }
 }

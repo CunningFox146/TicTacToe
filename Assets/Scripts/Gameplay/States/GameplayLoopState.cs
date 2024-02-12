@@ -15,14 +15,14 @@ namespace TicTacToe.Gameplay.States
         }
         public async UniTask Enter()
         {
-            while(!_board.IsTie() && _board.GetWinner() is null)
+            while(!_board.IsTie() && _board.GetWinner(out _) is null)
                await _board.PickTurn();
             
             if (_board.IsTie())
             {
                 Debug.Log("TIE");
             }
-            else if (_board.GetWinner() is not null)
+            else if (_board.GetWinner(out _) is not null)
             {
                 Debug.Log("WIN");
             }

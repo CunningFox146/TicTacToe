@@ -4,22 +4,28 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.GameBoard.Rules;
 using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard
 {
     public class GameBoardService : IGameBoardService
     {
-        private readonly List<IPlayer> _players = new();
+        private readonly IGameRules _gameRules;
         private readonly Stack<ICommand> _actions = new();
-        private GameTile[,] _board;
         
-        public int BoardSize { get; private set; }
+        public GameTile[,] Board { get; private set; }
         public IPlayer CurrentPlayer { get; private set; }
+        public List<IPlayer> Players { get; } = new();
+
+        public GameBoardService(IGameRules gameRules)
+        {
+            _gameRules = gameRules;
+        }
 
         public async UniTask PickTurn()
         {
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 CurrentPlayer = player;
                 
@@ -33,126 +39,38 @@ namespace TicTacToe.Services.GameBoard
                     return;
                 }
                 
-                void RunAction() => _board[turn.Value.x, turn.Value.y].SetPlayer(player);
-                void UndoAction() => _board[turn.Value.x, turn.Value.y].SetPlayer(null);
+                void RunAction() => Board[turn.Value.x, turn.Value.y].SetPlayer(player);
+                void UndoAction() => Board[turn.Value.x, turn.Value.y].SetPlayer(null);
                 var command = new Command(RunAction, UndoAction);
                 _actions.Push(command);
                 
-                if (IsTie() || GetWinner() is not null)
+                if (IsTie() || GetWinner(out _) is not null)
                     break;
             }
 
             CurrentPlayer = null;
         }
 
-        public IPlayer GetWinner()
-        {
-            return CheckHorizontal() ?? CheckVertical() ?? CheckDiagonal();
-        }
-        
-        public bool IsTie()
-        {
-            var tilesCount = 0;
-            foreach (var tile in _board)
-            {
-                if (tile.IsOccupied)
-                    tilesCount++;
-            }
+        public IPlayer GetWinner(out int score) 
+            => _gameRules.GetWinner(Board, out score);
 
-            return tilesCount == BoardSize * BoardSize;
-        }
+        public bool IsTie()
+            => _gameRules.IsTie(Board);
         
         public GameTile GetTile(int x, int y)
-            => _board[x, y];
+            => Board[x, y];
 
         public void SetBoardSize(int size)
         {
-            BoardSize = size;
-            _board = new GameTile[size, size];
+            Board = new GameTile[size, size];
             for (var x = 0; x < size; x++)
             for (var y = 0; y < size; y++)
-                _board[x, y] = new GameTile(x, y);
+                Board[x, y] = new GameTile(x, y);
         }
 
         public void SetPlayers(IEnumerable<IPlayer> players)
         {
-            _players.AddRange(players);
-        }
-        
-        private IPlayer CheckHorizontal()
-        {
-            for (var x = 0; x < BoardSize; x++)
-            {
-                var player = _board[x, 0].Player;
-                if (player is null)
-                    continue;
-        
-                for (var y = 0; y < BoardSize; y++)
-                {
-                    var otherPlayer = _board[x, y].Player;
-                    if (otherPlayer != player)
-                        break;
-    
-                    if (y == BoardSize - 1)
-                        return player;
-                }
-            }
-
-            return null;
-        }
-
-        private IPlayer CheckVertical()
-        {
-            for (var y = 0; y < BoardSize; y++)
-            {
-                var player = _board[0, y].Player;
-                if (player is null)
-                    continue;
-        
-                for (var x = 0; x < BoardSize; x++)
-                {
-                    var otherPlayer = _board[x, y].Player;
-                    if (otherPlayer != player)
-                        break;
-    
-                    if (x == BoardSize - 1)
-                        return player;
-                }
-            }
-            
-            return null;
-        }
-
-        private IPlayer CheckDiagonal()
-        {
-            var player = _board[0, 0].Player;
-            if (player is null)
-                return null;
-            
-            for (var i = 1; i < BoardSize; i++)
-            {
-                var tile = _board[i, i].Player;
-                if (tile != player)
-                    break;
-    
-                if (i == BoardSize - 1)
-                    return player;
-            }
-    
-            player = _board[0, BoardSize - 1].Player;
-            if (player is null)
-                return null;
-            for (var i = 1; i < BoardSize; i++)
-            {
-                var tile = _board[i, BoardSize - i - 1].Player;
-                if (tile != player)
-                    break;
-    
-                if (i == BoardSize - 1)
-                    return player;
-            }
-
-            return null;
+            Players.AddRange(players);
         }
     }
 }
