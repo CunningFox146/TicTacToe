@@ -20,11 +20,11 @@ namespace TicTacToe.Gameplay.States
             
             if (_board.IsTie())
             {
-                // TODO: Tie state
+                Debug.Log("TIE");
             }
             else if (_board.GetWinner() is not null)
             {
-                // TODO: Win state
+                Debug.Log("WIN");
             }
         }
     }

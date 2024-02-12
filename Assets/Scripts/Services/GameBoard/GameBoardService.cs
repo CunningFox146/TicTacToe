@@ -47,8 +47,7 @@ namespace TicTacToe.Services.GameBoard
 
         public IPlayer GetWinner()
         {
-            Debug.Log("Check winner");
-            return null;
+            return CheckHorizontal() ?? CheckVertical() ?? CheckDiagonal();
         }
         
         public bool IsTie()
@@ -78,6 +77,82 @@ namespace TicTacToe.Services.GameBoard
         public void SetPlayers(IEnumerable<IPlayer> players)
         {
             _players.AddRange(players);
+        }
+        
+        private IPlayer CheckHorizontal()
+        {
+            for (var x = 0; x < BoardSize; x++)
+            {
+                var player = _board[x, 0].Player;
+                if (player is null)
+                    continue;
+        
+                for (var y = 0; y < BoardSize; y++)
+                {
+                    var otherPlayer = _board[x, y].Player;
+                    if (otherPlayer != player)
+                        break;
+    
+                    if (y == BoardSize - 1)
+                        return player;
+                }
+            }
+
+            return null;
+        }
+
+        private IPlayer CheckVertical()
+        {
+            for (var y = 0; y < BoardSize; y++)
+            {
+                var player = _board[0, y].Player;
+                if (player is null)
+                    continue;
+        
+                for (var x = 0; x < BoardSize; x++)
+                {
+                    var otherPlayer = _board[x, y].Player;
+                    if (otherPlayer != player)
+                        break;
+    
+                    if (x == BoardSize - 1)
+                        return player;
+                }
+            }
+            
+            return null;
+        }
+
+        private IPlayer CheckDiagonal()
+        {
+            var player = _board[0, 0].Player;
+            if (player is null)
+                return null;
+            
+            for (var i = 1; i < BoardSize; i++)
+            {
+                var tile = _board[i, i].Player;
+                if (tile != player)
+                    break;
+    
+                if (i == BoardSize - 1)
+                    return player;
+            }
+    
+            player = _board[0, BoardSize - 1].Player;
+            if (player is null)
+                return null;
+            for (var i = 1; i < BoardSize; i++)
+            {
+                var tile = _board[i, BoardSize - i - 1].Player;
+                if (tile != player)
+                    break;
+    
+                if (i == BoardSize - 1)
+                    return player;
+            }
+
+            return null;
         }
     }
 }
