@@ -22,6 +22,7 @@ namespace TicTacToe.Services.Hint
             _otherPlayer = otherPlayer;
             var boardSize = board.GetLength(0);
             var bestMove = Vector2Int.zero;
+            var foundPath = false;
             var bestScore = int.MinValue;
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
@@ -32,11 +33,19 @@ namespace TicTacToe.Services.Hint
                     board[x, y].SetPlayer(null);
                     if (score > bestScore)
                     {
+                        foundPath = true;
                         bestScore = score;
                         bestMove = new Vector2Int(x, y);
                     }
                 }
 
+            if (!foundPath)
+                for (var x = 0; x < boardSize; x++)
+                for (var y = 0; y < boardSize; y++)
+                    if (!board[x, y].IsOccupied)
+                        return new Vector2Int(x, y);
+            
+            
             return bestMove;
         }
 

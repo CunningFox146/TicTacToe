@@ -31,6 +31,10 @@ namespace TicTacToe.Services.GameBoard
         {
             foreach (var player in Players)
             {
+                Debug.Log($"{IsTie()} || {GetWinner(out _)}");
+                if (IsTie() || GetWinner(out _) is not null)
+                    break;
+                
                 CurrentPlayer = player;
 
                 StartCountdown();
@@ -44,9 +48,6 @@ namespace TicTacToe.Services.GameBoard
                 }
                 
                 AddMoveCommand(move.Value);
-
-                if (IsTie() || GetWinner(out _) is not null)
-                    break;
             }
 
             CurrentPlayer = null;

@@ -66,9 +66,8 @@ namespace TicTacToe.Gameplay.States
         private async UniTask InitGameBoard(IGameplaySettings settings)
         {
             _gameBoard.SetBoardSize(settings.FieldSize);
-            var playerX = _controllerFactory.Create<Player>();
+            var playerX = _controllerFactory.Create<BotPlayer>();
             var playerO = _controllerFactory.Create<Player>();
-            // var playerO = _controllerFactory.Create<BotPlayer>();
 
             playerX.PlayerSprite = await _skinService.LoadX();
             playerO.PlayerSprite = await _skinService.LoadO();

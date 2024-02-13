@@ -30,7 +30,7 @@ namespace TicTacToe.Services.GameBoard.Rules
                     tilesCount++;
             }
 
-            return tilesCount == boardSize * boardSize;
+            return tilesCount == boardSize;
         }
         
         private IPlayer CheckHorizontal(GameTile[,] board)
