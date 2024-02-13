@@ -13,13 +13,26 @@ namespace TicTacToe.Services.Randomizer
             _random = new Random(GetSeed());
         }
 
+        public int GetInRange(int min, int max)
+            => _random.Next(min, max);
+
+        public bool GetBool()
+            => GetInRange(0, 100) <= 50;
+        
+        public void Shuffle<T> ( T[] array)
+        {
+            var length = array.Length;
+            while (length > 1) 
+            {
+                var newIndex = _random.Next(length--);
+                (array[length], array[newIndex]) = (array[newIndex], array[length]);
+            }
+        }
+
         private int GetSeed()
         {
             var timeSpan = DateTime.UtcNow - _startDateTime;
             return (int)timeSpan.TotalSeconds;
         }
-
-        public int GetInRange(int min, int max) => _random.Next(min, max);
-        public bool GetBool() => GetInRange(0, 100) <= 50;
     }
 }

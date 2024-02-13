@@ -5,6 +5,7 @@ using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI.Factories;
@@ -19,6 +20,7 @@ namespace TicTacToe.Gameplay.States
         private readonly IAssetProvider _assetProvider;
         private readonly BoardControllerFactory _controllerFactory;
         private readonly IUserInterfaceFactory _userInterfaceFactory;
+        private readonly IRandomService _random;
         private readonly IGameplayFactory _factory;
         private readonly IGameBoardService _gameBoard;
         private readonly ISkinService _skinService;
@@ -29,7 +31,7 @@ namespace TicTacToe.Gameplay.States
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
             ILoadingCurtainService loadingCurtain, IAssetProvider assetProvider, IStateMachine gameStateMachine,
             IGameBoardService gameBoard, ISkinService skinService, BoardControllerFactory
-                controllerFactory, IUserInterfaceFactory userInterfaceFactory)
+                controllerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random)
         {
             _factory = factory;
             _viewStack = viewStack;
@@ -40,6 +42,7 @@ namespace TicTacToe.Gameplay.States
             _skinService = skinService;
             _controllerFactory = controllerFactory;
             _userInterfaceFactory = userInterfaceFactory;
+            _random = random;
         }
 
         public async UniTask Enter()
@@ -66,8 +69,12 @@ namespace TicTacToe.Gameplay.States
         private async UniTask InitGameBoard(IGameplaySettings settings)
         {
             _gameBoard.SetBoardSize(settings.FieldSize);
-            var playerX = _controllerFactory.Create<BotPlayer>();
-            var playerO = _controllerFactory.Create<Player>();
+
+            var player = new []{ GetPlayer(), GetBotPlayer() };
+            _random.Shuffle(player);
+
+            var playerX = player[0];
+            var playerO = player[1];
 
             playerX.PlayerSprite = await _skinService.LoadX();
             playerO.PlayerSprite = await _skinService.LoadO();
@@ -75,7 +82,13 @@ namespace TicTacToe.Gameplay.States
             playerX.Name = "X";
             playerO.Name = "O";
             
-            _gameBoard.SetPlayers(new IPlayer[] { playerX, playerO });
+            _gameBoard.SetPlayers(player);
         }
+
+        private IPlayer GetBotPlayer()
+            => _controllerFactory.Create<BotPlayer>();
+
+        private IPlayer GetPlayer()
+            => _controllerFactory.Create<Player>();
     }
 }
