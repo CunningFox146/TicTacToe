@@ -1,14 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Extensions;
 using UnityMvvmToolkit.Core.Interfaces;
 
 namespace TicTacToe.UI.Elements
 {
-    public class BindableGraphicVisibility : MonoBehaviour, IBindableElement
+    public class BindableActivity : MonoBehaviour, IBindableElement
     {
-        [SerializeField] private Graphic _graphic;
         [SerializeField] private string _bindingVisibilityPath;
         
         private IProperty<bool> _visibilityProperty;
@@ -39,7 +37,7 @@ namespace TicTacToe.UI.Elements
         private void OnPropertyValueChanged(object sender, bool value) 
             => UpdateVisibility(value);
 
-        private void UpdateVisibility(bool value) 
-            => _graphic.enabled = value;
+        private void UpdateVisibility(bool value)
+            => gameObject.SetActive(value);
     }
 }

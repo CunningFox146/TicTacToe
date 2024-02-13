@@ -5,5 +5,6 @@ namespace TicTacToe.UI.Factories
         public const string LoadingCurtainView = "LoadingCurtainView";
         public const string MainView = "MainMenuView";
         public const string HUDView = "HUDView";
+        public const string GameEndView = "GameEndView";
     }
 }

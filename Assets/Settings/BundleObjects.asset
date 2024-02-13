@@ -16,6 +16,9 @@ MonoBehaviour:
   <BuildTarget>k__BackingField: 2
   _objectsToPack:
     _serializedList:
+    - Key: GameEndView
+      Value: {fileID: 3427330267762252519, guid: 93d4ac0de427e428abdb4cbcb63013bf,
+        type: 3}
     - Key: LoadingCurtainView
       Value: {fileID: 7701818463752838825, guid: 78fc92cdef7e2477c898a2198aca0c17,
         type: 3}

@@ -8,10 +8,12 @@ namespace TicTacToe.Gameplay.States
     public class GameplayLoopState : IState
     {
         private readonly IGameBoardService _board;
+        private readonly IStateMachine _gameStateMachine;
 
-        public GameplayLoopState(IGameBoardService board)
+        public GameplayLoopState(IGameBoardService board, IStateMachine gameStateMachine)
         {
             _board = board;
+            _gameStateMachine = gameStateMachine;
         }
         public async UniTask Enter()
         {
@@ -20,11 +22,11 @@ namespace TicTacToe.Gameplay.States
             
             if (_board.IsTie())
             {
-                Debug.Log("TIE");
+                _gameStateMachine.Enter<GameTieState>();
             }
             else if (_board.GetWinner(out _) is not null)
             {
-                Debug.Log("WIN");
+                _gameStateMachine.Enter<GameWonState>();
             }
         }
     }
