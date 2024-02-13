@@ -14,7 +14,7 @@ namespace TicTacToe.Services.GameBoard
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }
         List<IPlayer> Players { get; }
-        UniTask PickTurn();
+        UniTask PickMove();
         GameTile GetTile(int x, int y);
         bool IsTie();
         IPlayer GetWinner(out int score);

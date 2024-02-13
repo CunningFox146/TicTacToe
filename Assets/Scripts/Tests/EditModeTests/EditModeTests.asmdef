@@ -1,9 +1,14 @@
 {
     "name": "EditModeTests",
-    "rootNamespace": "TicTacToe.Tests",
+    "rootNamespace": "TicTacToe",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Common",
+        "TicTacToe",
+        "Zenject",
+        "TNRD.NSubstitute",
+        "UniTask"
     ],
     "includePlatforms": [
         "Editor"

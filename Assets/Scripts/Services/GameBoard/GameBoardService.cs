@@ -29,7 +29,7 @@ namespace TicTacToe.Services.GameBoard
             _gameRules = gameRules;
         }
 
-        public async UniTask PickTurn()
+        public async UniTask PickMove()
         {
             foreach (var player in Players)
             {
@@ -45,7 +45,7 @@ namespace TicTacToe.Services.GameBoard
                     return;
                 }
                 
-                AddMoveCommand(move.Value);
+                AddMoveCommand(move.Value, CurrentPlayer);
                 
                 if (GetWinner(out _) is not null || IsTie())
                     break;
@@ -54,9 +54,9 @@ namespace TicTacToe.Services.GameBoard
             CurrentPlayer = null;
         }
 
-        private void AddMoveCommand(Vector2Int move)
+        public void AddMoveCommand(Vector2Int move, IPlayer player)
         {
-            void RunAction() => Board[move.x, move.y].SetPlayer(CurrentPlayer);
+            void RunAction() => Board[move.x, move.y].SetPlayer(player);
             void UndoAction() => Board[move.x, move.y].SetPlayer(null);
             var command = new Command(RunAction, UndoAction);
             _actions.Push(command);

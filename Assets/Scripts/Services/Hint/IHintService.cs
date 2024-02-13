@@ -7,6 +7,6 @@ namespace TicTacToe.Services.Hint
 {
     public interface IHintService
     {
-        UniTask<Vector2Int> GetBestMove(GameTile[,] board, IPlayer player, IPlayer other);
+        UniTask<Vector2Int?> GetBestMove(GameTile[,] board, IPlayer player, IPlayer other);
     }
 }

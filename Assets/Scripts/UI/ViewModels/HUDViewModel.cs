@@ -52,7 +52,10 @@ namespace TicTacToe.UI.ViewModels
         {
             var otherPlayer = _gameBoard.Players.First(p => p != _gameBoard.CurrentPlayer);
             var move = await _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
-            var tile = _gameBoard.Field.GetTile(move);
+            if (move is null)
+                return;
+            
+            var tile = _gameBoard.Field.GetTile(move.Value);
             HintPosition.Value = tile.GetScreenPosition(_mainCamera);
             IsHintVisible.Value = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);

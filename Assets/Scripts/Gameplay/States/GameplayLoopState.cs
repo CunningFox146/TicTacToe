@@ -18,7 +18,7 @@ namespace TicTacToe.Gameplay.States
         }
         public async UniTask Enter()
         {
-            await _board.PickTurn();
+            await _board.PickMove();
             
             if (_board.GetWinner(out _) is not null)
             {

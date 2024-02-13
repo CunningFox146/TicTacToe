@@ -21,7 +21,13 @@ namespace TicTacToe.Services.Hint
             _randomService = randomService;
         }
 
-        public async UniTask<Vector2Int> GetBestMove(GameTile[,] sourceBoard, IPlayer player, IPlayer other)
+        public async UniTask<Vector2Int?> GetBestMove(GameTile[,] board, IPlayer player, IPlayer other)
+        {
+            var task = Task<Vector2Int?>.Factory.StartNew(() => GetBestMoveSync(board, player, other));
+            return await task.AsUniTask();
+        }
+
+        public Vector2Int? GetBestMoveSync(GameTile[,] sourceBoard, IPlayer player, IPlayer other)
         {
             var freeTiles = 0;
             foreach (var tile in sourceBoard)
@@ -30,14 +36,18 @@ namespace TicTacToe.Services.Hint
                     freeTiles++;
             }
 
-            if (freeTiles > 9)
-                return GetRandomTile(sourceBoard);
-                
-            
-            var board = CloneBoard(sourceBoard);
-            var task = Task<Vector2Int>.Factory.StartNew(() => _miniMax.GetBestMove(board, player, other));
-            await task.AsUniTask();
-            return task.Result;
+            switch (freeTiles)
+            {
+                case 0:
+                    return null;
+                case > 9:
+                    return GetRandomTile(sourceBoard);
+                default:
+                {
+                    var board = CloneBoard(sourceBoard);
+                    return _miniMax.GetBestMove(board, player, other);
+                }
+            }
         }
 
         private Vector2Int GetRandomTile(GameTile[,] board)
