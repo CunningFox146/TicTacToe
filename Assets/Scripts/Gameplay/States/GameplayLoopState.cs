@@ -17,17 +17,21 @@ namespace TicTacToe.Gameplay.States
         }
         public async UniTask Enter()
         {
-            while(!_board.IsTie() && _board.GetWinner(out _) is null)
-               await _board.PickTurn();
+            await _board.PickTurn();
             
+            if (_board.GetWinner(out _) is not null)
+            {
+                await _gameStateMachine.Enter<GameWonState>();
+                return;
+            }
+
             if (_board.IsTie())
             {
                 await _gameStateMachine.Enter<GameTieState>();
+                return;
             }
-            else if (_board.GetWinner(out _) is not null)
-            {
-                await _gameStateMachine.Enter<GameWonState>();
-            }
+
+            await _gameStateMachine.Enter<GameplayLoopState>();
         }
     }
 }

@@ -22,6 +22,9 @@ namespace TicTacToe.Services.GameBoard.Rules
         
         public bool IsTie(GameTile[,] board)
         {
+            if (GetWinner(board, out _) is not null)
+                return false;
+            
             var boardSize = board.Length;
             var tilesCount = 0;
             foreach (var tile in board)

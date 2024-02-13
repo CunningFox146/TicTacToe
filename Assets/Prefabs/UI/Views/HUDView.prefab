@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7363086c33348588ceb864811692c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _graphic: {fileID: 1625085580135589097}
   _bindingVisibilityPath: IsHintVisible
 --- !u!1 &1735932362037469308
 GameObject:
@@ -208,6 +207,7 @@ GameObject:
   - component: {fileID: 8940012893813037985}
   - component: {fileID: 1605593581971770533}
   - component: {fileID: 6451348771859432423}
+  - component: {fileID: 5508963381384068628}
   m_Layer: 5
   m_Name: Countdown
   m_TagString: Untagged
@@ -346,6 +346,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _label: {fileID: 1605593581971770533}
   _bindingTextPath: Countdown, FloatToIntStringConverter
+--- !u!114 &5508963381384068628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244309357822145516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7363086c33348588ceb864811692c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingVisibilityPath: Countdown, FloatToBool
 --- !u!1001 &226742816235596148
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -63,6 +63,7 @@ namespace TicTacToe.CompositionRoot
             Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
             {
                 new FloatToIntStringConverter(),
+                new FloatToBool(),
             });
         }
 
