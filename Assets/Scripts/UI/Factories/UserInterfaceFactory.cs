@@ -10,13 +10,15 @@ namespace TicTacToe.UI.Factories
         private readonly MainMenuView.Factory _mainMenuFactory;
         private readonly HUDView.Factory _hudFactory;
         private readonly GameEndView.Factory _gameEndFactory;
+        private readonly SkinPopupView.Factory _skinPopupFactory;
 
-        public UserInterfaceFactory(LoadingCurtainView.Factory loadingFactory, MainMenuView.Factory mainMenuFactory, HUDView.Factory hudFactory, GameEndView.Factory gameEndFactory)
+        public UserInterfaceFactory(LoadingCurtainView.Factory loadingFactory, MainMenuView.Factory mainMenuFactory, HUDView.Factory hudFactory, GameEndView.Factory gameEndFactory, SkinPopupView.Factory skinPopupFactory)
         {
             _loadingFactory = loadingFactory;
             _mainMenuFactory = mainMenuFactory;
             _hudFactory = hudFactory;
             _gameEndFactory = gameEndFactory;
+            _skinPopupFactory = skinPopupFactory;
         }
 
         public UniTask<MainMenuView> CreateMainMenuView() 
@@ -27,5 +29,8 @@ namespace TicTacToe.UI.Factories
         
         public UniTask<GameEndView> CreateGameEndView()
             => _gameEndFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.GameEndView);
+        
+        public UniTask<SkinPopupView> CreateSkinPopupView()
+            => _skinPopupFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.SkinPopupView);
     }
 }

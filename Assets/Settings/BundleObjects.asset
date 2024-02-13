@@ -16,6 +16,9 @@ MonoBehaviour:
   <BuildTarget>k__BackingField: 2
   _objectsToPack:
     _serializedList:
+    - Key: SkinPopupView
+      Value: {fileID: 1677908904418058633, guid: 67a9104d8db6448d28b5da18b8855fd3,
+        type: 3}
     - Key: GameEndView
       Value: {fileID: 3427330267762252519, guid: 93d4ac0de427e428abdb4cbcb63013bf,
         type: 3}

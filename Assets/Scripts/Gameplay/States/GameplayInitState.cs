@@ -48,7 +48,7 @@ namespace TicTacToe.Gameplay.States
             
             await InitGameBoard(settings);
             await InitGameField(settings);
-            await _userInterfaceFactory.CreateHUDView(); 
+            _viewStack.PushView(await _userInterfaceFactory.CreateHUDView()); 
 
             _loadingCurtain.HideLoadingCurtain();
 
@@ -67,7 +67,8 @@ namespace TicTacToe.Gameplay.States
         {
             _gameBoard.SetBoardSize(settings.FieldSize);
             var playerX = _controllerFactory.Create<Player>();
-            var playerO = _controllerFactory.Create<BotPlayer>();
+            var playerO = _controllerFactory.Create<Player>();
+            // var playerO = _controllerFactory.Create<BotPlayer>();
 
             playerX.PlayerSprite = await _skinService.LoadX();
             playerO.PlayerSprite = await _skinService.LoadO();

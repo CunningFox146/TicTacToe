@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -10,13 +11,20 @@ namespace TicTacToe.Infrastructure.AssetManagement
 
         public async UniTask LoadBundle(string bundleName)
         {
-            var bundle = await AssetBundle.LoadFromFileAsync($"{Application.streamingAssetsPath}/{bundleName}").ToUniTask();
+            if (_loadedBundles.ContainsKey(bundleName))
+                return;
+            
+            var bundlePath = $"{Application.streamingAssetsPath}/{bundleName}";
+            if (!File.Exists(bundlePath))
+                throw new FileNotFoundException($"No such bundle: {bundlePath}");
+            
+            var bundle = await AssetBundle.LoadFromFileAsync(bundlePath).ToUniTask();
             _loadedBundles.Add(bundleName, bundle);
         }
 
         public UniTask UnloadBundle(string bundleName)
         {
-            if (!_loadedBundles.TryGetValue(bundleName, out var bundle))
+            if (!_loadedBundles.TryGetValue(bundleName, out var bundle) || !bundle)
                 return UniTask.CompletedTask;
 
             return bundle.UnloadAsync(true).ToUniTask();

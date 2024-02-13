@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.UI.Factories;
+using TicTacToe.UI.ViewStack;
 
 namespace TicTacToe.Gameplay.States
 {
@@ -9,15 +10,17 @@ namespace TicTacToe.Gameplay.States
     {
         private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly ISceneLoader _sceneLoader;
+        private readonly IViewStackService _viewStack;
 
-        public GameWonState(IUserInterfaceFactory userInterfaceFactory)
+        public GameWonState(IUserInterfaceFactory userInterfaceFactory, IViewStackService viewStack)
         {
             _userInterfaceFactory = userInterfaceFactory;
+            _viewStack = viewStack;
         }
         
         public async UniTask Enter()
         {
-            await _userInterfaceFactory.CreateGameEndView();
+            _viewStack.PushView(await _userInterfaceFactory.CreateGameEndView());
         }
     }
 }

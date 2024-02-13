@@ -8,5 +8,6 @@ namespace TicTacToe.UI.Factories
         UniTask<MainMenuView> CreateMainMenuView();
         UniTask<HUDView> CreateHUDView();
         UniTask<GameEndView> CreateGameEndView();
+        UniTask<SkinPopupView> CreateSkinPopupView();
     }
 }

@@ -22,11 +22,11 @@ namespace TicTacToe.Gameplay.States
             
             if (_board.IsTie())
             {
-                _gameStateMachine.Enter<GameTieState>();
+                await _gameStateMachine.Enter<GameTieState>();
             }
             else if (_board.GetWinner(out _) is not null)
             {
-                _gameStateMachine.Enter<GameWonState>();
+                await _gameStateMachine.Enter<GameWonState>();
             }
         }
     }

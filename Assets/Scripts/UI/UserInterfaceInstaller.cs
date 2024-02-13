@@ -25,6 +25,10 @@ namespace TicTacToe.UI
                 .FromFactory<PrefabFactoryAsync<MainMenuView>>();
             
             Container
+                .BindFactory<string, string, UniTask<SkinPopupView>, SkinPopupView.Factory>()
+                .FromFactory<PrefabFactoryAsync<SkinPopupView>>();
+            
+            Container
                 .BindFactory<string, string, UniTask<HUDView>, HUDView.Factory>()
                 .FromFactory<PrefabFactoryAsync<HUDView>>();
             

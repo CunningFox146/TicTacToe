@@ -1,7 +1,11 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.States;
+using TicTacToe.UI.Factories;
 using TicTacToe.UI.ViewStack;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Interfaces;
+using UnityMvvmToolkit.UniTask;
 
 namespace TicTacToe.UI.ViewModels
 {
@@ -9,19 +13,21 @@ namespace TicTacToe.UI.ViewModels
     {
         private readonly IStateMachine _gameStateMachine;
         private readonly IViewStackService _viewStack;
+        private readonly IUserInterfaceFactory _userInterfaceFactory;
         public IProperty<int> Count { get; }
         public ICommand StartCommand { get; }
         public ICommand ReskinCommand { get; }
         public ICommand QuitCommand { get; }
         
-        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack)
+        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack, IUserInterfaceFactory userInterfaceFactory)
         {
             _gameStateMachine = gameStateMachine;
             _viewStack = viewStack;
+            _userInterfaceFactory = userInterfaceFactory;
 
             Count = new Property<int>();
             StartCommand = new Command(StartGame);
-            ReskinCommand = new Command(ShowReskinView);
+            ReskinCommand = new AsyncCommand(ShowReskinView);
             QuitCommand = new Command(QuitGame);
         }
 
@@ -30,8 +36,9 @@ namespace TicTacToe.UI.ViewModels
             _gameStateMachine.Enter<GameplayLoadState>();
         }
 
-        private void ShowReskinView()
+        private async UniTask ShowReskinView(CancellationToken cancellationToken)
         {
+            _viewStack.PushView(await _userInterfaceFactory.CreateSkinPopupView());
         }
         
         private void QuitGame()
