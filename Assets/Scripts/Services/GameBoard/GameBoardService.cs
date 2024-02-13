@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Field;
@@ -16,6 +17,7 @@ namespace TicTacToe.Services.GameBoard
         private readonly IGameRules _gameRules;
         private readonly Stack<ICommand> _actions = new();
         private CancellationTokenSource _timeoutToken;
+        private IPlayer _outOfTimePlayer;
 
         public IGameField Field { get; set; }
         public GameTile[,] Board { get; private set; }
@@ -39,14 +41,12 @@ namespace TicTacToe.Services.GameBoard
                 
                 if (move is null)
                 {
-                    // TODO: Player lost
+                    _outOfTimePlayer = player;
                     return;
                 }
                 
                 AddMoveCommand(move.Value);
                 
-                
-                Debug.LogWarning($"{GetWinner(out _) is not null} || {IsTie()}");
                 if (GetWinner(out _) is not null || IsTie())
                     break;
             }
@@ -79,8 +79,13 @@ namespace TicTacToe.Services.GameBoard
                 command.Undo();
         }
 
-        public IPlayer GetWinner(out int score) 
-            => _gameRules.GetWinner(Board, out score);
+        public IPlayer GetWinner(out int score)
+        {
+            score = 0;
+            if (_outOfTimePlayer is not null)
+                return Players.First(p => p != _outOfTimePlayer);
+            return _gameRules.GetWinner(Board, out score);
+        }
 
         public bool IsTie()
             => _gameRules.IsTie(Board);

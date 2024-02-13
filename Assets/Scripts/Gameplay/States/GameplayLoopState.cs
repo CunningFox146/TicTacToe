@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameBoard.BoardPlayers;
 using UnityEngine;
 
 namespace TicTacToe.Gameplay.States
