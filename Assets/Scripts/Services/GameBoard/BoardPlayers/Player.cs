@@ -15,7 +15,7 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             _gameBoard = gameBoard;
         }
         
-        public async UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken)
+        public async UniTask<Vector2Int?> PickMove(CancellationToken cancellationToken)
         {
             while (_pickedTurn is null && !cancellationToken.IsCancellationRequested)
                 await UniTask.Yield();

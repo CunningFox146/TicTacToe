@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.GameBoard;
@@ -23,6 +24,7 @@ namespace TicTacToe.UI.ViewModels
         
         public IProperty<bool> IsHintVisible { get; }
         public IProperty<Vector3> HintPosition { get; }
+        public IProperty<float> Countdown { get; }
         public ICommand HintCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand ExitCommand { get; }
@@ -37,10 +39,13 @@ namespace TicTacToe.UI.ViewModels
 
             IsHintVisible = new Property<bool>(false);
             HintPosition = new Property<Vector3>();
+            Countdown = new Property<float>();
             
             HintCommand = new AsyncCommand(ShowHint);
             UndoCommand = new Command(Undo);
             ExitCommand = new AsyncCommand(Exit);
+            
+            gameBoard.CountdownStarted += OnCountdownStarted;
         }
 
         private async UniTask ShowHint(CancellationToken token)
@@ -68,5 +73,18 @@ namespace TicTacToe.UI.ViewModels
             _loadingCurtain.ShowLoadingCurtain();
             return _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }
+
+        private async void StartCountdown(float time)
+        {
+            while (time > 0)
+            {
+                time -= Time.deltaTime;
+                Countdown.Value = time;
+                await Task.Yield();
+            }
+        }
+        
+        private void OnCountdownStarted(float time)
+            => StartCountdown(time);
     }
 }

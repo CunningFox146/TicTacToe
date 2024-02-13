@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Field;
@@ -7,6 +8,8 @@ namespace TicTacToe.Services.GameBoard
 {
     public interface IGameBoardService : IUndoable
     {
+        event Action<float> CountdownStarted; 
+        
         IGameField Field { get; set; }
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }

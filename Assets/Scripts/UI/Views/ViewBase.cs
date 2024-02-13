@@ -15,9 +15,10 @@ namespace TicTacToe.UI.Views
         protected Canvas canvas;
 
         [Inject]
-        private void Constructor(ViewModelFactory viewModelFactory)
+        private void Constructor(ViewModelFactory viewModelFactory,  IValueConverter[] valueConverters)
         {
             _viewModelFactory = viewModelFactory;
+            _valueConverters = valueConverters;
         }
 
         protected override void OnInit()

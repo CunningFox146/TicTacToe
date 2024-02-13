@@ -8,10 +8,12 @@ using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI;
+using TicTacToe.UI.Converters;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
 namespace TicTacToe.CompositionRoot
@@ -30,8 +32,10 @@ namespace TicTacToe.CompositionRoot
             BindAssetProvider();
             BindSkinService();
             BindLoadingCurtain();
+            BindConverters();
             BindGameStateMachine();
         }
+
 
         private void BindGameStateMachine()
         {
@@ -52,6 +56,14 @@ namespace TicTacToe.CompositionRoot
                 .FromFactory<PrefabFactoryAsync<LoadingCurtainView>>();
 
             Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
+        }
+        
+        private void BindConverters()
+        {
+            Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
+            {
+                new FloatToIntStringConverter(),
+            });
         }
 
         private void BindSkinService() 

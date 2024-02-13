@@ -6,13 +6,16 @@ using TicTacToe.Gameplay.Field;
 using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
+using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard
 {
     public class GameBoardService : IGameBoardService
     {
+        public event Action<float> CountdownStarted; 
         private readonly IGameRules _gameRules;
         private readonly Stack<ICommand> _actions = new();
+        private CancellationTokenSource _timeoutToken;
 
         public IGameField Field { get; set; }
         public GameTile[,] Board { get; private set; }
@@ -29,27 +32,43 @@ namespace TicTacToe.Services.GameBoard
             foreach (var player in Players)
             {
                 CurrentPlayer = player;
-                
-                using var token = new CancellationTokenSource();
-                token.CancelAfter(TimeSpan.FromSeconds(5));
 
-                var turn = await CurrentPlayer.PickTurn(token.Token);
-                if (turn is null)
+                StartCountdown();
+                var move = await CurrentPlayer.PickMove(_timeoutToken.Token);
+                _timeoutToken.Dispose();
+                
+                if (move is null)
                 {
                     // TODO: Player lost
                     return;
                 }
                 
-                void RunAction() => Board[turn.Value.x, turn.Value.y].SetPlayer(player);
-                void UndoAction() => Board[turn.Value.x, turn.Value.y].SetPlayer(null);
-                var command = new Command(RunAction, UndoAction);
-                _actions.Push(command);
-                
+                AddMoveCommand(move.Value);
+
                 if (IsTie() || GetWinner(out _) is not null)
                     break;
             }
 
             CurrentPlayer = null;
+        }
+
+        private void AddMoveCommand(Vector2Int move)
+        {
+            void RunAction() => Board[move.x, move.y].SetPlayer(CurrentPlayer);
+            void UndoAction() => Board[move.x, move.y].SetPlayer(null);
+            var command = new Command(RunAction, UndoAction);
+            _actions.Push(command);
+        }
+
+        private void StartCountdown()
+        {
+            var timeoutTime = 5;
+            _timeoutToken?.Dispose();
+
+            _timeoutToken = new CancellationTokenSource();
+            _timeoutToken.CancelAfter(TimeSpan.FromSeconds(timeoutTime));
+            
+            CountdownStarted?.Invoke(timeoutTime);
         }
 
         public void Undo()

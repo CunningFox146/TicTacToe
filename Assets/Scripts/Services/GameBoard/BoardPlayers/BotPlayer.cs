@@ -18,7 +18,7 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             _hintService = hintService;
         }
         
-        public UniTask<Vector2Int?> PickTurn(CancellationToken cancellationToken)
+        public UniTask<Vector2Int?> PickMove(CancellationToken cancellationToken)
         {
             var otherPlayer = _board.Players.First(p => p != this);
             var board = (GameTile[,])_board.Board.Clone();

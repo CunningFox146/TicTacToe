@@ -1,11 +1,10 @@
-using System;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
 using UnityEngine;
 
 namespace TicTacToe.Services.Skin
 {
-    public class SkinService : ISkinService, IDisposable
+    public class SkinService : ISkinService
     {
         private readonly IAssetProvider _assetProvider;
         public string CurrentSkin { get; private set; }
@@ -33,9 +32,5 @@ namespace TicTacToe.Services.Skin
         public UniTask<Sprite> LoadO()
             => _assetProvider.LoadAsset<Sprite>(CurrentSkin, SkinItemNames.O);
 
-        public void Dispose()
-        {
-            Debug.Log("DISPOSE");
-        }
     }
 }
