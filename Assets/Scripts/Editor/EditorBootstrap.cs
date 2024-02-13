@@ -10,7 +10,11 @@ namespace TicTacToe.Editor
 
         static EditorBootstrap()
         {
+#if UNITY_INCLUDE_TESTS
+            EditorSceneManager.playModeStartScene = null;
+#else
             EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(BootstrapScenePath);
+#endif
         }
     }
 }

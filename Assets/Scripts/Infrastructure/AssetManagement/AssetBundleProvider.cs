@@ -31,7 +31,12 @@ namespace TicTacToe.Infrastructure.AssetManagement
         }
 
         public async UniTask<T> LoadAsset<T>(string bundleName, string assetName) where T : Object
-            => await _loadedBundles[bundleName].LoadAssetAsync<T>(assetName).ToUniTask() as T;
+        {
+            var bundle = _loadedBundles[bundleName];
+            if (bundle)
+                return await _loadedBundles[bundleName].LoadAssetAsync<T>(assetName).ToUniTask() as T;
+            return null;
+        }
 
         public async UniTask<T> LoadAsset<T>(string assetName) where T : Object 
             => await LoadAsset<T>(BundleNames.GenericBundle, assetName);

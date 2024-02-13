@@ -3,7 +3,10 @@
     "rootNamespace": "TicTacToe",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Common",
+        "TicTacToe",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
