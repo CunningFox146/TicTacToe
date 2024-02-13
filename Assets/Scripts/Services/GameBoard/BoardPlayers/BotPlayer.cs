@@ -20,11 +20,10 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             _hintService = hintService;
         }
         
-        public UniTask<Vector2Int?> PickMove(CancellationToken cancellationToken)
+        public async UniTask<Vector2Int?> PickMove(CancellationToken cancellationToken)
         {
             var otherPlayer = _board.Players.First(p => p != this);
-            var board = (GameTile[,])_board.Board.Clone();
-            return new UniTask<Vector2Int?>(_hintService.GetBestMove(board, this, otherPlayer));
+            return await _hintService.GetBestMove(_board.Board, this, otherPlayer);
         }
     }
 }

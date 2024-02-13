@@ -51,7 +51,7 @@ namespace TicTacToe.UI.ViewModels
         private async UniTask ShowHint(CancellationToken token)
         {
             var otherPlayer = _gameBoard.Players.First(p => p != _gameBoard.CurrentPlayer);
-            var move = _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
+            var move = await _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
             var tile = _gameBoard.Field.GetTile(move);
             HintPosition.Value = tile.GetScreenPosition(_mainCamera);
             IsHintVisible.Value = true;

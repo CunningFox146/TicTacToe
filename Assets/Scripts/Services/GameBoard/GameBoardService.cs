@@ -91,7 +91,7 @@ namespace TicTacToe.Services.GameBoard
             Board = new GameTile[size, size];
             for (var x = 0; x < size; x++)
             for (var y = 0; y < size; y++)
-                Board[x, y] = new GameTile(x, y);
+                Board[x, y] = new GameTile(new Vector2Int(x, y));
         }
 
         public void SetPlayers(IEnumerable<IPlayer> players)

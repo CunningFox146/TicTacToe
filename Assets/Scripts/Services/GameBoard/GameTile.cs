@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard
 {
-    public class GameTile
+    public class GameTile : ICloneable
     {
         public event Action StateChanged;
         
@@ -12,15 +12,22 @@ namespace TicTacToe.Services.GameBoard
         public Vector2Int Position { get; private set; }
         public bool IsOccupied => Player is not null;
 
-        public GameTile(int x, int y)
+        public GameTile(Vector2Int position)
         {
-            Position = new Vector2Int(x, y);
+            Position = position;
         }
 
         public void SetPlayer(IPlayer player)
         {
             Player = player;
             StateChanged?.Invoke();
+        }
+
+        public object Clone()
+        {
+            var tile = new GameTile(Position);
+            tile.SetPlayer(Player);
+            return tile;
         }
     }
 }
