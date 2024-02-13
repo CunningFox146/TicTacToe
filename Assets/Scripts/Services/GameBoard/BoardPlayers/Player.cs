@@ -9,6 +9,8 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
         private readonly IGameBoardService _gameBoard;
         public Sprite PlayerSprite { get; set; }
         private Vector2Int? _pickedTurn;
+        
+        public string Name { get; set; }
 
         public Player(IGameBoardService gameBoard)
         {

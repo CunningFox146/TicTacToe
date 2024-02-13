@@ -10,6 +10,8 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
     {
         private readonly IGameBoardService _board;
         private readonly IHintService _hintService;
+        
+        public string Name { get; set; }
         public Sprite PlayerSprite { get; set; }
 
         public BotPlayer(IGameBoardService board, IHintService hintService)

@@ -71,6 +71,9 @@ namespace TicTacToe.Gameplay.States
 
             playerX.PlayerSprite = await _skinService.LoadX();
             playerO.PlayerSprite = await _skinService.LoadO();
+
+            playerX.Name = "X";
+            playerO.Name = "O";
             
             _gameBoard.SetPlayers(new IPlayer[] { playerX, playerO });
         }
