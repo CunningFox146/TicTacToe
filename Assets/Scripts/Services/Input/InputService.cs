@@ -11,10 +11,11 @@ namespace TicTacToe.Services.Input
     {
         public event Action Clicked;
         
-        private readonly List<RaycastResult> _rayCastResults = new();
-        private readonly GameplayInput _input;
         private readonly EventSystem _eventSystem;
+        private readonly GameplayInput _input;
 
+        private readonly List<RaycastResult> _rayCastResults = new();
+        
         public Vector2 PointerPosition => _input.General.Position.ReadValue<Vector2>();
 
         public InputService(GameplayInput input, EventSystem eventSystem)
@@ -23,17 +24,18 @@ namespace TicTacToe.Services.Input
             _eventSystem = eventSystem;
         }
 
+        public void Dispose()
+        {
+            _input?.Dispose();
+        }
+
         public void Initialize()
         {
             _input.Enable();
             _input.General.Click.performed += OnClick;
         }
 
-        public void Dispose()
-        {
-            _input?.Dispose();
-        }
-        
+
         private void OnClick(InputAction.CallbackContext evt)
         {
             if (!IsOverUI(PointerPosition))

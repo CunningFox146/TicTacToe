@@ -7,6 +7,9 @@ namespace TicTacToe.Util
 {
     public static class BoardExtensions
     {
+        public static int GetBoardSize(this GameTile[,] board)
+            => board.GetLength(0);
+        
         // No linq not to allocate memory
         public static int GetOccupiedTilesCount(this GameTile[,] tiles)
         {
@@ -35,6 +38,18 @@ namespace TicTacToe.Util
                 board[x, y] = (GameTile)sourceBoard[x, y].Clone();
 
             return board;
+        }
+        
+        public static Vector2Int? GetFirstFreeTile(this GameTile[,] board)
+        {
+            var boardSize = GetBoardSize(board);
+            
+            for (var x = 0; x < boardSize; x++)
+            for (var y = 0; y < boardSize; y++)
+                if (!board[x, y].IsOccupied)
+                    return new Vector2Int(x, y);
+
+            return null;
         }
 
         private static List<GameTile> GetFreeTiles(GameTile[,] board)

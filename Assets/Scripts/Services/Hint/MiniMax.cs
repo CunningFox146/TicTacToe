@@ -1,10 +1,12 @@
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
+using TicTacToe.Util;
 using UnityEngine;
 
 namespace TicTacToe.Services.Hint
 {
+    // Adapted from https://www.youtube.com/watch?v=trKjYdBASyQ
     public class MiniMax
     {
         private readonly IGameRules _gameRules;
@@ -16,7 +18,7 @@ namespace TicTacToe.Services.Hint
             _gameRules = gameRules;
         }
 
-        public Vector2Int GetBestMove(GameTile[,] board, IPlayer player, IPlayer otherPlayer)
+        public Vector2Int? GetBestMove(GameTile[,] board, IPlayer player, IPlayer otherPlayer)
         {
             _player = player;
             _otherPlayer = otherPlayer;
@@ -39,14 +41,7 @@ namespace TicTacToe.Services.Hint
                     }
                 }
 
-            if (!foundPath)
-                for (var x = 0; x < boardSize; x++)
-                for (var y = 0; y < boardSize; y++)
-                    if (!board[x, y].IsOccupied)
-                        return new Vector2Int(x, y);
-
-
-            return bestMove;
+            return foundPath ? bestMove : board.GetFirstFreeTile();
         }
 
         private int Minimax(GameTile[,] board, bool isMaximizing)

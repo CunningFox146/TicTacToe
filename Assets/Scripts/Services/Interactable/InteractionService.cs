@@ -8,8 +8,8 @@ namespace TicTacToe.Services.Interactable
 {
     public class InteractionService : IInitializable, IDisposable
     {
-        private readonly IInputService _input;
         private readonly Camera _camera;
+        private readonly IInputService _input;
         private readonly int _layerMask;
 
         public InteractionService(IInputService input, Camera camera)
@@ -19,14 +19,14 @@ namespace TicTacToe.Services.Interactable
             _camera = camera;
         }
 
-        public void Initialize()
-        {
-            _input.Clicked += OnClick;
-        }
-
         public void Dispose()
         {
             _input.Clicked -= OnClick;
+        }
+
+        public void Initialize()
+        {
+            _input.Clicked += OnClick;
         }
 
         private IInteractable GetInteractableAtPoint(Vector2 pos)
@@ -35,10 +35,8 @@ namespace TicTacToe.Services.Interactable
             var collider = Physics2D.OverlapPoint(_camera.ScreenToWorldPoint(point), _layerMask);
             return collider ? collider.GetComponentInParent<IInteractable>() : null;
         }
-        
-        private void OnClick()
-        {
-            GetInteractableAtPoint(_input.PointerPosition)?.Interact();
-        }
+
+        private void OnClick() 
+            => GetInteractableAtPoint(_input.PointerPosition)?.Interact();
     }
 }
