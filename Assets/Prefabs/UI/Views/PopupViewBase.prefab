@@ -47,9 +47,8 @@ GameObject:
   - component: {fileID: 4149046200938904274}
   - component: {fileID: 2554232903978299287}
   - component: {fileID: 598647173169777311}
-  - component: {fileID: 8162362423534496640}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,20 +171,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8162362423534496640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 897764736881867027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8c43c1d07a44495a0103477e72ae6c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _label: {fileID: 598647173169777311}
-  _bindingTextPath: 
 --- !u!1 &3098816032539304961
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +430,7 @@ GameObject:
   - component: {fileID: 6722219115529815847}
   - component: {fileID: 1816398466155772304}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

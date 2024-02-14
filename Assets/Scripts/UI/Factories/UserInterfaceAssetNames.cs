@@ -8,5 +8,6 @@ namespace TicTacToe.UI.Factories
         public const string GameEndView = "GameEndView";
         public const string SkinPopupView = "SkinPopupView";
         public const string SettingsView = "SettingsView";
+        public const string GameModeSelectView = "GameModeSelectView";
     }
 }

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3256897641
+CRC: 2118732695
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c9ad94c86d063399dac7fa8deddcb731
+    Hash: b218a517b961bfe115c7590b68360c88
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fe940fdfe995307deba94064c92a3cbb
+    Hash: 772457a31dc67c10d20449b1d828b2a0
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c9ad94c86d063399dac7fa8deddcb731
+    Hash: b218a517b961bfe115c7590b68360c88
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -88,6 +88,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 1a54a49c0ab842328513a196cde4495f, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5811ac00fac44dcebaae92d850ced18f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d7f128ac2cd644c5b91a85fd4d10dc8d, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 120
@@ -184,4 +186,5 @@ Assets:
 - Assets/Settings/EasyGameplaySettings.asset
 - Assets/Settings/HardGameplaySettings.asset
 - Assets/Prefabs/Gameplay/BoardTileController.prefab
+- Assets/Prefabs/UI/Views/GameModeSelectView.prefab
 Dependencies: []

@@ -29,15 +29,15 @@ namespace TicTacToe.UI.ViewModels
             _userInterfaceFactory = userInterfaceFactory;
 
             Count = new Property<int>();
-            StartCommand = new Command(StartGame);
+            StartCommand = new AsyncCommand(StartGame);
             ReskinCommand = new AsyncCommand(ShowReskinView);
             SettingsCommand = new AsyncCommand(ShowSettings);
             QuitCommand = new Command(QuitGame);
         }
 
-        private void StartGame()
+        private async UniTask StartGame(CancellationToken cancellationToken)
         {
-            _gameStateMachine.Enter<GameplayLoadState>();
+            _viewStack.PushView(await _userInterfaceFactory.CreateGameModeSelectView());
         }
 
         private async UniTask ShowReskinView(CancellationToken cancellationToken)

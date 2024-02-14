@@ -35,6 +35,10 @@ namespace TicTacToe.Infrastructure.Installers
                 .FromFactory<PrefabFactoryAsync<SettingsView>>();
             
             Container
+                .BindFactory<string, string, UniTask<GameModeSelectView>, GameModeSelectView.Factory>()
+                .FromFactory<PrefabFactoryAsync<GameModeSelectView>>();
+            
+            Container
                 .BindFactory<string, string, UniTask<HUDView>, HUDView.Factory>()
                 .FromFactory<PrefabFactoryAsync<HUDView>>();
             
