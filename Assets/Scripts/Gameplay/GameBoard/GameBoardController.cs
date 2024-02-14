@@ -1,19 +1,19 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Gameplay.BoardTile;
 using TicTacToe.Gameplay.Factories;
-using TicTacToe.Gameplay.Tile;
 using TicTacToe.Services.GameBoard;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Gameplay.Field
+namespace TicTacToe.Gameplay.GameBoard
 {
-    public class GameField : MonoBehaviour, IGameField
+    public class GameBoardController : MonoBehaviour, IGameBoardController
     {
         [SerializeField] private SpriteRenderer _bgSpriteRenderer;
         [SerializeField] private float _fieldWidth = 3f;
 
-        private IFieldTile[,] _tiles;
+        private IBoardTileController[,] _tiles;
         private IGameplayFactory _gameplayFactory;
         private IGameBoardService _gameBoard;
         private int _fieldSize = 2;
@@ -28,10 +28,10 @@ namespace TicTacToe.Gameplay.Field
         public void SetBackground(Sprite sprite)
             => _bgSpriteRenderer.sprite = sprite;
 
-        public void SetFieldSize(int fieldSize)
+        public void SetBoardSize(int fieldSize)
             => _fieldSize = fieldSize;
 
-        public IFieldTile GetTile(Vector2Int position)
+        public IBoardTileController GetTile(Vector2Int position)
             => _tiles[position.x, position.y];
 
 
@@ -43,7 +43,7 @@ namespace TicTacToe.Gameplay.Field
 
         private async UniTask CreateTiles()
         {
-            _tiles = new IFieldTile[_fieldSize, _fieldSize];
+            _tiles = new IBoardTileController[_fieldSize, _fieldSize];
             var startOffset = -(_fieldSize + 1f) * 0.5f;
             var scale = _fieldWidth * 2 / _fieldSize;
             if (_fieldSize > 3)
@@ -84,9 +84,9 @@ namespace TicTacToe.Gameplay.Field
             }
         }
 
-        private async UniTask<IFieldTile> CreateTile(Vector3 position, float scale, GameTile gameTile)
+        private async UniTask<IBoardTileController> CreateTile(Vector3 position, float scale, GameTile gameTile)
         {
-            var tile = await _gameplayFactory.CreateFieldTile();
+            var tile = await _gameplayFactory.CreateBoardTileController();
             tile.SetPosition(position);
             tile.SetScale(Vector3.one * scale);
             tile.SetGameTile(gameTile);
@@ -95,11 +95,11 @@ namespace TicTacToe.Gameplay.Field
 
         private async Task CreateLine(Vector3 start, Vector3 end)
         {
-            var line = await _gameplayFactory.CreateFieldLine();
+            var line = await _gameplayFactory.CreateBoardLineController();
             line.SetPositions(new [] {start, end});
         }
 
-        public class Factory : PlaceholderFactory<string, string, UniTask<GameField>>
+        public class Factory : PlaceholderFactory<string, string, UniTask<GameBoardController>>
         {
         }
     }

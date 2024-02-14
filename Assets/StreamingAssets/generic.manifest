@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 690215909
+CRC: 1719465702
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: feb9c557b035e2e4d09af74f23556f5e
+    Hash: dfdcec43cf3a8f20de37888363e59818
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6c39750814542f3c34a25eab06bf54c3
+    Hash: cd77ec3e2af58523b442e26224f118f3
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: feb9c557b035e2e4d09af74f23556f5e
+    Hash: dfdcec43cf3a8f20de37888363e59818
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -152,9 +152,9 @@ Assets:
 - Assets/Prefabs/UI/Views/GameEndView.prefab
 - Assets/Prefabs/UI/Views/MainMenuView.prefab
 - Assets/Prefabs/UI/Views/HUDView.prefab
-- Assets/Prefabs/Gameplay/GameField.prefab
+- Assets/Prefabs/Gameplay/GameBoardController.prefab
 - Assets/Prefabs/UI/Views/SkinPopupView.prefab
-- Assets/Prefabs/Gameplay/Line.prefab
+- Assets/Prefabs/Gameplay/BoardLineController.prefab
 - Assets/Settings/Gameplay Settings.asset
-- Assets/Prefabs/Gameplay/Tile.prefab
+- Assets/Prefabs/Gameplay/BoardTileController.prefab
 Dependencies: []

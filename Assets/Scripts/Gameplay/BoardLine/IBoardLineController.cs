@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace TicTacToe.Gameplay.Line
+namespace TicTacToe.Gameplay.BoardLine
 {
-    public interface IFieldLine
+    public interface IBoardLineController
     {
         void SetTexture(Texture texture);
         void SetPositions(Vector3[] positions);

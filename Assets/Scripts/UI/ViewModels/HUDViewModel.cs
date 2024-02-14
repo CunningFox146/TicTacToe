@@ -55,7 +55,7 @@ namespace TicTacToe.UI.ViewModels
             if (move is null)
                 return;
             
-            var tile = _gameBoard.Field.GetTile(move.Value);
+            var tile = _gameBoard.BoardController.GetTile(move.Value);
             HintPosition.Value = tile.GetScreenPosition(_mainCamera);
             IsHintVisible.Value = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);

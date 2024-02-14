@@ -6,13 +6,13 @@ using TicTacToe.UI.ViewStack;
 
 namespace TicTacToe.Gameplay.States
 {
-    public class GameWonState : IState
+    public class GameEndState : IState
     {
         private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly ISceneLoader _sceneLoader;
         private readonly IViewStackService _viewStack;
 
-        public GameWonState(IUserInterfaceFactory userInterfaceFactory, IViewStackService viewStack)
+        public GameEndState(IUserInterfaceFactory userInterfaceFactory, IViewStackService viewStack)
         {
             _userInterfaceFactory = userInterfaceFactory;
             _viewStack = viewStack;

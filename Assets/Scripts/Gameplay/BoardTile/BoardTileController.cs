@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
@@ -6,9 +5,9 @@ using TicTacToe.Services.Interactable;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Gameplay.Tile
+namespace TicTacToe.Gameplay.BoardTile
 {
-    public class FieldTile : MonoBehaviour, IFieldTile, IInteractable
+    public class BoardTileController : MonoBehaviour, IBoardTileController, IInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         
@@ -59,7 +58,7 @@ namespace TicTacToe.Gameplay.Tile
             _spriteRenderer.sprite = _tile.Player?.PlayerSprite;
         }
         
-        public class Factory : PlaceholderFactory<string, string, UniTask<FieldTile>>
+        public class Factory : PlaceholderFactory<string, string, UniTask<BoardTileController>>
         {
         }
     }

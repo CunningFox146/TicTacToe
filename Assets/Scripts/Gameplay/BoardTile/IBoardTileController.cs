@@ -1,9 +1,9 @@
 using TicTacToe.Services.GameBoard;
 using UnityEngine;
 
-namespace TicTacToe.Gameplay.Tile
+namespace TicTacToe.Gameplay.BoardTile
 {
-    public interface IFieldTile
+    public interface IBoardTileController
     {
         bool IsOccupied { get; }
         void SetPosition(Vector3 position);

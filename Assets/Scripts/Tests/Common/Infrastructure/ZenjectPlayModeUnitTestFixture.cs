@@ -14,7 +14,6 @@ namespace TicTacToe.Tests.Common.Infrastructure
             GlobalContainer.DefaultParent = itemsContainer.transform;
         }
         
-        
         [OneTimeTearDown]
         public virtual void TearDownGlobalContainer()
         {

@@ -31,13 +31,13 @@ MonoBehaviour:
     - Key: HUDView
       Value: {fileID: 1969717649364094826, guid: a5a93c3b03faf4107a9bb3f1b64af688,
         type: 3}
-    - Key: GameField
+    - Key: GameBoardController
       Value: {fileID: 1522749841062449276, guid: f2bcae2f68b0d442ba5e08a85d0bd53d,
         type: 3}
-    - Key: Line
+    - Key: BoardLineController
       Value: {fileID: 2453410936557460808, guid: 8ce09bbe72c7a4202b5fe4e70f0f17f2,
         type: 3}
-    - Key: Tile
+    - Key: BoardTileController
       Value: {fileID: 4470853565533703422, guid: d55773ed121b540ab8c2c51dc707165b,
         type: 3}
     - Key: GameplaySettings

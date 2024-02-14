@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
-using TicTacToe.Gameplay.Field;
+using TicTacToe.Gameplay.GameBoard;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.Installers;
 using TicTacToe.Infrastructure.SceneManagement;
@@ -62,7 +62,7 @@ namespace TicTacToe.Tests.PlayModeTests
             await assetProvider.LoadBundle(BundleNames.GenericBundle);
         });
 
-        protected async UniTask<HUDView> CreateGameBoard(GameBoardService gameBoard, int fieldSize, IGameField field)
+        protected async UniTask<HUDView> CreateGameBoard(GameBoardService gameBoard, int fieldSize, IGameBoardController boardController)
         {
             var factory = Container.Resolve<IUserInterfaceFactory>();
             var hud = await factory.CreateHUDView();
@@ -71,9 +71,9 @@ namespace TicTacToe.Tests.PlayModeTests
             gameBoard.SetBoardSize(fieldSize);
             gameBoard.SetCurrentPlayer(gameBoard.Players.First());
 
-            field.SetFieldSize(fieldSize);
-            await field.Init();
-            gameBoard.SetField(field);
+            boardController.SetBoardSize(fieldSize);
+            await boardController.Init();
+            gameBoard.SetField(boardController);
             return hud;
         }
     }

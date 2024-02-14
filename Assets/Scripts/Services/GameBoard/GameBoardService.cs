@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Gameplay.Field;
+using TicTacToe.Gameplay.GameBoard;
 using TicTacToe.Services.Commands;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
@@ -19,7 +19,7 @@ namespace TicTacToe.Services.GameBoard
         private CancellationTokenSource _timeoutToken;
         private IPlayer _outOfTimePlayer;
 
-        public IGameField Field { get; private set; }
+        public IGameBoardController BoardController { get; private set; }
         public GameTile[,] Board { get; private set; }
         public IPlayer CurrentPlayer { get; private set; }
         public List<IPlayer> Players { get; } = new();
@@ -106,8 +106,8 @@ namespace TicTacToe.Services.GameBoard
             Players.AddRange(players);
         }
 
-        public void SetField(IGameField field)
-            => Field = field;
+        public void SetField(IGameBoardController boardController)
+            => BoardController = boardController;
 
 #if UNITY_INCLUDE_TESTS
         public void SetCurrentPlayer(IPlayer player)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Gameplay.Field;
+using TicTacToe.Gameplay.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 
 namespace TicTacToe.Services.GameBoard
@@ -10,7 +10,7 @@ namespace TicTacToe.Services.GameBoard
     {
         event Action<float> CountdownStarted; 
         
-        IGameField Field { get;}
+        IGameBoardController BoardController { get;}
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }
         List<IPlayer> Players { get; }
@@ -20,6 +20,6 @@ namespace TicTacToe.Services.GameBoard
         IPlayer GetWinner(out int score);
         void SetBoardSize(int size);
         void SetPlayers(IEnumerable<IPlayer> players);
-        void SetField(IGameField field);
+        void SetField(IGameBoardController boardController);
     }
 }

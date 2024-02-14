@@ -20,15 +20,9 @@ namespace TicTacToe.Gameplay.States
         {
             await _board.PickMove();
             
-            if (_board.GetWinner(out _) is not null)
+            if (_board.IsTie() || _board.GetWinner(out _) is not null)
             {
-                await _gameStateMachine.Enter<GameWonState>();
-                return;
-            }
-
-            if (_board.IsTie())
-            {
-                await _gameStateMachine.Enter<GameTieState>();
+                await _gameStateMachine.Enter<GameEndState>();
                 return;
             }
 

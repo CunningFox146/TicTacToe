@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8293571431369367619}
   - component: {fileID: 2662795142322692732}
   m_Layer: 6
-  m_Name: Tile
+  m_Name: BoardTileController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

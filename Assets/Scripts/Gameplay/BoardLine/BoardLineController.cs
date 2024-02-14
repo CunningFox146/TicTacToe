@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Gameplay.Field;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Gameplay.Line
+namespace TicTacToe.Gameplay.BoardLine
 {
-    public class FieldLine : MonoBehaviour, IFieldLine
+    public class BoardLineController : MonoBehaviour, IBoardLineController
     {
         [SerializeField] private LineRenderer _renderer;
         private Material _material;
@@ -25,7 +22,7 @@ namespace TicTacToe.Gameplay.Line
             _renderer.SetPositions(positions);
         }
 
-        public class Factory : PlaceholderFactory<string, string, UniTask<FieldLine>>
+        public class Factory : PlaceholderFactory<string, string, UniTask<BoardLineController>>
         {
         }
     }

@@ -38,7 +38,7 @@ namespace TicTacToe.Tests.PlayModeTests
         {
             var gameFactory = Container.Resolve<IGameplayFactory>();
             var gameBoard = Container.Resolve<GameBoardService>();
-            var field = await gameFactory.CreateGameField();
+            var field = await gameFactory.CreateGameBoardController();
             var hud = await CreateGameBoard(gameBoard, fieldSize, field);
             var hintButton = hud.GetObjectByName<Button>(TestAssetNames.HudHintButtonName);
             var pointer = hud.GetObjectByName<BindableActivity>(TestAssetNames.HudHintPointerName);
@@ -55,7 +55,7 @@ namespace TicTacToe.Tests.PlayModeTests
         {
             var gameFactory = Container.Resolve<IGameplayFactory>();
             var gameBoard = Container.Resolve<GameBoardService>();
-            var field = await gameFactory.CreateGameField();
+            var field = await gameFactory.CreateGameBoardController();
             var hud = await CreateGameBoard(gameBoard, fieldSize, field);
             var hintButton = hud.GetObjectByName<Button>(TestAssetNames.HudHintButtonName);
             var pointer = hud.GetObjectByName<BindableActivity>(TestAssetNames.HudHintPointerName);

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
 using TicTacToe.Infrastructure.AssetManagement;
@@ -11,7 +10,6 @@ using TicTacToe.StaticData.Gameplay;
 using TicTacToe.UI.Factories;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.ViewStack;
-using UnityEngine;
 
 namespace TicTacToe.Gameplay.States
 {
@@ -60,11 +58,11 @@ namespace TicTacToe.Gameplay.States
 
         private async UniTask InitGameField(IGameplaySettings settings)
         {
-            var field = await _factory.CreateGameField();
-            field.SetBackground(await _skinService.LoadBackground());
-            field.SetFieldSize(settings.FieldSize);
-            await field.Init();
-            _gameBoard.SetField(field);
+            var boardController = await _factory.CreateGameBoardController();
+            boardController.SetBackground(await _skinService.LoadBackground());
+            boardController.SetBoardSize(settings.FieldSize);
+            await boardController.Init();
+            _gameBoard.SetField(boardController);
         }
 
         private async UniTask InitGameBoard(IGameplaySettings settings)

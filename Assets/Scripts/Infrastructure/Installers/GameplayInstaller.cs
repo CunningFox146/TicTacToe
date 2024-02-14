@@ -1,8 +1,5 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
-using TicTacToe.Gameplay.Field;
-using TicTacToe.Gameplay.Line;
-using TicTacToe.Gameplay.Tile;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
