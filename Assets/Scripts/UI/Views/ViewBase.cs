@@ -6,7 +6,7 @@ using Zenject;
 
 namespace TicTacToe.UI.Views
 {
-    public class ViewBase<TViewModel> : CanvasView<TViewModel>, IView
+    public class ViewBase<TViewModel> : CanvasView<TViewModel>, IView, ISortable
         where TViewModel : class, IBindingContext
     {
         private IValueConverter[] _valueConverters;
@@ -36,6 +36,9 @@ namespace TicTacToe.UI.Views
 
         public virtual void Kill() 
             => Destroy(gameObject);
+        
+        public void SetSortOrder(int order) 
+            => canvas.sortingOrder = order;
 
         protected override TViewModel GetBindingContext()
         {

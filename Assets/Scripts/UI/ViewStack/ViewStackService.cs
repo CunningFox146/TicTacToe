@@ -9,8 +9,12 @@ namespace TicTacToe.UI.ViewStack
 
         public IView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public void PushView(IView view) 
-            => _viewStack.Push(view);
+        public void PushView(IView view)
+        {
+            _viewStack.Push(view);
+            if (view is ISortable sortable)
+                sortable.SetSortOrder(_viewStack.Count);
+        }
 
         public void PopView()
         {

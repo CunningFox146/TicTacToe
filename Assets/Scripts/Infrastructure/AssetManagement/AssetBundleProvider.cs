@@ -34,17 +34,9 @@ namespace TicTacToe.Infrastructure.AssetManagement
 
         public async UniTask<T> LoadAsset<T>(string bundleName, string assetName) where T : Object
         {
-            try
-            {
-                var bundle = _loadedBundles[bundleName];
-                if (bundle)
+            var bundle = _loadedBundles[bundleName];
+            if (bundle)
                     return await _loadedBundles[bundleName].LoadAssetAsync<T>(assetName).ToUniTask() as T;
-            }
-            catch (InvalidCastException ex)
-            {
-                Debug.LogException(ex);
-            }
-
             return null;
         }
 

@@ -18,6 +18,7 @@ namespace TicTacToe.UI.ViewModels
         public IProperty<int> Count { get; }
         public ICommand StartCommand { get; }
         public ICommand ReskinCommand { get; }
+        public ICommand SettingsCommand { get; }
         public ICommand QuitCommand { get; }
         
         public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack,
@@ -30,9 +31,9 @@ namespace TicTacToe.UI.ViewModels
             Count = new Property<int>();
             StartCommand = new Command(StartGame);
             ReskinCommand = new AsyncCommand(ShowReskinView);
+            SettingsCommand = new AsyncCommand(ShowSettings);
             QuitCommand = new Command(QuitGame);
         }
-
 
         private void StartGame()
         {
@@ -42,6 +43,11 @@ namespace TicTacToe.UI.ViewModels
         private async UniTask ShowReskinView(CancellationToken cancellationToken)
         {
             _viewStack.PushView(await _userInterfaceFactory.CreateSkinPopupView());
+        }
+
+        private async UniTask ShowSettings(CancellationToken cancellationToken)
+        {
+            _viewStack.PushView(await _userInterfaceFactory.CreateSettingsView());
         }
 
         private void QuitGame()

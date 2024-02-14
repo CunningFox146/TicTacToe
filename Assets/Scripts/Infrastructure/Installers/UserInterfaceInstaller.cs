@@ -31,6 +31,10 @@ namespace TicTacToe.Infrastructure.Installers
                 .FromFactory<PrefabFactoryAsync<SkinPopupView>>();
             
             Container
+                .BindFactory<string, string, UniTask<SettingsView>, SettingsView.Factory>()
+                .FromFactory<PrefabFactoryAsync<SettingsView>>();
+            
+            Container
                 .BindFactory<string, string, UniTask<HUDView>, HUDView.Factory>()
                 .FromFactory<PrefabFactoryAsync<HUDView>>();
             
