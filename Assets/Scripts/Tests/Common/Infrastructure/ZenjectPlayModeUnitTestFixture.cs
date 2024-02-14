@@ -6,7 +6,21 @@ namespace TicTacToe.Tests.Common.Infrastructure
 {
     public class ZenjectPlayModeUnitTestFixture : ZenjectUnitTestFixture
     {
-        [SetUp]
+        public override void SetupGlobalContainer()
+        {
+            base.SetupGlobalContainer();
+            
+            var itemsContainer = new GameObject("Global Container");
+            GlobalContainer.DefaultParent = itemsContainer.transform;
+        }
+        
+        
+        [OneTimeTearDown]
+        public virtual void TearDownGlobalContainer()
+        {
+            Object.DestroyImmediate(GlobalContainer.DefaultParent.gameObject);
+        }
+
         public override void SetupTestContainer()
         {
             base.SetupTestContainer();
@@ -16,10 +30,9 @@ namespace TicTacToe.Tests.Common.Infrastructure
             Container.DefaultParent = itemsContainer.transform;
         }
         
-        [TearDown]
-        public override void ClearTestContainer()
+        public override void TearDownTestContainer()
         {
-            base.ClearTestContainer();
+            base.TearDownTestContainer();
             Object.DestroyImmediate(Container.DefaultParent.gameObject);
         }
     }

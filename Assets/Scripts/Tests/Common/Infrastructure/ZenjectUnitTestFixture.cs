@@ -23,7 +23,7 @@ namespace TicTacToe.Tests.Common.Infrastructure
         
         
         [TearDown]
-        public virtual void ClearTestContainer()
+        public virtual void TearDownTestContainer()
         {
             Container.UnbindAll();
         }
