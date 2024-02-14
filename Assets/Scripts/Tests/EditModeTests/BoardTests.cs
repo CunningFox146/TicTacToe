@@ -25,7 +25,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(tiles, board, players);
+            board.FillBoard(tiles);
 
             var isTie = board.IsTie();
             Assert.IsTrue(isTie);
@@ -40,7 +40,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(tiles, board, players);
+            board.FillBoard(tiles);
 
             var isTie = board.IsTie();
             Assert.IsFalse(isTie);
@@ -67,7 +67,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(tiles, board, players);
+            board.FillBoard(tiles);
 
             var isTie = board.IsTie();
             Assert.IsFalse(isTie);
@@ -82,7 +82,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(tiles, board, players);
+            board.FillBoard(tiles);
 
             var winner = board.GetWinner(out _);
             Assert.AreSame(winner.Name, "O");
@@ -97,7 +97,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(tiles, board, players);
+            board.FillBoard(tiles);
 
             var winner = board.GetWinner(out _);
             Assert.IsNull(winner);
@@ -112,7 +112,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(new []{ 0, 0, 1 }, board, players);
+            board.FillBoard(new []{ 0, 0, 1 });
 
             board.Undo();
             var filledTiles = board.Board.Cast<GameTile>().Count(tile => tile.IsOccupied);
@@ -129,7 +129,7 @@ namespace TicTacToe.Tests.EditModeTests
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            TestUtil.FillBoard(new []{ 0, 0, 1 }, board, players);
+            board.FillBoard(new []{ 0, 0, 1 });
 
             board.Undo();
             var filledTiles = board.Board.Cast<GameTile>().Count(tile => tile.IsOccupied);

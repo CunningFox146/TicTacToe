@@ -18,9 +18,19 @@ namespace TicTacToe.Tests.Common
 
             return new[] { playerX, playerO };
         }
-        
-        public static void FillBoard(IReadOnlyList<int> tiles, GameBoardService board, IReadOnlyList<IPlayer> players)
+
+        public static void FillBoardRandomly(this GameBoardService board, IReadOnlyList<IPlayer> players = null)
         {
+            players ??= board.Players;
+            var boardSize = board.Board.GetLength(0);
+            for (var x = 0; x < boardSize; x++)
+            for (var y = 0; y < boardSize; y++)
+                board.AddMoveCommand(new Vector2Int(x, y), players[Random.Range(0, players.Count)]);
+        }
+        
+        public static void FillBoard(this GameBoardService board, IReadOnlyList<int> tiles, IReadOnlyList<IPlayer> players = null)
+        {
+            players ??= board.Players;
             var boardSize = board.Board.GetLength(0);
             for (var i = 0; i < tiles.Count; i++)
             {

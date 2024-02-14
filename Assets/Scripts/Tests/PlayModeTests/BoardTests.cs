@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -19,10 +20,11 @@ using TicTacToe.UI.Services.Loading;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace TicTacToe.Tests.PlayModeTests
 {
-    public class HintTests : ZenjectUnitTestFixture
+    public class BoardTests : ZenjectUnitTestFixture
     {
         [OneTimeSetUp]
         public void InstallBindings()
@@ -50,7 +52,24 @@ namespace TicTacToe.Tests.PlayModeTests
 
         [UnityTest]
         [Timeout(2000)]
-        public IEnumerator UITest() => UniTask.ToCoroutine(async () =>
+        public IEnumerator WhenPressingHintButton_And3x3FieldIsEmpty_ThenHintShouldAppear()
+            => UniTask.ToCoroutine(async () => { await PressButtonOnEmptyField(3); });
+        
+        [UnityTest]
+        [Timeout(2000)]
+        public IEnumerator WhenPressingHintButton_And4x4FieldIsEmpty_ThenHintShouldAppear()
+            => UniTask.ToCoroutine(async () => { await PressButtonOnEmptyField(4); });
+        
+        
+        [UnityTest]
+        public IEnumerator WhenPressingHintButton_And3x3FieldIsFilled_ThenHintShouldNotAppear()
+            => UniTask.ToCoroutine(async () => { await PressButtonWhenNoHintAvailable(3, 1); });
+        
+        [UnityTest]
+        public IEnumerator WhenPressingHintButton_And4x4FieldIsFilled_ThenHintShouldNotAppear()
+            => UniTask.ToCoroutine(async () => { await PressButtonWhenNoHintAvailable(4, 1); });
+
+        private async UniTask PressButtonWhenNoHintAvailable(int fieldSize, float timeout)
         {
             var gameFactory = Container.Resolve<IGameplayFactory>();
             var gameBoard = Container.Resolve<GameBoardService>();
@@ -58,11 +77,40 @@ namespace TicTacToe.Tests.PlayModeTests
             var hud = await factory.CreateHUDView().AsTask();
 
             gameBoard.SetPlayers(TestUtil.GetSubstitutePlayers());
-            gameBoard.SetBoardSize(3);
+            gameBoard.SetBoardSize(fieldSize);
+            gameBoard.SetCurrentPlayer(gameBoard.Players.First());
+            gameBoard.FillBoardRandomly();
+
+            var field = await gameFactory.CreateGameField();
+            field.SetFieldSize(fieldSize);
+            await field.Init();
+            gameBoard.SetField(field);
+
+            var buttons = hud.GetComponentsInChildren<Button>();
+            var hintButton = buttons.First(b => b.name == TestAssetNames.HudHintButtonName);
+            hintButton.onClick?.Invoke();
+            var pointer = hud.GetComponentsInChildren<BindableActivity>(true)
+                .First(e => e.name == TestAssetNames.HudHintPointerName);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(timeout));
+
+            Assert.IsFalse(pointer.gameObject.activeSelf);
+            Object.Destroy(hud.gameObject);
+        }
+        
+        private async UniTask PressButtonOnEmptyField(int fieldSize)
+        {
+            var gameFactory = Container.Resolve<IGameplayFactory>();
+            var gameBoard = Container.Resolve<GameBoardService>();
+            var factory = Container.Resolve<IUserInterfaceFactory>();
+            var hud = await factory.CreateHUDView().AsTask();
+
+            gameBoard.SetPlayers(TestUtil.GetSubstitutePlayers());
+            gameBoard.SetBoardSize(fieldSize);
             gameBoard.SetCurrentPlayer(gameBoard.Players.First());
 
             var field = await gameFactory.CreateGameField();
-            field.SetFieldSize(3);
+            field.SetFieldSize(fieldSize);
             await field.Init();
             gameBoard.SetField(field);
 
@@ -76,6 +124,6 @@ namespace TicTacToe.Tests.PlayModeTests
 
             Assert.IsTrue(pointer.gameObject.activeSelf);
             Object.Destroy(hud.gameObject);
-        });
+        }
     }
 }
