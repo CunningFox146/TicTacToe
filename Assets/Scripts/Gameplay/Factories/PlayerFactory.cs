@@ -1,14 +1,13 @@
 using TicTacToe.Services.GameBoard.BoardPlayers;
-using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
 namespace TicTacToe.Gameplay.Factories
 {
-    public class BoardControllerFactory
+    public class PlayerFactory : IPlayerFactory
     {
         private readonly IInstantiator _instantiator;
 
-        public BoardControllerFactory(IInstantiator instantiator) => 
+        public PlayerFactory(IInstantiator instantiator) => 
             _instantiator = instantiator;
 
         public TController Create<TController>() where TController : IPlayer => 

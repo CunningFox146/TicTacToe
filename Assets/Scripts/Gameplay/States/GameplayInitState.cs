@@ -16,7 +16,7 @@ namespace TicTacToe.Gameplay.States
     public class GameplayInitState : IState
     {
         private readonly IAssetProvider _assetProvider;
-        private readonly BoardControllerFactory _controllerFactory;
+        private readonly IPlayerFactory _playerFactory;
         private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly IRandomService _random;
         private readonly IGameplayFactory _factory;
@@ -28,8 +28,8 @@ namespace TicTacToe.Gameplay.States
 
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
             ILoadingCurtainService loadingCurtain, IAssetProvider assetProvider, IStateMachine gameStateMachine,
-            IGameBoardService gameBoard, ISkinService skinService, BoardControllerFactory
-                controllerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random)
+            IGameBoardService gameBoard, ISkinService skinService, IPlayerFactory
+                playerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random)
         {
             _factory = factory;
             _viewStack = viewStack;
@@ -38,7 +38,7 @@ namespace TicTacToe.Gameplay.States
             _gameStateMachine = gameStateMachine;
             _gameBoard = gameBoard;
             _skinService = skinService;
-            _controllerFactory = controllerFactory;
+            _playerFactory = playerFactory;
             _userInterfaceFactory = userInterfaceFactory;
             _random = random;
         }
@@ -85,9 +85,9 @@ namespace TicTacToe.Gameplay.States
         }
 
         private IPlayer GetBotPlayer()
-            => _controllerFactory.Create<BotPlayer>();
+            => _playerFactory.Create<BotPlayer>();
 
         private IPlayer GetPlayer()
-            => _controllerFactory.Create<Player>();
+            => _playerFactory.Create<Player>();
     }
 }

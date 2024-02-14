@@ -28,7 +28,7 @@ namespace TicTacToe.Infrastructure.Installers
         
         private void BindGameBoard()
         {
-            Container.Bind<BoardControllerFactory>().AsSingle();
+            Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
             Container.Bind<IGameBoardService>().To<GameBoardService>().AsSingle();
         }
 
