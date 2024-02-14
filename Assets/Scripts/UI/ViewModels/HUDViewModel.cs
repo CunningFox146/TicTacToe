@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UniTask;
+using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace TicTacToe.UI.ViewModels
 {
@@ -27,10 +28,25 @@ namespace TicTacToe.UI.ViewModels
         public IProperty<bool> AreControlsActive { get; }
         public IProperty<Vector3> HintPosition { get; }
         public IProperty<float> Countdown { get; }
-        public ICommand<float> HintCommand { get; }
         public ICommand UndoCommand { get; }
-        public ICommand ExitCommand { get; }
-        
+        public IAsyncCommand<float> HintCommand { get; }
+        public IAsyncCommand ExitCommand { get; }
+        public IAsyncCommand RestartCommand { get; }
+
+        private async UniTask ShowHint(float hideDelay, CancellationToken token)
+        {
+            var otherPlayer = _gameBoard.Players.First(p => p != _gameBoard.CurrentPlayer);
+            var move = await _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
+            if (move is null)
+                return;
+
+            var tile = _gameBoard.BoardController.GetTile(move.Value);
+            HintPosition.Value = tile.GetScreenPosition(_mainCamera);
+            IsHintVisible.Value = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(hideDelay), cancellationToken: token);
+            IsHintVisible.Value = false;
+        }
+
         public HUDViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain,
             IGameBoardService gameBoard, IHintService hintService, IGameModeService gameMode, Camera mainCamera)
         {
@@ -45,25 +61,17 @@ namespace TicTacToe.UI.ViewModels
             HintPosition = new Property<Vector3>();
             Countdown = new Property<float>();
 
-            HintCommand = new AsyncCommand<float>(ShowHint);
             UndoCommand = new Command(Undo);
+            HintCommand = new AsyncCommand<float>(ShowHint);
             ExitCommand = new AsyncCommand(Exit);
+            RestartCommand = new AsyncCommand(Restart);
 
             gameBoard.CountdownStarted += OnCountdownStarted;
         }
-        
-        private async UniTask ShowHint(float hideDelay, CancellationToken token)
-        {
-            var otherPlayer = _gameBoard.Players.First(p => p != _gameBoard.CurrentPlayer);
-            var move = await _hintService.GetBestMove(_gameBoard.Board, _gameBoard.CurrentPlayer, otherPlayer);
-            if (move is null)
-                return;
 
-            var tile = _gameBoard.BoardController.GetTile(move.Value);
-            HintPosition.Value = tile.GetScreenPosition(_mainCamera);
-            IsHintVisible.Value = true;
-            await UniTask.Delay(TimeSpan.FromSeconds(hideDelay), cancellationToken: token);
-            IsHintVisible.Value = false;
+        private UniTask Restart(CancellationToken arg)
+        {
+            return _sceneLoader.LoadScene(SceneIndex.Gameplay);
         }
 
         private void Undo()
