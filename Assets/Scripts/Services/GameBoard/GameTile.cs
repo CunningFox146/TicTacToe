@@ -1,5 +1,5 @@
 using System;
-using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.BoardPlayers;
 using UnityEngine;
 
 namespace TicTacToe.Services.GameBoard

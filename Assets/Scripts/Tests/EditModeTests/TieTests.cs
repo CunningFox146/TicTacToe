@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.Rules;
+using TicTacToe.Services.Rules;
 using TicTacToe.Tests.Common.Infrastructure;
 
 namespace TicTacToe.Tests.EditModeTests

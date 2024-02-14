@@ -1,4 +1,4 @@
-using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.BoardPlayers;
 
 namespace TicTacToe.Gameplay.Factories
 {

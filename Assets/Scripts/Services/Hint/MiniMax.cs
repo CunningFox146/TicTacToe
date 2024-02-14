@@ -1,6 +1,6 @@
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
-using TicTacToe.Services.GameBoard.Rules;
+using TicTacToe.Services.Rules;
 using TicTacToe.Util;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ namespace TicTacToe.Services.Hint
         {
             _player = player;
             _otherPlayer = otherPlayer;
-            var boardSize = board.GetLength(0);
+            var boardSize = board.GetBoardSize();
             var bestMove = Vector2Int.zero;
             var foundPath = false;
             var bestScore = int.MinValue;
@@ -46,15 +46,15 @@ namespace TicTacToe.Services.Hint
 
         private int Minimax(GameTile[,] board, bool isMaximizing)
         {
-            var winner = _gameRules.GetWinner(board, out var score);
-            if (winner is not null)
-                return winner == _player ? score : -score;
-            ;
-
+            var winner = _gameRules.GetWinner(board);
+            
             if (_gameRules.IsTie(board))
                 return 0;
+            
+            if (winner is not null)
+                return _gameRules.GetBoardScore(board, _player);
 
-            var boardSize = board.GetLength(0);
+            var boardSize = board.GetBoardSize();
             if (isMaximizing)
             {
                 var bestScore = int.MinValue;

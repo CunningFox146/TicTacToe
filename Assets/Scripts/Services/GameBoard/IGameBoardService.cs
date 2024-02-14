@@ -1,25 +1,23 @@
-using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.BoardPlayers;
 
 namespace TicTacToe.Services.GameBoard
 {
-    public interface IGameBoardService : IUndoable
+    public interface IGameBoardService : IUndoable, ICountdownSource
     {
-        event Action<float> CountdownStarted; 
-        
-        IGameBoardController BoardController { get;}
+        IGameBoardController BoardController { get; }
         GameTile[,] Board { get; }
-        IPlayer CurrentPlayer { get; }
         List<IPlayer> Players { get; }
-        UniTask PickMove();
-        GameTile GetTile(int x, int y);
-        bool IsTie();
-        IPlayer GetWinner(out int score);
+        IPlayer CurrentPlayer { get; }
+
         void SetBoardSize(int size);
         void SetPlayers(IEnumerable<IPlayer> players);
         void SetField(IGameBoardController boardController);
+        UniTask PickMove();
+
+        bool IsTie();
+        IPlayer GetWinner(out int score);
     }
 }

@@ -1,10 +1,11 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Hint;
 using UnityEngine;
 
-namespace TicTacToe.Services.GameBoard.BoardPlayers
+namespace TicTacToe.Services.BoardPlayers
 {
     public class BotPlayer : IPlayer
     {

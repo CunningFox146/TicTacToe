@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.Interactable;
 using UnityEngine;
 using Zenject;
@@ -33,8 +33,8 @@ namespace TicTacToe.Gameplay.BoardTile
         
         public void Interact()
         {
-            if (_board.CurrentPlayer is ISettableTurn player)
-                player.SetTurn(_tile.Position);
+            if (_board.CurrentPlayer is ISettableMove player)
+                player.SetMove(_tile.Position);
         }
 
         public void SetPosition(Vector3 position)

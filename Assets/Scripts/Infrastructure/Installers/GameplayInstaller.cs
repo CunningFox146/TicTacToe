@@ -1,9 +1,9 @@
 using TicTacToe.Gameplay.Factories;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Interactable;
+using TicTacToe.Services.Rules;
 using TicTacToe.UI;
 using UnityEngine;
 using Zenject;

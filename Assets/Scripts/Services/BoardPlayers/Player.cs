@@ -1,10 +1,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Services.GameBoard;
 using UnityEngine;
 
-namespace TicTacToe.Services.GameBoard.BoardPlayers
+namespace TicTacToe.Services.BoardPlayers
 {
-    public class Player : IPlayer, ISettableTurn
+    public class Player : IPlayer, ISettableMove
     {
         private readonly IGameBoardService _gameBoard;
         public Sprite PlayerSprite { get; set; }
@@ -27,7 +28,7 @@ namespace TicTacToe.Services.GameBoard.BoardPlayers
             return turn;
         }
 
-        public void SetTurn(Vector2Int turn)
+        public void SetMove(Vector2Int turn)
         {
             if (!_gameBoard.Board[turn.x, turn.y].IsOccupied)
                 _pickedTurn = turn;

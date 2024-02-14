@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713618b61f0e048998daa03fdb549856, type: 3}
   m_Name: Gameplay Settings
   m_EditorClassIdentifier: 
-  <FieldSize>k__BackingField: 4
+  <FieldSize>k__BackingField: 3
   <TurnDuration>k__BackingField: 5

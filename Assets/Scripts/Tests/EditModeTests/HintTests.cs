@@ -1,11 +1,11 @@
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
-using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Randomizer;
+using TicTacToe.Services.Rules;
 using TicTacToe.Tests.Common.Infrastructure;
 using TicTacToe.Tests.Common.Util;
 using UnityEngine;

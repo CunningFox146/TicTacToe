@@ -77,17 +77,19 @@ namespace TicTacToe.UI.ViewModels
             return _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }
 
-        private async void StartCountdown(float time)
+        private async void StartCountdown(float time, CancellationToken token)
         {
-            while (time > 0)
+            while (time > 0 && !token.IsCancellationRequested)
             {
                 time -= Time.deltaTime;
                 Countdown.Value = time;
                 await Task.Yield();
             }
+
+            Countdown.Value = 0;
         }
         
-        private void OnCountdownStarted(float time)
-            => StartCountdown(time);
+        private void OnCountdownStarted(float time, CancellationToken token)
+            => StartCountdown(time, token);
     }
 }

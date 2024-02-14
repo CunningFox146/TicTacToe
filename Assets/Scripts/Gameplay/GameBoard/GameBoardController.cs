@@ -54,7 +54,7 @@ namespace TicTacToe.Gameplay.GameBoard
             {
                 var posX = startOffset + (2 * _fieldWidth * x) / _fieldSize;
                 var posY = startOffset + (2 * _fieldWidth * y) / _fieldSize;
-                var tile = _gameBoard.GetTile(x, y);
+                var tile = _gameBoard.Board[x, y];
                 
                 _tiles[x, y] = await CreateTile(new Vector3(posX, posY), scale, tile);
             }

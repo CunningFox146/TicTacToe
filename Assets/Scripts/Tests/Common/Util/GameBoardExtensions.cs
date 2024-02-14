@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
 using UnityEngine;
 
 namespace TicTacToe.Tests.Common.Util
@@ -13,7 +13,7 @@ namespace TicTacToe.Tests.Common.Util
             var boardSize = board.Board.GetLength(0);
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
-                board.AddMoveCommand(new Vector2Int(x, y), players[Random.Range(0, players.Count)]);
+                board.AddMoveCommand(players[Random.Range(0, players.Count)], new Vector2Int(x, y));
         }
         
         public static void FillBoard(this GameBoardService board, IReadOnlyList<int> tiles, IReadOnlyList<IPlayer> players = null)
@@ -25,7 +25,7 @@ namespace TicTacToe.Tests.Common.Util
                 var x = i / boardSize;
                 var y = i % boardSize;
 
-                board.AddMoveCommand(new Vector2Int(x, y), players[tiles[i]]);
+                board.AddMoveCommand(players[tiles[i]], new Vector2Int(x, y));
             }
         }
 

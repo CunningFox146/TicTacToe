@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
-using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Randomizer;
+using TicTacToe.Services.Rules;
 using TicTacToe.Util;
 using UnityEngine;
 

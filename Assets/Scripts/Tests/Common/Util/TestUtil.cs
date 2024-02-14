@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
+using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
 using UnityEngine;
 
 namespace TicTacToe.Tests.Common.Util

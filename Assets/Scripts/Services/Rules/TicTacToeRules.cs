@@ -1,20 +1,13 @@
-using TicTacToe.Services.GameBoard.BoardPlayers;
+using TicTacToe.Services.BoardPlayers;
+using TicTacToe.Services.GameBoard;
+using TicTacToe.Util;
 
-namespace TicTacToe.Services.GameBoard.Rules
+namespace TicTacToe.Services.Rules
 {
     public class TicTacToeRules : IGameRules
     {
-        public IPlayer GetWinner(GameTile[,] board, out int score)
+        public IPlayer GetWinner(GameTile[,] board)
         {
-            var freeTiles = 0;
-            foreach (var tile in board)
-            {
-                if (!tile.IsOccupied)
-                    freeTiles++;
-            }
-
-            score = 1 + board.Length - freeTiles;
-
             return CheckHorizontal(board)
                    ?? CheckVertical(board)
                    ?? CheckDiagonal(board);
@@ -22,7 +15,7 @@ namespace TicTacToe.Services.GameBoard.Rules
         
         public bool IsTie(GameTile[,] board)
         {
-            if (GetWinner(board, out _) is not null)
+            if (GetWinner(board) is not null)
                 return false;
             
             var boardSize = board.Length;
@@ -35,7 +28,21 @@ namespace TicTacToe.Services.GameBoard.Rules
 
             return tilesCount == boardSize;
         }
-        
+
+        public int GetBoardScore(GameTile[,] board, IPlayer player)
+        {
+            var winner = GetWinner(board);
+            var playerMoves = 0;
+            
+            foreach (var tile in board)
+            {
+                if (tile.Player == player)
+                    playerMoves++;
+            }
+
+            return winner == player ? 10 + board.GetBoardSize() - playerMoves : -10 - playerMoves;
+        }
+
         private IPlayer CheckHorizontal(GameTile[,] board)
         {
             var boardSize = board.GetLength(0);
@@ -114,18 +121,6 @@ namespace TicTacToe.Services.GameBoard.Rules
             }
 
             return null;
-        }
-
-        public int GetBoardScore(GameTile[,] board)
-        {
-            var freeTiles = 0;
-            foreach (var tile in board)
-            {
-                if (!tile.IsOccupied)
-                    freeTiles++;
-            }
-
-            return freeTiles;
         }
     }
 }

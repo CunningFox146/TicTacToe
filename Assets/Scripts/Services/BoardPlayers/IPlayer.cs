@@ -2,7 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace TicTacToe.Services.GameBoard.BoardPlayers
+namespace TicTacToe.Services.BoardPlayers
 {
     public interface IPlayer
     {
