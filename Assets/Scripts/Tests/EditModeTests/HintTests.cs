@@ -17,16 +17,16 @@ namespace TicTacToe.Tests.EditModeTests
         [OneTimeSetUp]
         public void InstallBindings()
         {
-            Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
-            Container.Bind<IRandomService>().To<RandomService>().AsTransient();
-            Container.Bind<HintService>().AsTransient();
+            GlobalContainer.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
+            GlobalContainer.Bind<IRandomService>().To<RandomService>().AsTransient();
+            GlobalContainer.Bind<HintService>().AsTransient();
         }
         
         [TestCase(3)]
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsEmpty_ThenHintHasValue(int boardSize)
         {
-            var hintService = Container.Resolve<HintService>();
+            var hintService = GlobalContainer.Resolve<HintService>();
             var board = GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();
@@ -38,7 +38,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsNotEmpty_ThenHintReturnsValue(int boardSize)
         {
-            var hintService = Container.Resolve<HintService>();
+            var hintService = GlobalContainer.Resolve<HintService>();
             var board = GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();
@@ -54,7 +54,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenUsingHint_AndBoardHasOneTile_ThenHintReturnsThatTile(int boardSize)
         {
-            var hintService = Container.Resolve<HintService>();
+            var hintService = GlobalContainer.Resolve<HintService>();
             var board = GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();
@@ -75,7 +75,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsFull_ThenHintReturnsNull(int boardSize)
         {
-            var hintService = Container.Resolve<HintService>();
+            var hintService = GlobalContainer.Resolve<HintService>();
             var board = GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();

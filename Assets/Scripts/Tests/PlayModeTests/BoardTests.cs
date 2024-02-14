@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
@@ -23,17 +22,22 @@ using TicTacToe.UI.Views;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace TicTacToe.Tests.PlayModeTests
 {
     public class BoardTests : ZenjectUnitTestFixture
     {
-        [OneTimeSetUp]
-        public void InstallBindings()
+        public override void SetupGlobalContainer()
         {
-            Container.Bind<Camera>().FromComponentInNewPrefabResource(TestAssetNames.CameraResourcesPath).AsSingle();
-            Container.Bind<IAssetProvider>().To<AssetBundleProvider>().AsSingle();
+            base.SetupGlobalContainer();
+            GlobalContainer.Bind<IAssetProvider>().To<AssetBundleProvider>().AsSingle();
+            GlobalContainer.Bind<Camera>().FromComponentInNewPrefabResource(TestAssetNames.CameraResourcesPath).AsSingle();
+        }
+        
+        public override void SetupTestContainer()
+        {
+            base.SetupTestContainer();
+            
             Container.Bind<ISceneLoader>().FromInstance(Substitute.For<ISceneLoader>()).AsSingle();
             Container.Bind<ILoadingCurtainService>().FromInstance(Substitute.For<ILoadingCurtainService>()).AsSingle();
             Container.Bind<IGameRules>().To<TicTacToeRules>().AsSingle();
@@ -48,7 +52,7 @@ namespace TicTacToe.Tests.PlayModeTests
         [UnitySetUp]
         public IEnumerator LoadBundle() => UniTask.ToCoroutine(async () =>
         {
-            var assetProvider = Container.Resolve<IAssetProvider>();
+            var assetProvider = GlobalContainer.Resolve<IAssetProvider>();
             await assetProvider.LoadBundle(BundleNames.GenericBundle);
         });
 
@@ -79,6 +83,14 @@ namespace TicTacToe.Tests.PlayModeTests
         [UnityTest]
         public IEnumerator WhenPressingUndoButton_And4x4FieldIsFilled_ThenTilesShouldBeCleared()
             => UniTask.ToCoroutine(async () => { await PressUndoWhenFieldIsFilled(4); });
+        
+        [UnityTest]
+        public IEnumerator WhenPressingUndoButton_And3x3FieldIsEmpty_ThenTilesShouldBeCleared()
+            => UniTask.ToCoroutine(async () => { await PressUndoWhenFieldIsEmpty(3); });
+        
+        [UnityTest]
+        public IEnumerator WhenPressingUndoButton_And4x4FieldIsEmpty_ThenTilesShouldBeCleared()
+            => UniTask.ToCoroutine(async () => { await PressUndoWhenFieldIsEmpty(4); });
 
         private async UniTask PressUndoWhenFieldIsFilled(int fieldSize)
         {
@@ -93,7 +105,21 @@ namespace TicTacToe.Tests.PlayModeTests
             undoButton.onClick?.Invoke();
             
             Assert.AreEqual(occupied - 2, field.GetOccupiedTiles(fieldSize));
-            Object.Destroy(hud.gameObject);
+        }
+        
+        private async UniTask PressUndoWhenFieldIsEmpty(int fieldSize)
+        {
+            var gameFactory = Container.Resolve<IGameplayFactory>();
+            var gameBoard = Container.Resolve<GameBoardService>();
+            var field = await gameFactory.CreateGameField();
+            var hud = await CreateGameBoard(gameBoard, fieldSize, field);
+            var undoButton = hud.GetObjectByName<Button>(TestAssetNames.HudUndoButtonName);
+            
+            var occupied = field.GetOccupiedTiles(fieldSize);
+            undoButton.onClick?.Invoke();
+            
+            Assert.Zero(occupied);
+            Assert.Zero(field.GetOccupiedTiles(fieldSize));
         }
 
         private async UniTask PressHintWhenNoHintAvailable(int fieldSize, float timeout)
@@ -111,7 +137,6 @@ namespace TicTacToe.Tests.PlayModeTests
             await UniTask.Delay(TimeSpan.FromSeconds(timeout));
 
             Assert.IsFalse(pointer.gameObject.activeSelf);
-            Object.Destroy(hud.gameObject);
         }
 
         private async UniTask PressHintOnEmptyField(int fieldSize)
@@ -127,7 +152,6 @@ namespace TicTacToe.Tests.PlayModeTests
             await UniTask.WaitUntil(() => pointer.gameObject.activeSelf);
 
             Assert.IsTrue(pointer.gameObject.activeSelf);
-            Object.Destroy(hud.gameObject);
         }
 
         private async UniTask<HUDView> CreateGameBoard(GameBoardService gameBoard, int fieldSize, IGameField field)
