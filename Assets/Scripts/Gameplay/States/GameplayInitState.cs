@@ -1,10 +1,9 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
-using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
-using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.Difficulty;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameMode;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
 using TicTacToe.StaticData.Gameplay;
@@ -16,21 +15,22 @@ namespace TicTacToe.Gameplay.States
 {
     public class GameplayInitState : IState
     {
-        private readonly IPlayerFactory _playerFactory;
-        private readonly IUserInterfaceFactory _userInterfaceFactory;
-        private readonly IRandomService _random;
         private readonly IDifficultyService _difficulty;
         private readonly IGameplayFactory _factory;
         private readonly IGameBoardService _gameBoard;
-        private readonly ISkinService _skinService;
+        private readonly IGameModeService _gameMode;
+        private readonly IPlayerFactory _playerFactory;
         private readonly IStateMachine _gameStateMachine;
         private readonly ILoadingCurtainService _loadingCurtain;
+        private readonly IRandomService _random;
+        private readonly ISkinService _skinService;
+        private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly IViewStackService _viewStack;
 
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
             ILoadingCurtainService loadingCurtain, IStateMachine gameStateMachine,
-            IGameBoardService gameBoard, ISkinService skinService, IPlayerFactory
-                playerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random, IDifficultyService difficulty)
+            IGameBoardService gameBoard, ISkinService skinService, IUserInterfaceFactory userInterfaceFactory,
+            IRandomService random, IDifficultyService difficulty, IGameModeService gameMode, IPlayerFactory playerFactory)
         {
             _factory = factory;
             _viewStack = viewStack;
@@ -38,19 +38,20 @@ namespace TicTacToe.Gameplay.States
             _gameStateMachine = gameStateMachine;
             _gameBoard = gameBoard;
             _skinService = skinService;
-            _playerFactory = playerFactory;
             _userInterfaceFactory = userInterfaceFactory;
             _random = random;
             _difficulty = difficulty;
+            _gameMode = gameMode;
+            _playerFactory = playerFactory;
         }
 
         public async UniTask Enter()
         {
             var settings = await _difficulty.GetSettings();
-            
+
             await InitGameBoard(settings);
             await InitGameBoardController(settings);
-            _viewStack.PushView(await _userInterfaceFactory.CreateHUDView()); 
+            _viewStack.PushView(await _userInterfaceFactory.CreateHUDView());
 
             _loadingCurtain.HideLoadingCurtain();
 
@@ -70,26 +71,20 @@ namespace TicTacToe.Gameplay.States
         {
             _gameBoard.SetBoardSize(settings.FieldSize);
 
-            var player = new []{ GetPlayer(), GetBotPlayer() };
-            _random.Shuffle(player);
+            var players = _playerFactory.GetPlayers(_gameMode.SelectedGameMode);
+            _random.Shuffle(players);
 
-            var playerX = player[0];
-            var playerO = player[1];
+            var playerX = players[0];
+            var playerO = players[1];
 
             playerX.PlayerSprite = await _skinService.LoadX();
             playerO.PlayerSprite = await _skinService.LoadO();
 
             playerX.Name = "X";
             playerO.Name = "O";
-            
-            _gameBoard.SetPlayers(player);
+
+            _gameBoard.SetPlayers(players);
             _gameBoard.SetCountdownTime(settings.MoveDuration);
         }
-
-        private IPlayer GetBotPlayer()
-            => _playerFactory.Create<BotPlayer>();
-
-        private IPlayer GetPlayer()
-            => _playerFactory.Create<Player>();
     }
 }

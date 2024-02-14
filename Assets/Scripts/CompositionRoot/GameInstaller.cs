@@ -3,6 +3,7 @@ using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.Difficulty;
+using TicTacToe.Services.GameMode;
 using TicTacToe.Services.Input;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
@@ -30,6 +31,7 @@ namespace TicTacToe.CompositionRoot
             BindSkinService();
             BindLoadingCurtain();
             BindDifficultyService();
+            BindGameModeService();
             BindGameStateMachine();
         }
 
@@ -54,6 +56,9 @@ namespace TicTacToe.CompositionRoot
 
             Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
         }
+
+        private void BindGameModeService() 
+            => Container.Bind<IGameModeService>().To<GameModeService>().AsSingle();
 
         private void BindDifficultyService() 
             => Container.Bind<IDifficultyService>().To<DifficultyService>().AsSingle();
