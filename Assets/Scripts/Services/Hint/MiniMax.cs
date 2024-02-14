@@ -8,8 +8,8 @@ namespace TicTacToe.Services.Hint
     public class MiniMax
     {
         private readonly IGameRules _gameRules;
-        private IPlayer _player;
         private IPlayer _otherPlayer;
+        private IPlayer _player;
 
         public MiniMax(IGameRules gameRules)
         {
@@ -44,8 +44,8 @@ namespace TicTacToe.Services.Hint
                 for (var y = 0; y < boardSize; y++)
                     if (!board[x, y].IsOccupied)
                         return new Vector2Int(x, y);
-            
-            
+
+
             return bestMove;
         }
 
@@ -53,7 +53,8 @@ namespace TicTacToe.Services.Hint
         {
             var winner = _gameRules.GetWinner(board, out var score);
             if (winner is not null)
-                return winner == _player ? score : -score;;
+                return winner == _player ? score : -score;
+            ;
 
             if (_gameRules.IsTie(board))
                 return 0;
@@ -63,38 +64,32 @@ namespace TicTacToe.Services.Hint
             {
                 var bestScore = int.MinValue;
                 for (var x = 0; x < boardSize; x++)
-                {
-                    for (var y = 0; y < boardSize; y++)
+                for (var y = 0; y < boardSize; y++)
+                    if (!board[x, y].IsOccupied)
                     {
-                        if (!board[x, y].IsOccupied)
-                        {
-                            board[x, y].SetPlayer(_player);
-                            var currentScore = Minimax(board, false);
-                            board[x, y].SetPlayer(null);
+                        board[x, y].SetPlayer(_player);
+                        var currentScore = Minimax(board, false);
+                        board[x, y].SetPlayer(null);
 
-                            bestScore = Mathf.Max(bestScore, currentScore);
-                        }
+                        bestScore = Mathf.Max(bestScore, currentScore);
                     }
-                }
+
                 return bestScore;
             }
             else
             {
                 var bestScore = int.MaxValue;
                 for (var x = 0; x < boardSize; x++)
-                {
-                    for (var y = 0; y < boardSize; y++)
+                for (var y = 0; y < boardSize; y++)
+                    if (!board[x, y].IsOccupied)
                     {
-                        if (!board[x, y].IsOccupied)
-                        {
-                            board[x, y].SetPlayer(_otherPlayer);
-                            var currentScore = Minimax(board, true);
-                            board[x, y].SetPlayer(null);
+                        board[x, y].SetPlayer(_otherPlayer);
+                        var currentScore = Minimax(board, true);
+                        board[x, y].SetPlayer(null);
 
-                            bestScore = Mathf.Min(bestScore, currentScore);
-                        }
+                        bestScore = Mathf.Min(bestScore, currentScore);
                     }
-                }
+
                 return bestScore;
             }
         }
