@@ -6,6 +6,6 @@ namespace TicTacToe.StaticData.Gameplay
     public class GameplaySettings : ScriptableObject, IGameplaySettings
     {
         [field: SerializeField] public int FieldSize { get; private set; }
-        [field: SerializeField] public float TurnDuration { get; private set; }
+        [field: SerializeField] public float MoveDuration { get; private set; }
     }
 }

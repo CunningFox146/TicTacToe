@@ -40,5 +40,9 @@ MonoBehaviour:
     - Key: BoardTileController
       Value: {fileID: 4470853565533703422, guid: d55773ed121b540ab8c2c51dc707165b,
         type: 3}
-    - Key: GameplaySettings
+    - Key: EasyGameplaySettings
       Value: {fileID: 11400000, guid: 133d08281f6044a37881ae8e38521be2, type: 2}
+    - Key: NormalGameplaySettings
+      Value: {fileID: 11400000, guid: 2570dbbfd4ef344f892995bc569429a2, type: 2}
+    - Key: HardGameplaySettings
+      Value: {fileID: 11400000, guid: 529a107043c57436fbd6d2ce6c9dbf99, type: 2}

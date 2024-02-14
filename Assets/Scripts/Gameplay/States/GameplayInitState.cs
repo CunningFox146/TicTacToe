@@ -3,6 +3,7 @@ using TicTacToe.Gameplay.Factories;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.BoardPlayers;
+using TicTacToe.Services.Difficulty;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
@@ -15,10 +16,10 @@ namespace TicTacToe.Gameplay.States
 {
     public class GameplayInitState : IState
     {
-        private readonly IAssetProvider _assetProvider;
         private readonly IPlayerFactory _playerFactory;
         private readonly IUserInterfaceFactory _userInterfaceFactory;
         private readonly IRandomService _random;
+        private readonly IDifficultyService _difficulty;
         private readonly IGameplayFactory _factory;
         private readonly IGameBoardService _gameBoard;
         private readonly ISkinService _skinService;
@@ -27,28 +28,28 @@ namespace TicTacToe.Gameplay.States
         private readonly IViewStackService _viewStack;
 
         public GameplayInitState(IGameplayFactory factory, IViewStackService viewStack,
-            ILoadingCurtainService loadingCurtain, IAssetProvider assetProvider, IStateMachine gameStateMachine,
+            ILoadingCurtainService loadingCurtain, IStateMachine gameStateMachine,
             IGameBoardService gameBoard, ISkinService skinService, IPlayerFactory
-                playerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random)
+                playerFactory, IUserInterfaceFactory userInterfaceFactory, IRandomService random, IDifficultyService difficulty)
         {
             _factory = factory;
             _viewStack = viewStack;
             _loadingCurtain = loadingCurtain;
-            _assetProvider = assetProvider;
             _gameStateMachine = gameStateMachine;
             _gameBoard = gameBoard;
             _skinService = skinService;
             _playerFactory = playerFactory;
             _userInterfaceFactory = userInterfaceFactory;
             _random = random;
+            _difficulty = difficulty;
         }
 
         public async UniTask Enter()
         {
-            var settings = await _assetProvider.LoadAsset<GameplaySettings>(GameplayAssetNames.GameplaySettings);
+            var settings = await _difficulty.GetSettings();
             
             await InitGameBoard(settings);
-            await InitGameField(settings);
+            await InitGameBoardController(settings);
             _viewStack.PushView(await _userInterfaceFactory.CreateHUDView()); 
 
             _loadingCurtain.HideLoadingCurtain();
@@ -56,7 +57,7 @@ namespace TicTacToe.Gameplay.States
             _gameStateMachine.Enter<GameplayLoopState>().Forget();
         }
 
-        private async UniTask InitGameField(IGameplaySettings settings)
+        private async UniTask InitGameBoardController(IGameplaySettings settings)
         {
             var boardController = await _factory.CreateGameBoardController();
             boardController.SetBackground(await _skinService.LoadBackground());
@@ -82,6 +83,7 @@ namespace TicTacToe.Gameplay.States
             playerO.Name = "O";
             
             _gameBoard.SetPlayers(player);
+            _gameBoard.SetCountdownTime(settings.MoveDuration);
         }
 
         private IPlayer GetBotPlayer()

@@ -17,7 +17,7 @@ namespace TicTacToe.Services.GameBoard
         private readonly IGameRules _gameRules;
         private IPlayer _outOfTimePlayer;
         private CancellationTokenSource _timeoutTokenSource;
-        private int _timeoutTime = 5;
+        private float _countdownTime;
 
         public GameBoardService(IGameRules gameRules)
         {
@@ -27,14 +27,20 @@ namespace TicTacToe.Services.GameBoard
         public event Action<float, CancellationToken> CountdownStarted;
 
         public IGameBoardController BoardController { get; private set; }
+
         public GameTile[,] Board { get; private set; }
+
         public IPlayer CurrentPlayer { get; private set; }
+
         public List<IPlayer> Players { get; } = new();
 
-        public async UniTask PickMove()
+        public async UniTask PickMove(CancellationToken token)
         {
             foreach (var player in Players)
             {
+                if (token.IsCancellationRequested)
+                    return;
+                
                 CurrentPlayer = player;
                 
                 StartCountdown();
@@ -49,7 +55,7 @@ namespace TicTacToe.Services.GameBoard
 
                 AddMoveCommand(CurrentPlayer, move.Value);
 
-                if (GetWinner(out _) is not null || IsTie())
+                if (GetWinner() is not null || IsTie())
                     break;
             }
 
@@ -62,12 +68,11 @@ namespace TicTacToe.Services.GameBoard
                 command.Undo();
         }
 
-        public IPlayer GetWinner(out int score)
+        public IPlayer GetWinner()
         {
-            score = 0;
-            if (_outOfTimePlayer is not null)
-                return Players.First(p => p != _outOfTimePlayer);
-            return _gameRules.GetWinner(Board);
+            return _outOfTimePlayer is not null 
+                ? Players.First(p => p != _outOfTimePlayer)
+                : _gameRules.GetWinner(Board);
         }
 
         public bool IsTie() 
@@ -80,6 +85,9 @@ namespace TicTacToe.Services.GameBoard
             for (var y = 0; y < size; y++)
                 Board[x, y] = new GameTile(new Vector2Int(x, y));
         }
+
+        public void SetCountdownTime(float time) 
+            => _countdownTime = time;
 
         public void SetPlayers(IEnumerable<IPlayer> players) 
             => Players.AddRange(players);
@@ -104,9 +112,9 @@ namespace TicTacToe.Services.GameBoard
             _timeoutTokenSource?.Dispose();
 
             _timeoutTokenSource = new CancellationTokenSource();
-            _timeoutTokenSource.CancelAfter(TimeSpan.FromSeconds(_timeoutTime));
+            _timeoutTokenSource.CancelAfter(TimeSpan.FromSeconds(_countdownTime));
 
-            CountdownStarted?.Invoke(_timeoutTime, _timeoutTokenSource.Token);
+            CountdownStarted?.Invoke(_countdownTime, _timeoutTokenSource.Token);
         }
 
 #if UNITY_INCLUDE_TESTS

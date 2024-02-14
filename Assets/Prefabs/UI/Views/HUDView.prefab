@@ -665,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 4207942723192552454, guid: 25d82971879034cd99f45ee3df48f3ef,
         type: 3}
       propertyPath: _commandPath
-      value: HintCommand
+      value: HintCommand, 2
       objectReference: {fileID: 0}
     - target: {fileID: 8078933486296052417, guid: 25d82971879034cd99f45ee3df48f3ef,
         type: 3}

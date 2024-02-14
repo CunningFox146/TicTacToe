@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TicTacToe.Infrastructure.AssetManagement
 {
@@ -32,9 +34,17 @@ namespace TicTacToe.Infrastructure.AssetManagement
 
         public async UniTask<T> LoadAsset<T>(string bundleName, string assetName) where T : Object
         {
-            var bundle = _loadedBundles[bundleName];
-            if (bundle)
-                return await _loadedBundles[bundleName].LoadAssetAsync<T>(assetName).ToUniTask() as T;
+            try
+            {
+                var bundle = _loadedBundles[bundleName];
+                if (bundle)
+                    return await _loadedBundles[bundleName].LoadAssetAsync<T>(assetName).ToUniTask() as T;
+            }
+            catch (InvalidCastException ex)
+            {
+                Debug.LogException(ex);
+            }
+
             return null;
         }
 

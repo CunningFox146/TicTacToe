@@ -51,7 +51,7 @@ namespace TicTacToe.UI.ViewModels
             if (_gameBoard.IsTie())
                 return string.Format(MovesTieString, _gameBoard.Board.GetOccupiedTilesCount());
 
-            var winner = _gameBoard.GetWinner(out _);
+            var winner = _gameBoard.GetWinner();
             var winnerTiles = 0;
             foreach (var gameTile in _gameBoard.Board)
                 if (gameTile.Player == winner)
@@ -64,7 +64,7 @@ namespace TicTacToe.UI.ViewModels
         {
             if (_gameBoard.IsTie())
                 return HeaderTieString;
-            var winner = _gameBoard.GetWinner(out _);
+            var winner = _gameBoard.GetWinner();
             return string.Format(HeaderWinString, winner.Name);
         }
 

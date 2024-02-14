@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.GameBoard;
 using TicTacToe.Services.BoardPlayers;
@@ -15,9 +16,9 @@ namespace TicTacToe.Services.GameBoard
         void SetBoardSize(int size);
         void SetPlayers(IEnumerable<IPlayer> players);
         void SetField(IGameBoardController boardController);
-        UniTask PickMove();
+        UniTask PickMove(CancellationToken cancellationToken);
 
         bool IsTie();
-        IPlayer GetWinner(out int score);
+        IPlayer GetWinner();
     }
 }

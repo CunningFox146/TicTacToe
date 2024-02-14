@@ -2,6 +2,7 @@
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Infrastructure.SceneManagement;
+using TicTacToe.Services.Difficulty;
 using TicTacToe.Services.Input;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
@@ -28,6 +29,7 @@ namespace TicTacToe.CompositionRoot
             BindAssetProvider();
             BindSkinService();
             BindLoadingCurtain();
+            BindDifficultyService();
             BindGameStateMachine();
         }
 
@@ -52,7 +54,9 @@ namespace TicTacToe.CompositionRoot
 
             Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
         }
-        
+
+        private void BindDifficultyService() 
+            => Container.Bind<IDifficultyService>().To<DifficultyService>().AsSingle();
 
         private void BindSkinService() 
             => Container.BindInterfacesTo<SkinService>().AsSingle();

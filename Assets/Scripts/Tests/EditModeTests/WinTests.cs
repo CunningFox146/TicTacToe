@@ -21,7 +21,7 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingWin_AndHasWinner_ThenGetWinnerReturnsWinner(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
-            var winner = board.GetWinner(out _);
+            var winner = board.GetWinner();
             Assert.AreSame(winner.Name, "O");
         }
 
@@ -31,7 +31,7 @@ namespace TicTacToe.Tests.EditModeTests
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
 
-            var winner = board.GetWinner(out _);
+            var winner = board.GetWinner();
             Assert.IsNull(winner);
         }
     }

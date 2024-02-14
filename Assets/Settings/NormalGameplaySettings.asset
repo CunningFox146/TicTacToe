@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 713618b61f0e048998daa03fdb549856, type: 3}
-  m_Name: GameplaySettings
+  m_Name: NormalGameplaySettings
   m_EditorClassIdentifier: 
   <FieldSize>k__BackingField: 3
-  <TurnDuration>k__BackingField: 5
+  <MoveDuration>k__BackingField: 5
