@@ -2,7 +2,6 @@ using System.Linq;
 using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
-using TicTacToe.Tests.Common;
 using TicTacToe.Tests.Common.Infrastructure;
 using TicTacToe.Tests.Common.Util;
 
@@ -11,18 +10,19 @@ namespace TicTacToe.Tests.EditModeTests
     [TestFixture]
     public class BoardTests : ZenjectUnitTestFixture
     {
-        [OneTimeSetUp]
-        public void InstallBindings()
+        public override void SetupTestContainer()
         {
-            GlobalContainer.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
-            GlobalContainer.Bind<GameBoardService>().AsTransient();
+            base.SetupTestContainer();
+            
+            Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
+            Container.Bind<GameBoardService>().AsTransient();
         }
 
         [TestCase(new [] {1, 0, 0, 0, 0, 1, 1, 1, 0}, 3)]
         [TestCase(new [] {1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0}, 4)]
         public void WhenCheckingTie_AndBoardFull_ThenTieReturnsTrue(int[] tiles, int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -37,7 +37,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(new [] {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 4)]
         public void WhenCheckingTie_AndBoardFullAndHasWinner_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -52,7 +52,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenCheckingTie_AndBoardEmpty_ThenTieReturnsFalse(int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             board.SetBoardSize(boardSize);
             
             var isTie = board.IsTie();
@@ -64,7 +64,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(new [] {1, 0, 1, 0, 1}, 4)]
         public void WhenCheckingTie_AndBoardPartiallyEmpty_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -79,7 +79,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(new [] {1, 1, 1, 1}, 4)]
         public void WhenCheckingWin_AndHasWinner_ThenGetWinnerReturnsWinner(int[] tiles, int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -94,7 +94,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(new [] {1, 0, 1, 0}, 4)]
         public void WhenCheckingWin_AndHasNoWinner_ThenGetWinnerReturnsNull(int[] tiles, int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -109,7 +109,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenUsingUndo_AndBoardIsNotEmpty_ThenBoardRemovesTiles(int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
@@ -126,7 +126,7 @@ namespace TicTacToe.Tests.EditModeTests
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsEmpty_ThenHintHasValue(int boardSize)
         {
-            var board = GlobalContainer.Resolve<GameBoardService>();
+            var board = Container.Resolve<GameBoardService>();
             var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
