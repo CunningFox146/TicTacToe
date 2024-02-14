@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Interactable;
@@ -15,6 +16,7 @@ namespace TicTacToe.Gameplay.BoardTile
         private IGameBoardService _board;
         private GameTile _tile;
         private ISoundSource _soundSource;
+        private Tween _spawnTween;
         
         public bool IsOccupied => _tile.IsOccupied;
 
@@ -60,7 +62,19 @@ namespace TicTacToe.Gameplay.BoardTile
         {
             _spriteRenderer.sprite = _tile.Player?.PlayerSprite;
             if (_tile.IsOccupied)
+            {
+                PlaySpawnAnim();
                 PlayDrawSound();
+            }
+        }
+
+        private void PlaySpawnAnim()
+        {
+            _spawnTween?.Kill();
+            var spriteTransform = _spriteRenderer.transform;
+            spriteTransform.localScale = Vector3.one * 0.5f;
+            _spawnTween = spriteTransform.DOScale(Vector3.one, 0.5f)
+                .SetEase(Ease.OutBack);
         }
 
         private void PlayDrawSound() 
