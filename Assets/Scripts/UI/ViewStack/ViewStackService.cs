@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TicTacToe.UI.Views;
 
@@ -10,7 +9,7 @@ namespace TicTacToe.UI.ViewStack
 
         public IView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public void PushView(IView view)
+        public void PushView(IView view) 
             => _viewStack.Push(view);
 
         public void PopView()
@@ -23,7 +22,7 @@ namespace TicTacToe.UI.ViewStack
         {
             while (_viewStack.Count > 0)
                 PopView();
-            
+
             _viewStack.Clear();
         }
     }

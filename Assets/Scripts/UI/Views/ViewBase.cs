@@ -6,16 +6,16 @@ using Zenject;
 
 namespace TicTacToe.UI.Views
 {
-    public class ViewBase<TViewModel> : CanvasView<TViewModel>, IView 
+    public class ViewBase<TViewModel> : CanvasView<TViewModel>, IView
         where TViewModel : class, IBindingContext
     {
         private IValueConverter[] _valueConverters;
-        private ViewModelFactory _viewModelFactory;
         private TViewModel _viewModel;
+        private ViewModelFactory _viewModelFactory;
         protected Canvas canvas;
 
         [Inject]
-        private void Constructor(ViewModelFactory viewModelFactory,  IValueConverter[] valueConverters)
+        private void Constructor(ViewModelFactory viewModelFactory, IValueConverter[] valueConverters)
         {
             _viewModelFactory = viewModelFactory;
             _valueConverters = valueConverters;
@@ -38,9 +38,13 @@ namespace TicTacToe.UI.Views
             => Destroy(gameObject);
 
         protected override TViewModel GetBindingContext()
-            => _viewModel;
+        {
+            return _viewModel;
+        }
 
         protected override IValueConverter[] GetValueConverters()
-            => _valueConverters;
+        {
+            return _valueConverters;
+        }
     }
 }

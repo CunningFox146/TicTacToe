@@ -12,14 +12,16 @@ namespace TicTacToe.UI.ViewModels
     public class MainMenuViewModel : IBindingContext
     {
         private readonly IStateMachine _gameStateMachine;
-        private readonly IViewStackService _viewStack;
         private readonly IUserInterfaceFactory _userInterfaceFactory;
+        private readonly IViewStackService _viewStack;
+        
         public IProperty<int> Count { get; }
         public ICommand StartCommand { get; }
         public ICommand ReskinCommand { get; }
         public ICommand QuitCommand { get; }
         
-        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack, IUserInterfaceFactory userInterfaceFactory)
+        public MainMenuViewModel(IStateMachine gameStateMachine, IViewStackService viewStack,
+            IUserInterfaceFactory userInterfaceFactory)
         {
             _gameStateMachine = gameStateMachine;
             _viewStack = viewStack;
@@ -31,6 +33,7 @@ namespace TicTacToe.UI.ViewModels
             QuitCommand = new Command(QuitGame);
         }
 
+
         private void StartGame()
         {
             _gameStateMachine.Enter<GameplayLoadState>();
@@ -40,7 +43,7 @@ namespace TicTacToe.UI.ViewModels
         {
             _viewStack.PushView(await _userInterfaceFactory.CreateSkinPopupView());
         }
-        
+
         private void QuitGame()
         {
             _gameStateMachine.Enter<GameQuitState>();

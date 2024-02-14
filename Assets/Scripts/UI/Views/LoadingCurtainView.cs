@@ -16,10 +16,9 @@ namespace TicTacToe.UI.Views
                 .SetEase(Ease.OutSine)
                 .OnComplete(() => Destroy(gameObject));
         }
-        
+
         public class Factory : PlaceholderFactory<string, string, UniTask<LoadingCurtainView>>
         {
         }
-
     }
 }

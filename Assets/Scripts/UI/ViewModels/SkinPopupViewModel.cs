@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Skin;
 using TicTacToe.UI.ViewStack;
@@ -13,13 +12,13 @@ namespace TicTacToe.UI.ViewModels
 {
     public class SkinPopupViewModel : IBindingContext
     {
+        private readonly ILogService _log;
         private readonly ISkinService _skinService;
         private readonly IViewStackService _viewStack;
-        private readonly ILogService _log;
 
         public ICommand ApplyCommand { get; }
         public IProperty<string> SkinName { get; }
-
+        
         public SkinPopupViewModel(ISkinService skinService, IViewStackService viewStack, ILogService log)
         {
             _skinService = skinService;
