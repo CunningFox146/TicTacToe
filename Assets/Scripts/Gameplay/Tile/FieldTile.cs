@@ -11,8 +11,10 @@ namespace TicTacToe.Gameplay.Tile
     public class FieldTile : MonoBehaviour, IFieldTile, IInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        
         private IGameBoardService _board;
         private GameTile _tile;
+        public bool IsOccupied => _tile.IsOccupied;
 
         [Inject]
         private void Constructor(IGameBoardService board)
@@ -35,6 +37,7 @@ namespace TicTacToe.Gameplay.Tile
             if (_board.CurrentPlayer is ISettableTurn player)
                 player.SetTurn(_tile.Position);
         }
+
 
         public void SetPosition(Vector3 position)
             => transform.position = position;
