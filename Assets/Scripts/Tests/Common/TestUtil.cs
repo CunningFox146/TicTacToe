@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute;
 using TicTacToe.Gameplay.Field;
 using TicTacToe.Services.GameBoard;
@@ -53,6 +54,13 @@ namespace TicTacToe.Tests.Common
             }
 
             return occupiedCount;
+        }
+        
+        public static T GetObjectByName<T>(this Component root, string name) where T : Component
+        {
+            var buttons = root.GetComponentsInChildren<T>(true);
+            var undoButton = buttons.First(b => b.name == name);
+            return undoButton;
         }
     }
 }

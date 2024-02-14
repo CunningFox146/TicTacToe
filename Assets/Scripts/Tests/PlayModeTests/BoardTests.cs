@@ -86,14 +86,12 @@ namespace TicTacToe.Tests.PlayModeTests
             var gameBoard = Container.Resolve<GameBoardService>();
             var field = await gameFactory.CreateGameField();
             var hud = await CreateGameBoard(gameBoard, fieldSize, field);
+            var undoButton = hud.GetObjectByName<Button>(TestAssetNames.HudUndoButtonName);
+            
             gameBoard.FillBoardRandomly();
-
             var occupied = field.GetOccupiedTiles(fieldSize);
-            
-            var buttons = hud.GetComponentsInChildren<Button>();
-            var undoButton = buttons.First(b => b.name == TestAssetNames.HudUndoButtonName);
-            
             undoButton.onClick?.Invoke();
+            
             Assert.AreEqual(occupied - 2, field.GetOccupiedTiles(fieldSize));
             Object.Destroy(hud.gameObject);
         }
@@ -104,13 +102,11 @@ namespace TicTacToe.Tests.PlayModeTests
             var gameBoard = Container.Resolve<GameBoardService>();
             var field = await gameFactory.CreateGameField();
             var hud = await CreateGameBoard(gameBoard, fieldSize, field);
+            var hintButton = hud.GetObjectByName<Button>(TestAssetNames.HudHintButtonName);
+            var pointer = hud.GetObjectByName<BindableActivity>(TestAssetNames.HudHintPointerName);
             gameBoard.FillBoardRandomly();
 
-            var buttons = hud.GetComponentsInChildren<Button>();
-            var hintButton = buttons.First(b => b.name == TestAssetNames.HudHintButtonName);
             hintButton.onClick?.Invoke();
-            var pointer = hud.GetComponentsInChildren<BindableActivity>(true)
-                .First(e => e.name == TestAssetNames.HudHintPointerName);
 
             await UniTask.Delay(TimeSpan.FromSeconds(timeout));
 
@@ -124,13 +120,10 @@ namespace TicTacToe.Tests.PlayModeTests
             var gameBoard = Container.Resolve<GameBoardService>();
             var field = await gameFactory.CreateGameField();
             var hud = await CreateGameBoard(gameBoard, fieldSize, field);
+            var hintButton = hud.GetObjectByName<Button>(TestAssetNames.HudHintButtonName);
+            var pointer = hud.GetObjectByName<BindableActivity>(TestAssetNames.HudHintPointerName);
 
-            var buttons = hud.GetComponentsInChildren<Button>();
-            var hintButton = buttons.First(b => b.name == TestAssetNames.HudHintButtonName);
             hintButton.onClick?.Invoke();
-            var pointer = hud.GetComponentsInChildren<BindableActivity>(true)
-                .First(e => e.name == TestAssetNames.HudHintPointerName);
-
             await UniTask.WaitUntil(() => pointer.gameObject.activeSelf);
 
             Assert.IsTrue(pointer.gameObject.activeSelf);
