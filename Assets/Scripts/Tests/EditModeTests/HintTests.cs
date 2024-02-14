@@ -1,3 +1,4 @@
+using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
@@ -31,7 +32,9 @@ namespace TicTacToe.Tests.EditModeTests
             var board = TestUtil.GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();
+            
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
+            
             Assert.IsNotNull(move);
         }
         
@@ -48,6 +51,7 @@ namespace TicTacToe.Tests.EditModeTests
             board[2, 2].SetPlayer(playerX);
 
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
+            
             Assert.IsNotNull(move);
         }
         

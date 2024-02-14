@@ -28,5 +28,17 @@ namespace TicTacToe.Tests.Common.Util
                 board.AddMoveCommand(new Vector2Int(x, y), players[tiles[i]]);
             }
         }
+
+        public static int GetOccupiedTiles(this GameBoardService board)
+        {
+            var occupied = 0;
+            var boardSize = board.Board.GetLength(0);
+            for (var x = 0; x < boardSize; x++)
+            for (var y = 0; y < boardSize; y++)
+                if (board.Board[x, y].IsOccupied)
+                    occupied++;
+            
+            return occupied;
+        }
     }
 }
