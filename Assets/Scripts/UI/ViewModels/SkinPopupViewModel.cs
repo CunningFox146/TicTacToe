@@ -40,6 +40,7 @@ namespace TicTacToe.UI.ViewModels
             {
                 _log.LogError($"Failed to load skin {skinName}: {exception.Message}");
                 SkinName.Value = SkinItemNames.DefaultSkin;
+                await _skinService.SetSkin(SkinItemNames.DefaultSkin);
             }
             finally
             {

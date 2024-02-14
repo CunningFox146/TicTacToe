@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2543125839
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c389a7ddd3ce4312a25635e6f6452da6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2d8df09e698f722ada1caa03d3413830
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: c389a7ddd3ce4312a25635e6f6452da6
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Textures/Default Skin/X.png
+- Assets/Textures/Default Skin/FieldBg.png
+- Assets/Textures/Default Skin/O.png
+Dependencies: []

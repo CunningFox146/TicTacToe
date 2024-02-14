@@ -17,6 +17,9 @@ namespace TicTacToe.Services.Skin
 
         public async UniTask SetSkin(string skin)
         {
+            if (CurrentSkin == skin)
+                return;
+            
             if (!string.IsNullOrEmpty(CurrentSkin))
                 await _assetProvider.UnloadBundle(CurrentSkin);
 

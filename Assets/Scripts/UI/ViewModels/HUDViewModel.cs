@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameMode;
 using TicTacToe.Services.Hint;
 using TicTacToe.UI.Services.Loading;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace TicTacToe.UI.ViewModels
         private readonly ISceneLoader _sceneLoader;
 
         public IProperty<bool> IsHintVisible { get; }
+        public IProperty<bool> AreControlsActive { get; }
         public IProperty<Vector3> HintPosition { get; }
         public IProperty<float> Countdown { get; }
         public ICommand<float> HintCommand { get; }
@@ -30,7 +32,7 @@ namespace TicTacToe.UI.ViewModels
         public ICommand ExitCommand { get; }
         
         public HUDViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain,
-            IGameBoardService gameBoard, IHintService hintService, Camera mainCamera)
+            IGameBoardService gameBoard, IHintService hintService, IGameModeService gameMode, Camera mainCamera)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
@@ -39,6 +41,7 @@ namespace TicTacToe.UI.ViewModels
             _mainCamera = mainCamera;
 
             IsHintVisible = new Property<bool>(false);
+            AreControlsActive = new Property<bool>(gameMode.CanUseControls);
             HintPosition = new Property<Vector3>();
             Countdown = new Property<float>();
 

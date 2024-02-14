@@ -18,7 +18,6 @@ namespace TicTacToe.Services.Difficulty
         };
 
         public DifficultyLevel CurrentDifficulty { get; private set; } = DifficultyLevel.Normal;
-
         public DifficultyService(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
