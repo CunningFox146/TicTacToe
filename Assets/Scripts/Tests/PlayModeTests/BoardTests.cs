@@ -14,6 +14,8 @@ using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Tests.Common;
+using TicTacToe.Tests.Common.Infrastructure;
+using TicTacToe.Tests.Common.Util;
 using TicTacToe.UI;
 using TicTacToe.UI.Elements;
 using TicTacToe.UI.Factories;
@@ -25,7 +27,8 @@ using UnityEngine.UI;
 
 namespace TicTacToe.Tests.PlayModeTests
 {
-    public class BoardTests : ZenjectUnitTestFixture
+    [TestFixture]
+    public class BoardTests : ZenjectPlayModeUnitTestFixture
     {
         public override void SetupGlobalContainer()
         {

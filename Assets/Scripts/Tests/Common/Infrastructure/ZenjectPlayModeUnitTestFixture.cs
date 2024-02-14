@@ -3,19 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace TicTacToe.Tests.Common
+namespace TicTacToe.Tests.Common.Infrastructure
 {
-    public abstract class ZenjectUnitTestFixture
+    public class ZenjectPlayModeUnitTestFixture : ZenjectUnitTestFixture
     {
-        protected DiContainer GlobalContainer { get; private set; }
         protected DiContainer Container { get; private set; }
-
-        [OneTimeSetUp]
-        public virtual void SetupGlobalContainer()
-        {
-            GlobalContainer = new DiContainer();
-        }
-
+        
         [SetUp]
         public virtual void SetupTestContainer()
         {

@@ -3,6 +3,8 @@ using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Tests.Common;
+using TicTacToe.Tests.Common.Infrastructure;
+using TicTacToe.Tests.Common.Util;
 
 namespace TicTacToe.Tests.EditModeTests
 {

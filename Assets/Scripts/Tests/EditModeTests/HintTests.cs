@@ -8,6 +8,7 @@ using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Tests.Common;
+using TicTacToe.Tests.Common.Infrastructure;
 using UnityEngine;
 
 namespace TicTacToe.Tests.EditModeTests
