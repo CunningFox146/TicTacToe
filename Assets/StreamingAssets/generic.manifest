@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2223838758
+CRC: 1038666075
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 24bbd421eecc0bc5053a3ecf0bffacb3
+    Hash: 7eb939c825d7074ebb3fdbdfbb9c39ba
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b9537a8ab993a4a851f3e77da59bce3c
+    Hash: 43ba2bdc99a0fa4b85640c466b6d8beb
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 24bbd421eecc0bc5053a3ecf0bffacb3
+    Hash: 7eb939c825d7074ebb3fdbdfbb9c39ba
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -42,8 +42,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: c83e6618322c4dc4bb6f418601781c82, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: e7363086c33348588ceb864811692c2d, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 9b88c2313c75406e97e4ecf232b8aa7d, type: 3}
 - Class: 114
@@ -119,8 +117,6 @@ SerializeReferenceClassIdentifiers:
   ClassName: TMPro.TMP_Character
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/DropdownEvent
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_Dropdown/OptionData
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/OptionDataList
 - AssemblyName: Unity.TextMeshPro

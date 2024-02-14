@@ -1,4 +1,6 @@
-namespace TicTacToe.Services
+using System;
+
+namespace TicTacToe.Services.Difficulty
 {
     public enum DifficultyLevel
     {

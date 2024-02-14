@@ -1,10 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using TicTacToe.Services;
 using TicTacToe.Services.Difficulty;
 using TicTacToe.UI.ViewStack;
-using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Interfaces;
 
