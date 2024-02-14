@@ -9,6 +9,6 @@ namespace TicTacToe.Services.Sounds
         List<AudioClip> Clips { get; }
         float Volume { get; }
         bool IsLoop { get; }
-        AudioMixerGroup MixerGroup { get; }
+        bool IsSfx { get; }
     }
 }

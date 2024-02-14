@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Interactable;
+using TicTacToe.Services.Sounds;
 using UnityEngine;
 using Zenject;
 
@@ -13,11 +14,14 @@ namespace TicTacToe.Gameplay.BoardTile
         
         private IGameBoardService _board;
         private GameTile _tile;
+        private ISoundSource _soundSource;
+        
         public bool IsOccupied => _tile.IsOccupied;
 
         [Inject]
-        private void Constructor(IGameBoardService board)
+        private void Constructor(IGameBoardService board, ISoundSource soundSource)
         {
+            _soundSource = soundSource;
             _board = board;
         }
         
@@ -55,8 +59,13 @@ namespace TicTacToe.Gameplay.BoardTile
         private void OnStateChanged()
         {
             _spriteRenderer.sprite = _tile.Player?.PlayerSprite;
+            if (_tile.IsOccupied)
+                PlayDrawSound();
         }
-        
+
+        private void PlayDrawSound() 
+            => _soundSource.PlaySound(SoundNames.Draw);
+
         public class Factory : PlaceholderFactory<string, string, UniTask<BoardTileController>>
         {
         }

@@ -4,7 +4,13 @@ namespace TicTacToe.Services.Sounds
 {
     public interface ISoundSource
     {
-        UniTask LoadSoundBundle();
+        public bool IsSfxEnabled { get; }
+        public bool IsMusicEnabled { get; }
+        
+        UniTask Init();
         UniTask PlaySound(string soundName, float delay = 0f);
+
+        void SetMusicEnabled(bool isEnabled);
+        void SetSfxEnabled(bool isEnabled);
     }
 }

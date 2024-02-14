@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using TicTacToe.Services.Difficulty;
+using TicTacToe.Services.Sounds;
 using TicTacToe.UI.ViewStack;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -11,28 +12,33 @@ namespace TicTacToe.UI.ViewModels
     {
         private readonly IDifficultyService _difficultyService;
         private readonly IViewStackService _viewStack;
+        private readonly ISoundSource _soundSource;
+
         public IReadOnlyProperty<ObservableCollection<string>> DifficultyList { get; }
         public IProperty<string> SelectedDifficulty { get; }
+        public IProperty<bool> IsMusicEnabled { get; }
+        public IProperty<bool> AreSoundsEnabled { get; }
         public ICommand CloseCommand { get; }
         
 
-        public SettingsViewModel(IDifficultyService difficultyService, IViewStackService viewStack)
+        public SettingsViewModel(IDifficultyService difficultyService, IViewStackService viewStack, ISoundSource soundSource)
         {
             _difficultyService = difficultyService;
             _viewStack = viewStack;
+            _soundSource = soundSource;
 
-            DifficultyList = new Property<ObservableCollection<string>>(GetDifficultiesList());
+            IsMusicEnabled = new Property<bool>(_soundSource.IsMusicEnabled);
+            AreSoundsEnabled = new Property<bool>(_soundSource.IsSfxEnabled);
             SelectedDifficulty = new Property<string>(_difficultyService.CurrentDifficulty.ToString());
+            DifficultyList = new Property<ObservableCollection<string>>(GetDifficultiesList());
+            
             CloseCommand = new Command(Close);
 
             SelectedDifficulty.ValueChanged += OnDifficultyChanged;
             SelectedDifficulty.Value = _difficultyService.CurrentDifficulty.ToString();
-        }
-
-        private void OnDifficultyChanged(object sender, string difficultyName)
-        {
-            if (Enum.TryParse<DifficultyLevel>(difficultyName, out var difficulty))
-                _difficultyService.SetDifficulty(difficulty);
+            
+            IsMusicEnabled.ValueChanged += OnMusicEnabledChanged;
+            AreSoundsEnabled.ValueChanged += OnSoundsEnabledChanged;
         }
 
         private void Close()
@@ -49,6 +55,18 @@ namespace TicTacToe.UI.ViewModels
             }
 
             return difficulties;
+        }
+        
+        private void OnMusicEnabledChanged(object sender, bool enabled) 
+            => _soundSource.SetMusicEnabled(enabled);
+        
+        private void OnSoundsEnabledChanged(object sender, bool enabled) 
+            => _soundSource.SetSfxEnabled(enabled);
+
+        private void OnDifficultyChanged(object sender, string difficultyName)
+        {
+            if (Enum.TryParse<DifficultyLevel>(difficultyName, out var difficulty))
+                _difficultyService.SetDifficulty(difficulty);
         }
     }
 }

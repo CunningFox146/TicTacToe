@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7217785098632116266}
   - component: {fileID: 2029937153291411286}
+  - component: {fileID: 1936688983468782610}
   m_Layer: 5
   m_Name: ToggleElement
   m_TagString: Untagged
@@ -160,6 +161,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1936688983468782610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711675062759493436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c009263bee564f3aaaf0c126dea6a88d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggle: {fileID: 2029937153291411286}
+  _bindingPath: 
 --- !u!1 &7655867602246406037
 GameObject:
   m_ObjectHideFlags: 0

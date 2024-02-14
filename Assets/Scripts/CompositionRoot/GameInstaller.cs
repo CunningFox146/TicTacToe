@@ -12,6 +12,7 @@ using TicTacToe.Services.Sounds;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using Zenject;
 
@@ -20,10 +21,12 @@ namespace TicTacToe.CompositionRoot
     public class GameInstaller : MonoInstaller
     {
         [SerializeField] private EventSystem _eventSystem;
+        [SerializeField] private AudioMixer _audioMixer;
 
         public override void InstallBindings()
         {
             BindEventSystem();
+            BindAudioMixer();
             BindSoundSource();
             BindLogService();
             BindSceneLoader();
@@ -49,6 +52,9 @@ namespace TicTacToe.CompositionRoot
             Container.Bind<GameplayInput>().AsTransient();
             Container.BindInterfacesTo<InputService>().AsSingle();
         }
+
+        private void BindAudioMixer() 
+            => Container.Bind<AudioMixer>().FromInstance(_audioMixer).AsSingle();
 
         private void BindLoadingCurtain()
         {

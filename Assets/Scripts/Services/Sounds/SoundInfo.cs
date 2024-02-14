@@ -10,6 +10,6 @@ namespace TicTacToe.Services.Sounds
         [field: SerializeField] public List<AudioClip> Clips { get; private set; }
         [field: SerializeField] public float Volume { get; private set; }
         [field: SerializeField] public bool IsLoop { get; private set; }
-        [field: SerializeField] public AudioMixerGroup MixerGroup { get; private set; }
+        [field: SerializeField] public bool IsSfx { get; private set; } = true;
     }
 }

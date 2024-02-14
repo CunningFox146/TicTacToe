@@ -736,6 +736,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2453968676307021914}
     m_Modifications:
+    - target: {fileID: 1936688983468782610, guid: f34b5645249d743e781dfa67a1c65e31,
+        type: 3}
+      propertyPath: _bindingPath
+      value: IsMusicEnabled
+      objectReference: {fileID: 0}
     - target: {fileID: 6711675062759493436, guid: f34b5645249d743e781dfa67a1c65e31,
         type: 3}
       propertyPath: m_Name
@@ -1287,6 +1292,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2453968676307021914}
     m_Modifications:
+    - target: {fileID: 1936688983468782610, guid: f34b5645249d743e781dfa67a1c65e31,
+        type: 3}
+      propertyPath: _bindingPath
+      value: AreSoundsEnabled
+      objectReference: {fileID: 0}
     - target: {fileID: 6711675062759493436, guid: f34b5645249d743e781dfa67a1c65e31,
         type: 3}
       propertyPath: m_Name

@@ -31,7 +31,7 @@ namespace TicTacToe.Infrastructure.States
             await _assetProvider.LoadBundle(BundleNames.GenericBundle);
             _loadingCurtain.ShowLoadingCurtain();
             
-            await _soundSource.LoadSoundBundle();
+            await _soundSource.Init();
             await _skinService.SetSkin(SkinItemNames.DefaultSkin);
             await _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }

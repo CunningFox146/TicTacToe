@@ -13,15 +13,7 @@ MonoBehaviour:
   m_Name: MainMusic
   m_EditorClassIdentifier: 
   <Clips>k__BackingField:
-  - {fileID: 8300000, guid: 1152ca603f6a144808a3151eeb32a0fd, type: 3}
-  - {fileID: 8300000, guid: 43c083e3026d14e6b86ba7e59b0b0c05, type: 3}
-  - {fileID: 8300000, guid: d6d48adbf74344f3599c1e930596d63d, type: 3}
-  - {fileID: 8300000, guid: fc94bc4b3d00840a68c6a04fd83dd7fe, type: 3}
-  - {fileID: 8300000, guid: 272377162891e4176953f31eece96ac1, type: 3}
-  - {fileID: 8300000, guid: 520e5b5afc01643aaad765d983046c92, type: 3}
-  - {fileID: 8300000, guid: c104ef01385b24af5b206d3093eee988, type: 3}
-  - {fileID: 8300000, guid: bc323ed32f2344fb7b00bd89cea6bea4, type: 3}
+  - {fileID: 8300000, guid: b74aa10bce2ae4bfc99015141609ef97, type: 3}
   <Volume>k__BackingField: 1
-  <IsLoop>k__BackingField: 0
-  <MixerGroup>k__BackingField: {fileID: 6555976527913807049, guid: 7a07c6633638845bd9a43131292cc88a,
-    type: 2}
+  <IsLoop>k__BackingField: 1
+  <IsSfx>k__BackingField: 0

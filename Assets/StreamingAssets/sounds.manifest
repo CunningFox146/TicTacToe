@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 4281993239
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 71bad052cd4ec9e66a5c0c58e09a5c9b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4f2f49da2ee26cd0d5f7947d052e26c7
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 71bad052cd4ec9e66a5c0c58e09a5c9b
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4da2df79a88d41ad8bfdc32b976c1b8f, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Sounds/Tie/Tie.asset
+- Assets/Sounds/Click/Click.asset
+- Assets/Sounds/Draw/Draw.asset
+- Assets/Sounds/Win/GameWin.asset
+- Assets/Sounds/Music/MainMusic.asset
+Dependencies: []

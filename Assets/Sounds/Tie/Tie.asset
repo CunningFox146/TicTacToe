@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Tie
   m_EditorClassIdentifier: 
   <Clips>k__BackingField:
-  - {fileID: 8300000, guid: b74aa10bce2ae4bfc99015141609ef97, type: 3}
+  - {fileID: 8300000, guid: 1c1de79348bab4855876afd906593703, type: 3}
   <Volume>k__BackingField: 1
-  <IsLoop>k__BackingField: 1
-  <MixerGroup>k__BackingField: {fileID: 4482855707598769084, guid: 7a07c6633638845bd9a43131292cc88a,
+  <IsLoop>k__BackingField: 0
+  <MixerGroup>k__BackingField: {fileID: 6555976527913807049, guid: 7a07c6633638845bd9a43131292cc88a,
     type: 2}

@@ -10,10 +10,10 @@ namespace TicTacToe.Editor.Windows
 {
     public class BundleBuilderWindow : EditorWindow
     {
-        private const string SettingsPath = "Assets/Settings/BundleObjects.asset";
+        protected string settingsPath;
         private BundleObjects _bundleObjects;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _bundleObjects = LoadBundleObjects();
         }
@@ -23,21 +23,17 @@ namespace TicTacToe.Editor.Windows
             RenderWindow();
         }
 
-        [MenuItem("Bundles/Build Bundle")]
-        private static void ShowWindow()
+        private BundleObjects LoadBundleObjects()
         {
-            var window = GetWindow<BundleBuilderWindow>();
-            window.titleContent = new GUIContent("Build Bundle");
-        }
-        
-        private static BundleObjects LoadBundleObjects()
-        {
-            if (!File.Exists(SettingsPath))
+            if (string.IsNullOrEmpty(settingsPath))
+                return null;
+            
+            if (!File.Exists(settingsPath))
             {
                 var settings = CreateInstance<BundleObjects>();
-                AssetDatabase.CreateAsset(settings, SettingsPath);
+                AssetDatabase.CreateAsset(settings, settingsPath);
             }
-            return AssetDatabase.LoadAssetAtPath<BundleObjects>(SettingsPath);
+            return AssetDatabase.LoadAssetAtPath<BundleObjects>(settingsPath);
         }
 
         private void RenderWindow()
@@ -51,6 +47,9 @@ namespace TicTacToe.Editor.Windows
 
         private void AddBundleObjectsList()
         {
+            if (_bundleObjects is null)
+                return;
+            
             var inspector = new InspectorElement();
             inspector.Bind(new SerializedObject(_bundleObjects));
             rootVisualElement.Add(inspector);
