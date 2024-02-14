@@ -8,6 +8,7 @@ using TicTacToe.Services.Input;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
+using TicTacToe.Services.Sounds;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace TicTacToe.CompositionRoot
         public override void InstallBindings()
         {
             BindEventSystem();
+            BindSoundSource();
             BindLogService();
             BindSceneLoader();
             BindRandomService();
@@ -56,6 +58,9 @@ namespace TicTacToe.CompositionRoot
 
             Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
         }
+
+        private void BindSoundSource() 
+            => Container.Bind<ISoundSource>().To<SoundSource>().AsSingle();
 
         private void BindGameModeService() 
             => Container.Bind<IGameModeService>().To<GameModeService>().AsSingle();
