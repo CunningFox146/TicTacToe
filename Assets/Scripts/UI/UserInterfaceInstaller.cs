@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
+using TicTacToe.UI.Converters;
 using TicTacToe.UI.Factories;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using TicTacToe.UI.ViewStack;
+using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
 namespace TicTacToe.UI
@@ -12,6 +14,7 @@ namespace TicTacToe.UI
     {
         public override void InstallBindings()
         {
+            BindConverters();
             BindViewModelFactory();
             BindViewFactories();
             BindUserInterfaceFactory();
@@ -35,6 +38,16 @@ namespace TicTacToe.UI
             Container
                 .BindFactory<string, string, UniTask<GameEndView>, GameEndView.Factory>()
                 .FromFactory<PrefabFactoryAsync<GameEndView>>();
+        }
+        
+        
+        private void BindConverters()
+        {
+            Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
+            {
+                new FloatToIntStringConverter(),
+                new FloatToBool(),
+            });
         }
         
         private void BindViewModelFactory()

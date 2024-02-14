@@ -64,6 +64,7 @@ namespace TicTacToe.Gameplay.States
             field.SetBackground(await _skinService.LoadBackground());
             field.SetFieldSize(settings.FieldSize);
             await field.Init();
+            _gameBoard.SetField(field);
         }
 
         private async UniTask InitGameBoard(IGameplaySettings settings)

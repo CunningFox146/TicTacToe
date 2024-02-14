@@ -4,9 +4,13 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
+        "TNRD.NSubstitute",
         "Common",
         "TicTacToe",
-        "UniTask"
+        "UniTask",
+        "Zenject",
+        "UnityMvvmToolkit.Common",
+        "UnityMvvmToolkit.UGUI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

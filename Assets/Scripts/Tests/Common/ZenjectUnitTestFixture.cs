@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace TicTacToe.Tests.Common
@@ -10,7 +12,13 @@ namespace TicTacToe.Tests.Common
         [OneTimeSetUp]
         public virtual void Setup()
         {
-            Container = new DiContainer();
+            var itemsContainer = new GameObject("ObjectsContainer");
+            SceneManager.MoveGameObjectToScene(itemsContainer, SceneManager.GetActiveScene());
+            
+            Container = new DiContainer
+            {
+                DefaultParent = itemsContainer.transform
+            };
         }
     }
 }

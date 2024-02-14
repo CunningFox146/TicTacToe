@@ -10,7 +10,7 @@ namespace TicTacToe.Services.GameBoard
     {
         event Action<float> CountdownStarted; 
         
-        IGameField Field { get; set; }
+        IGameField Field { get;}
         GameTile[,] Board { get; }
         IPlayer CurrentPlayer { get; }
         List<IPlayer> Players { get; }
@@ -20,5 +20,6 @@ namespace TicTacToe.Services.GameBoard
         IPlayer GetWinner(out int score);
         void SetBoardSize(int size);
         void SetPlayers(IEnumerable<IPlayer> players);
+        void SetField(IGameField field);
     }
 }

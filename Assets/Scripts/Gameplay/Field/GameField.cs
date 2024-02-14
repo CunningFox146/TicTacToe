@@ -23,8 +23,6 @@ namespace TicTacToe.Gameplay.Field
         {
             _gameBoard = gameBoard;
             _gameplayFactory = gameplayFactory;
-
-            _gameBoard.Field = this;
         }
         
         public void SetBackground(Sprite sprite)

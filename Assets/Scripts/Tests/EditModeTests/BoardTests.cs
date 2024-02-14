@@ -5,12 +5,12 @@ using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
-using TicTacToe.Services.Hint;
 using TicTacToe.Tests.Common;
 using UnityEngine;
 
 namespace TicTacToe.Tests.EditModeTests
 {
+    [TestFixture]
     public class BoardTests : ZenjectUnitTestFixture
     {
         [OneTimeSetUp]

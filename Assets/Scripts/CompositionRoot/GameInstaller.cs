@@ -32,7 +32,6 @@ namespace TicTacToe.CompositionRoot
             BindAssetProvider();
             BindSkinService();
             BindLoadingCurtain();
-            BindConverters();
             BindGameStateMachine();
         }
 
@@ -58,14 +57,6 @@ namespace TicTacToe.CompositionRoot
             Container.Bind<ILoadingCurtainService>().To<LoadingCurtainService>().AsSingle();
         }
         
-        private void BindConverters()
-        {
-            Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
-            {
-                new FloatToIntStringConverter(),
-                new FloatToBool(),
-            });
-        }
 
         private void BindSkinService() 
             => Container.BindInterfacesTo<SkinService>().AsSingle();

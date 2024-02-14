@@ -19,7 +19,7 @@ namespace TicTacToe.Services.GameBoard
         private CancellationTokenSource _timeoutToken;
         private IPlayer _outOfTimePlayer;
 
-        public IGameField Field { get; set; }
+        public IGameField Field { get; private set; }
         public GameTile[,] Board { get; private set; }
         public IPlayer CurrentPlayer { get; private set; }
         public List<IPlayer> Players { get; } = new();
@@ -105,5 +105,13 @@ namespace TicTacToe.Services.GameBoard
         {
             Players.AddRange(players);
         }
+
+        public void SetField(IGameField field)
+            => Field = field;
+
+#if UNITY_INCLUDE_TESTS
+        public void SetCurrentPlayer(IPlayer player)
+            => CurrentPlayer = player;
+#endif
     }
 }
