@@ -33,16 +33,16 @@ namespace TicTacToe.Infrastructure.States
 
         private async UniTask<TState> ChangeState<TState>() where TState : class, IState
         {
-            if(_currentState is IStateExitable exitable)
+            if (_currentState is IStateExitable exitable)
                 await exitable.Exit();
-      
+
             var state = GetState<TState>();
             _currentState = state;
-      
+
             return state;
         }
-    
-        private TState GetState<TState>() where TState : class, IState => 
-            _registeredStates[typeof(TState)] as TState;
+
+        private TState GetState<TState>() where TState : class, IState 
+            => _registeredStates[typeof(TState)] as TState;
     }
 }

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEditor;
 
 namespace TicTacToe.Infrastructure.States
 {
@@ -7,7 +8,7 @@ namespace TicTacToe.Infrastructure.States
         public UniTask Enter()
         {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
             UnityEngine.Application.Quit();
 #endif

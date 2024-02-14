@@ -37,7 +37,6 @@ namespace TicTacToe.Gameplay.BoardTile
                 player.SetTurn(_tile.Position);
         }
 
-
         public void SetPosition(Vector3 position)
             => transform.position = position;
 

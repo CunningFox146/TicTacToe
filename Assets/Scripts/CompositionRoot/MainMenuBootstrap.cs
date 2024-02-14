@@ -1,11 +1,10 @@
-using System;
 using TicTacToe.Infrastructure.States;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Infrastructure
+namespace TicTacToe.CompositionRoot
 {
-    public class MainMenuMain : MonoBehaviour
+    public class MainMenuBootstrap : MonoBehaviour
     {
         private IStateMachine _stateMachine;
         private StateFactory _stateFactory;

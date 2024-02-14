@@ -2,13 +2,12 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.UI.Converters;
 using TicTacToe.UI.Factories;
-using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using TicTacToe.UI.ViewStack;
 using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
-namespace TicTacToe.UI
+namespace TicTacToe.Infrastructure.Installers
 {
     public class UserInterfaceInstaller : Installer<UserInterfaceInstaller>
     {

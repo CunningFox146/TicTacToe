@@ -1,6 +1,4 @@
-using Cysharp.Threading.Tasks;
 using TicTacToe.Gameplay.Factories;
-using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.States;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.GameBoard.Rules;
@@ -22,15 +20,16 @@ namespace TicTacToe.Infrastructure.Installers
             BindStateFactory();
             BindGameplayFactory();
             BindRules();
+            BindPlayerFactory();
             BindGameBoard();
             BindUserInterface();
         }
         
-        private void BindGameBoard()
-        {
-            Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
-            Container.Bind<IGameBoardService>().To<GameBoardService>().AsSingle();
-        }
+        private void BindGameBoard() 
+            => Container.Bind<IGameBoardService>().To<GameBoardService>().AsSingle();
+
+        private void BindPlayerFactory() 
+            => Container.Bind<IPlayerFactory>().To<PlayerFactory>().AsSingle();
 
         private void BindRules()
             => Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();

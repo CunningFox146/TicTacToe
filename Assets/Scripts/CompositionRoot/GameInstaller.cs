@@ -6,14 +6,10 @@ using TicTacToe.Services.Input;
 using TicTacToe.Services.Log;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Skin;
-using TicTacToe.StaticData.Gameplay;
-using TicTacToe.UI;
-using TicTacToe.UI.Converters;
 using TicTacToe.UI.Services.Loading;
 using TicTacToe.UI.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
 namespace TicTacToe.CompositionRoot

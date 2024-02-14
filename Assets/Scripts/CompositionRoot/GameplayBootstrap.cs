@@ -1,14 +1,12 @@
-using System;
 using Cysharp.Threading.Tasks;
-using TicTacToe.Gameplay.Factories;
 using TicTacToe.Gameplay.States;
 using TicTacToe.Infrastructure.States;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Gameplay
+namespace TicTacToe.CompositionRoot
 {
-    public class GameplayMain : MonoBehaviour
+    public class GameplayBootstrap : MonoBehaviour
     {
         private IStateMachine _gameStateMachine;
         private StateFactory _stateFactory;
