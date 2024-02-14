@@ -8,9 +8,11 @@ using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Infrastructure.Installers;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Services.GameMode;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Rules;
+using TicTacToe.Services.Sounds;
 using TicTacToe.Tests.Common;
 using TicTacToe.Tests.Common.Infrastructure;
 using TicTacToe.Tests.Common.Util;
@@ -37,6 +39,8 @@ namespace TicTacToe.Tests.PlayModeTests
             base.SetupTestContainer();
 
             Container.Bind<ISceneLoader>().FromInstance(Substitute.For<ISceneLoader>()).AsSingle();
+            Container.Bind<ISoundSource>().FromInstance(Substitute.For<ISoundSource>()).AsSingle();
+            Container.Bind<IGameModeService>().FromInstance(Substitute.For<IGameModeService>()).AsSingle();
             Container.Bind<ILoadingCurtainService>().FromInstance(Substitute.For<ILoadingCurtainService>()).AsSingle();
             Container.Bind<IGameRules>().To<TicTacToeRules>().AsSingle();
             Container.Bind<IRandomService>().To<RandomService>().AsSingle();
