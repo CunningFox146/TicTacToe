@@ -9,9 +9,9 @@ namespace TicTacToe.UI.Elements
     {
         [SerializeField] private string _bindingVisibilityPath;
         
-        private IProperty<bool> _visibilityProperty;
         private PropertyBindingData _propertyBindingData;
-        
+        private IProperty<bool> _visibilityProperty;
+
         public void SetBindingContext(IBindingContext context, IObjectProvider objectProvider)
         {
             _propertyBindingData ??= _bindingVisibilityPath.ToPropertyBindingData();
@@ -34,10 +34,14 @@ namespace TicTacToe.UI.Elements
             UpdateVisibility(default);
         }
 
-        private void OnPropertyValueChanged(object sender, bool value) 
-            => UpdateVisibility(value);
+        private void OnPropertyValueChanged(object sender, bool value)
+        {
+            UpdateVisibility(value);
+        }
 
         private void UpdateVisibility(bool value)
-            => gameObject.SetActive(value);
+        {
+            gameObject.SetActive(value);
+        }
     }
 }

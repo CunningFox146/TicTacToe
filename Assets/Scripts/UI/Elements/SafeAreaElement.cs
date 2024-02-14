@@ -1,6 +1,7 @@
 using UnityEngine;
 
-// By Crystal from Asset Store
+// By Crystal from Asset Store 
+// https://assetstore.unity.com/packages/p/safe-area-helper-130488
 namespace TicTacToe.UI.Elements
 {
     /// <summary>

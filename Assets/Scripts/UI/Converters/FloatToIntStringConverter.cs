@@ -4,7 +4,7 @@ using UnityMvvmToolkit.Core.Converters.PropertyValueConverters;
 
 namespace TicTacToe.UI.Converters
 {
-    public class FloatToIntStringConverter: PropertyValueConverter<float, string>
+    public class FloatToIntStringConverter : PropertyValueConverter<float, string>
     {
         public override string Convert(float value)
             => Mathf.Ceil(value).ToString(CultureInfo.InvariantCulture);

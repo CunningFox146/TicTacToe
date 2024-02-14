@@ -44,6 +44,7 @@ namespace TicTacToe.Infrastructure.Installers
         {
             Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
             {
+                new StringToFloatConverter(),
                 new FloatToIntStringConverter(),
                 new FloatToBool(),
             });

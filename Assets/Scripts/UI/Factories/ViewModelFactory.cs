@@ -7,10 +7,12 @@ namespace TicTacToe.UI.Factories
     {
         private readonly IInstantiator _instantiator;
 
-        public ViewModelFactory(IInstantiator instantiator) => 
+        public ViewModelFactory(IInstantiator instantiator)
+        {
             _instantiator = instantiator;
+        }
 
-        public TViewModel Create<TViewModel>() where TViewModel : IBindingContext => 
-            _instantiator.Instantiate<TViewModel>();
+        public TViewModel Create<TViewModel>() where TViewModel : IBindingContext
+            => _instantiator.Instantiate<TViewModel>();
     }
 }

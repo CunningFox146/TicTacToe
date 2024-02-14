@@ -28,7 +28,8 @@ namespace TicTacToe.UI.Services.Loading
             _activeCurtainView = null;
         }
 
-        private async Task<LoadingCurtainView> CreateLoadingView() 
-            => await _loadingCurtainFactory.Create(BundleNames.GenericBundle, UserInterfaceAssetNames.LoadingCurtainView);
+        private async Task<LoadingCurtainView> CreateLoadingView()
+            => await _loadingCurtainFactory.Create(BundleNames.GenericBundle,
+                UserInterfaceAssetNames.LoadingCurtainView);
     }
 }

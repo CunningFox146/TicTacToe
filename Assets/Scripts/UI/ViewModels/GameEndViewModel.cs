@@ -3,8 +3,7 @@ using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.SceneManagement;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.UI.Services.Loading;
-using TicTacToe.UI.Views;
-using UnityEngine;
+using TicTacToe.Util;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UniTask;
@@ -13,23 +12,24 @@ namespace TicTacToe.UI.ViewModels
 {
     public class GameEndViewModel : IBindingContext
     {
-        private const string HeaderWinString = "{0} Won!"; 
-        private const string HeaderTieString = "Tie!"; 
-        private const string MovesString = "They took <b>{0}</b> moves to win"; 
-        private const string MovesTieString = "All players took <b>{0}</b> moves"; 
-        private const string FreeTilesString = "Free tiles left: <b>{0}</b>"; 
-            
-        private readonly ISceneLoader _sceneLoader;
-        private readonly ILoadingCurtainService _loadingCurtain;
+        private const string HeaderWinString = "{0} Won!";
+        private const string HeaderTieString = "Tie!";
+        private const string MovesString = "They took <b>{0}</b> moves to win";
+        private const string MovesTieString = "All players took <b>{0}</b> moves";
+        private const string FreeTilesString = "Free tiles left: <b>{0}</b>";
         private readonly IGameBoardService _gameBoard;
+        private readonly ILoadingCurtainService _loadingCurtain;
+
+        private readonly ISceneLoader _sceneLoader;
 
         public IReadOnlyProperty<string> HeaderText { get; }
         public IReadOnlyProperty<string> MovesText { get; }
         public IReadOnlyProperty<string> FreeTilesText { get; }
         public ICommand PlayAgainCommand { get; }
         public ICommand MainMenuCommand { get; }
-
-        public GameEndViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain, IGameBoardService gameBoard)
+        
+        public GameEndViewModel(ISceneLoader sceneLoader, ILoadingCurtainService loadingCurtain,
+            IGameBoardService gameBoard)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
@@ -39,42 +39,23 @@ namespace TicTacToe.UI.ViewModels
             MovesText = new ReadOnlyProperty<string>(GetMovesText());
             FreeTilesText = new ReadOnlyProperty<string>(GetFreeTilesText());
 
-            PlayAgainCommand= new AsyncCommand(PlayAgain);
+            PlayAgainCommand = new AsyncCommand(PlayAgain);
             MainMenuCommand = new AsyncCommand(MainMenu);
         }
-
-        private string GetFreeTilesText()
-        {
-            var tilesCount = 0;
-            foreach (var gameTile in _gameBoard.Board)
-            {
-                if (!gameTile.IsOccupied)
-                    tilesCount++;
-            }
-            
-            return string.Format(FreeTilesString, tilesCount);
-        }
+        
+        private string GetFreeTilesText() 
+            => string.Format(FreeTilesString, _gameBoard.Board.GetFreeTilesCount());
 
         private string GetMovesText()
         {
             if (_gameBoard.IsTie())
-            {
-                var occupiedTiles = 0;
-                foreach (var gameTile in _gameBoard.Board)
-                {
-                    if (gameTile.IsOccupied)
-                        occupiedTiles++;
-                }
-                return string.Format(MovesTieString, occupiedTiles);
-            }
-            
+                return string.Format(MovesTieString, _gameBoard.Board.GetOccupiedTilesCount());
+
             var winner = _gameBoard.GetWinner(out _);
             var winnerTiles = 0;
             foreach (var gameTile in _gameBoard.Board)
-            {
                 if (gameTile.Player == winner)
                     winnerTiles++;
-            }
 
             return string.Format(MovesString, winnerTiles);
         }

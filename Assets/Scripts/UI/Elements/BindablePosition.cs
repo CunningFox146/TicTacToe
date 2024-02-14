@@ -8,10 +8,10 @@ namespace TicTacToe.UI.Elements
     public class BindablePosition : MonoBehaviour, IBindableElement
     {
         [SerializeField] private string _bindingPositionPath;
-        
+
         private IProperty<Vector3> _positionProperty;
         private PropertyBindingData _propertyBindingData;
-        
+
         public void SetBindingContext(IBindingContext context, IObjectProvider objectProvider)
         {
             _propertyBindingData ??= _bindingPositionPath.ToPropertyBindingData();
@@ -33,9 +33,13 @@ namespace TicTacToe.UI.Elements
         }
 
         private void SetPosition(Vector3 position)
-            => transform.position = position;
+        {
+            transform.position = position;
+        }
 
         private void OnPropertyValueChanged(object sender, Vector3 position)
-            => SetPosition(position);
+        {
+            SetPosition(position);
+        }
     }
 }
