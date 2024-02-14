@@ -45,7 +45,7 @@ namespace TicTacToe.Services.Rules
 
         private IPlayer CheckHorizontal(GameTile[,] board)
         {
-            var boardSize = board.GetLength(0);
+            var boardSize = board.GetBoardSize();
             for (var x = 0; x < boardSize; x++)
             {
                 var player = board[x, 0].Player;
@@ -68,7 +68,7 @@ namespace TicTacToe.Services.Rules
 
         private IPlayer CheckVertical(GameTile[,] board)
         {
-            var boardSize = board.GetLength(0);
+            var boardSize = board.GetBoardSize();
             for (var y = 0; y < boardSize; y++)
             {
                 var player = board[0, y].Player;
@@ -91,7 +91,7 @@ namespace TicTacToe.Services.Rules
 
         private IPlayer CheckDiagonal(GameTile[,] board)
         {
-            var boardSize = board.GetLength(0);
+            var boardSize = board.GetBoardSize();
             
             var player = board[0, 0].Player;
             if (player is null)

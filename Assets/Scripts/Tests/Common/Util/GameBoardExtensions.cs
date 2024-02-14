@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TicTacToe.Services.BoardPlayers;
 using TicTacToe.Services.GameBoard;
+using TicTacToe.Util;
 using UnityEngine;
 
 namespace TicTacToe.Tests.Common.Util
@@ -10,7 +11,7 @@ namespace TicTacToe.Tests.Common.Util
         public static void FillBoardRandomly(this GameBoardService board, IReadOnlyList<IPlayer> players = null)
         {
             players ??= board.Players;
-            var boardSize = board.Board.GetLength(0);
+            var boardSize = board.Board.GetBoardSize();
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
                 board.AddMoveCommand(players[Random.Range(0, players.Count)], new Vector2Int(x, y));
@@ -19,7 +20,7 @@ namespace TicTacToe.Tests.Common.Util
         public static void FillBoard(this GameBoardService board, IReadOnlyList<int> tiles, IReadOnlyList<IPlayer> players = null)
         {
             players ??= board.Players;
-            var boardSize = board.Board.GetLength(0);
+            var boardSize = board.Board.GetBoardSize();
             for (var i = 0; i < tiles.Count; i++)
             {
                 var x = i / boardSize;
@@ -32,7 +33,7 @@ namespace TicTacToe.Tests.Common.Util
         public static int GetOccupiedTiles(this GameBoardService board)
         {
             var occupied = 0;
-            var boardSize = board.Board.GetLength(0);
+            var boardSize = board.Board.GetBoardSize();
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
                 if (board.Board[x, y].IsOccupied)
