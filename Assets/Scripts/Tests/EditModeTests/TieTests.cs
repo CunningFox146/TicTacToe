@@ -11,21 +11,21 @@ namespace TicTacToe.Tests.EditModeTests
         public override void SetupTestContainer()
         {
             base.SetupTestContainer();
-            
+
             Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
             Container.Bind<GameBoardService>().AsTransient();
         }
 
-        [TestCase(new [] {1, 0, 0, 0, 0, 1, 1, 1, 0}, 3)]
-        [TestCase(new [] {1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0}, 4)]
+        [TestCase(new[] { 1, 0, 0, 0, 0, 1, 1, 1, 0 }, 3)]
+        [TestCase(new[] { 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0 }, 4)]
         public void WhenCheckingTie_AndBoardFull_ThenTieReturnsTrue(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
             Assert.IsTrue(board.IsTie());
         }
 
-        [TestCase(new [] {1, 1, 1, 0, 0, 0, 0, 0, 0}, 3)]
-        [TestCase(new [] {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 4)]
+        [TestCase(new[] { 1, 1, 1, 0, 0, 0, 0, 0, 0 }, 3)]
+        [TestCase(new[] { 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 4)]
         public void WhenCheckingTie_AndBoardFullAndHasWinner_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
@@ -40,8 +40,8 @@ namespace TicTacToe.Tests.EditModeTests
             Assert.IsFalse(board.IsTie());
         }
 
-        [TestCase(new [] {1, 0, 1, 0, 1}, 3)]
-        [TestCase(new [] {1, 0, 1, 0, 1}, 4)]
+        [TestCase(new[] { 1, 0, 1, 0, 1 }, 3)]
+        [TestCase(new[] { 1, 0, 1, 0, 1 }, 4)]
         public void WhenCheckingTie_AndBoardPartiallyEmpty_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);

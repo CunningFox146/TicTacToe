@@ -1,8 +1,6 @@
-using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 using TicTacToe.Services.BoardPlayers;
-using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Randomizer;
 using TicTacToe.Services.Rules;
@@ -18,7 +16,7 @@ namespace TicTacToe.Tests.EditModeTests
         public override void SetupTestContainer()
         {
             base.SetupTestContainer();
-            
+
             Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
             Container.Bind<IRandomService>().To<RandomService>().AsTransient();
             Container.Bind<HintService>().AsTransient();
@@ -32,12 +30,12 @@ namespace TicTacToe.Tests.EditModeTests
             var board = TestUtil.GetMockBoard(boardSize);
             var playerX = Substitute.For<IPlayer>();
             var playerO = Substitute.For<IPlayer>();
-            
+
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
-            
+
             Assert.IsNotNull(move);
         }
-        
+
         [TestCase(3)]
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsNotEmpty_ThenHintReturnsValue(int boardSize)
@@ -51,10 +49,10 @@ namespace TicTacToe.Tests.EditModeTests
             board[2, 2].SetPlayer(playerX);
 
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
-            
+
             Assert.IsNotNull(move);
         }
-        
+
         [TestCase(3)]
         [TestCase(4)]
         public void WhenUsingHint_AndBoardHasOneTile_ThenHintReturnsThatTile(int boardSize)
@@ -67,15 +65,15 @@ namespace TicTacToe.Tests.EditModeTests
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
                 board[x, y].SetPlayer(playerO);
-            
+
             board[boardSize - 1, boardSize - 1].SetPlayer(null);
 
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
-            
+
             Assert.IsNotNull(move);
             Assert.AreEqual(move.Value, new Vector2Int(boardSize - 1, boardSize - 1));
         }
-        
+
         [TestCase(3)]
         [TestCase(4)]
         public void WhenUsingHint_AndBoardIsFull_ThenHintReturnsNull(int boardSize)
@@ -88,9 +86,9 @@ namespace TicTacToe.Tests.EditModeTests
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
                 board[x, y].SetPlayer(playerO);
-            
+
             var move = hintService.GetBestMoveSync(board, playerX, playerO);
-            
+
             Assert.IsNull(move);
         }
     }

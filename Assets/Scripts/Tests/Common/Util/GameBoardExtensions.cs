@@ -16,8 +16,9 @@ namespace TicTacToe.Tests.Common.Util
             for (var y = 0; y < boardSize; y++)
                 board.AddMoveCommand(players[Random.Range(0, players.Count)], new Vector2Int(x, y));
         }
-        
-        public static void FillBoard(this GameBoardService board, IReadOnlyList<int> tiles, IReadOnlyList<IPlayer> players = null)
+
+        public static void FillBoard(this GameBoardService board, IReadOnlyList<int> tiles,
+            IReadOnlyList<IPlayer> players = null)
         {
             players ??= board.Players;
             var boardSize = board.Board.GetBoardSize();
@@ -38,7 +39,7 @@ namespace TicTacToe.Tests.Common.Util
             for (var y = 0; y < boardSize; y++)
                 if (board.Board[x, y].IsOccupied)
                     occupied++;
-            
+
             return occupied;
         }
     }

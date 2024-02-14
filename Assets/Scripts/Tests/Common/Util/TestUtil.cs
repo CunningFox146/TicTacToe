@@ -13,7 +13,7 @@ namespace TicTacToe.Tests.Common.Util
         {
             var playerX = Substitute.For<IPlayer>();
             playerX.Name = "X";
-            
+
             var playerO = Substitute.For<IPlayer>();
             playerO.Name = "O";
 
@@ -26,15 +26,13 @@ namespace TicTacToe.Tests.Common.Util
             var undoButton = buttons.First(b => b.name == name);
             return undoButton;
         }
-        
+
         public static GameTile[,] GetMockBoard(int boardSize)
         {
             var board = new GameTile[boardSize, boardSize];
             for (var x = 0; x < boardSize; x++)
             for (var y = 0; y < boardSize; y++)
-            {
                 board[x, y] = new GameTile(new Vector2Int(x, y));
-            }
 
             return board;
         }

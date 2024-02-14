@@ -9,11 +9,11 @@ namespace TicTacToe.Tests.Common.Infrastructure
         public override void SetupGlobalContainer()
         {
             base.SetupGlobalContainer();
-            
+
             var itemsContainer = new GameObject("Global Container");
             GlobalContainer.DefaultParent = itemsContainer.transform;
         }
-        
+
         [OneTimeTearDown]
         public virtual void TearDownGlobalContainer()
         {
@@ -23,12 +23,12 @@ namespace TicTacToe.Tests.Common.Infrastructure
         public override void SetupTestContainer()
         {
             base.SetupTestContainer();
-            
+
             var itemsContainer = new GameObject("Test Container");
             SceneManager.MoveGameObjectToScene(itemsContainer, SceneManager.GetActiveScene());
             Container.DefaultParent = itemsContainer.transform;
         }
-        
+
         public override void TearDownTestContainer()
         {
             base.TearDownTestContainer();

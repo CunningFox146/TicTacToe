@@ -18,21 +18,29 @@ namespace TicTacToe.Tests.PlayModeTests
         [UnityTest]
         [Timeout(2000)]
         public IEnumerator WhenPressingHintButton_And3x3FieldIsEmpty_ThenHintShouldAppear()
-            => UniTask.ToCoroutine(async () => { await PressHintOnEmptyField(3); });
-        
+        {
+            return UniTask.ToCoroutine(async () => { await PressHintOnEmptyField(3); });
+        }
+
         [UnityTest]
         [Timeout(2000)]
         public IEnumerator WhenPressingHintButton_And4x4FieldIsEmpty_ThenHintShouldAppear()
-            => UniTask.ToCoroutine(async () => { await PressHintOnEmptyField(4); });
-        
-        
+        {
+            return UniTask.ToCoroutine(async () => { await PressHintOnEmptyField(4); });
+        }
+
+
         [UnityTest]
         public IEnumerator WhenPressingHintButton_And3x3FieldIsFilled_ThenHintShouldNotAppear()
-            => UniTask.ToCoroutine(async () => { await PressHintWhenNoHintAvailable(3, 1); });
-        
+        {
+            return UniTask.ToCoroutine(async () => { await PressHintWhenNoHintAvailable(3, 1); });
+        }
+
         [UnityTest]
         public IEnumerator WhenPressingHintButton_And4x4FieldIsFilled_ThenHintShouldNotAppear()
-            => UniTask.ToCoroutine(async () => { await PressHintWhenNoHintAvailable(4, 1); });
+        {
+            return UniTask.ToCoroutine(async () => { await PressHintWhenNoHintAvailable(4, 1); });
+        }
 
         private async UniTask PressHintWhenNoHintAvailable(int fieldSize, float timeout)
         {

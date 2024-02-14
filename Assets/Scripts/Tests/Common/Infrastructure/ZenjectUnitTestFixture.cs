@@ -5,7 +5,6 @@ namespace TicTacToe.Tests.Common.Infrastructure
 {
     public abstract class ZenjectUnitTestFixture
     {
-        
         protected DiContainer Container { get; private set; }
         protected DiContainer GlobalContainer { get; private set; }
 
@@ -14,14 +13,14 @@ namespace TicTacToe.Tests.Common.Infrastructure
         {
             GlobalContainer = new DiContainer();
         }
-        
+
         [SetUp]
         public virtual void SetupTestContainer()
         {
             Container = GlobalContainer.CreateSubContainer();
         }
-        
-        
+
+
         [TearDown]
         public virtual void TearDownTestContainer()
         {

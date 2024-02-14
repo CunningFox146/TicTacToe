@@ -2,7 +2,6 @@ using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
 using TicTacToe.Services.Rules;
 using TicTacToe.Tests.Common.Infrastructure;
-using TicTacToe.Tests.Common.Util;
 
 namespace TicTacToe.Tests.EditModeTests
 {
@@ -12,13 +11,13 @@ namespace TicTacToe.Tests.EditModeTests
         public override void SetupTestContainer()
         {
             base.SetupTestContainer();
-            
+
             Container.Bind<IGameRules>().To<TicTacToeRules>().AsTransient();
             Container.Bind<GameBoardService>().AsTransient();
         }
-        
-        [TestCase(new [] {1, 1, 1}, 3)]
-        [TestCase(new [] {1, 1, 1, 1}, 4)]
+
+        [TestCase(new[] { 1, 1, 1 }, 3)]
+        [TestCase(new[] { 1, 1, 1, 1 }, 4)]
         public void WhenCheckingWin_AndHasWinner_ThenGetWinnerReturnsWinner(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
@@ -26,8 +25,8 @@ namespace TicTacToe.Tests.EditModeTests
             Assert.AreSame(winner.Name, "O");
         }
 
-        [TestCase(new [] {1, 0, 1}, 3)]
-        [TestCase(new [] {1, 0, 1, 0}, 4)]
+        [TestCase(new[] { 1, 0, 1 }, 3)]
+        [TestCase(new[] { 1, 0, 1, 0 }, 4)]
         public void WhenCheckingWin_AndHasNoWinner_ThenGetWinnerReturnsNull(int[] tiles, int boardSize)
         {
             var board = Container.CreateFilledBoard(tiles, boardSize);
