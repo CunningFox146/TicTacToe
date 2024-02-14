@@ -1,9 +1,8 @@
 using TicTacToe.Infrastructure.States;
 using TicTacToe.UI;
-using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Infrastructure
+namespace TicTacToe.Infrastructure.Installers
 {
     public class MainMenuInstaller : MonoInstaller
     {

@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using System.Linq;
-using NSubstitute;
 using NUnit.Framework;
 using TicTacToe.Services.GameBoard;
-using TicTacToe.Services.GameBoard.BoardPlayers;
 using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Tests.Common;
-using UnityEngine;
 
 namespace TicTacToe.Tests.EditModeTests
 {
@@ -25,11 +21,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingTie_AndBoardFull_ThenTieReturnsTrue(int[] tiles, int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(tiles, boardSize, board, players);
+            TestUtil.FillBoard(tiles, board, players);
 
             var isTie = board.IsTie();
             Assert.IsTrue(isTie);
@@ -40,11 +36,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingTie_AndBoardFullAndHasWinner_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(tiles, boardSize, board, players);
+            TestUtil.FillBoard(tiles, board, players);
 
             var isTie = board.IsTie();
             Assert.IsFalse(isTie);
@@ -67,11 +63,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingTie_AndBoardPartiallyEmpty_ThenTieReturnsFalse(int[] tiles, int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(tiles, boardSize, board, players);
+            TestUtil.FillBoard(tiles, board, players);
 
             var isTie = board.IsTie();
             Assert.IsFalse(isTie);
@@ -82,11 +78,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingWin_AndHasWinner_ThenGetWinnerReturnsWinner(int[] tiles, int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(tiles, boardSize, board, players);
+            TestUtil.FillBoard(tiles, board, players);
 
             var winner = board.GetWinner(out _);
             Assert.AreSame(winner.Name, "O");
@@ -97,11 +93,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenCheckingWin_AndHasNoWinner_ThenGetWinnerReturnsNull(int[] tiles, int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(tiles, boardSize, board, players);
+            TestUtil.FillBoard(tiles, board, players);
 
             var winner = board.GetWinner(out _);
             Assert.IsNull(winner);
@@ -112,11 +108,11 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenUsingUndo_AndBoardIsNotEmpty_ThenBoardRemovesTiles(int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(new []{ 0, 0, 1 }, boardSize, board, players);
+            TestUtil.FillBoard(new []{ 0, 0, 1 }, board, players);
 
             board.Undo();
             var filledTiles = board.Board.Cast<GameTile>().Count(tile => tile.IsOccupied);
@@ -129,37 +125,15 @@ namespace TicTacToe.Tests.EditModeTests
         public void WhenUsingHint_AndBoardIsEmpty_ThenHintHasValue(int boardSize)
         {
             var board = Container.Resolve<GameBoardService>();
-            var players = GetSubstitutePlayers();
+            var players = TestUtil.GetSubstitutePlayers();
             
             board.SetBoardSize(boardSize);
             board.SetPlayers(players);
-            FillBoard(new []{ 0, 0, 1 }, boardSize, board, players);
+            TestUtil.FillBoard(new []{ 0, 0, 1 }, board, players);
 
             board.Undo();
             var filledTiles = board.Board.Cast<GameTile>().Count(tile => tile.IsOccupied);
             Assert.AreEqual(2, filledTiles);
-        }
-
-        private static void FillBoard(IReadOnlyList<int> tiles, int boardSize, GameBoardService board, IReadOnlyList<IPlayer> players)
-        {
-            for (var i = 0; i < tiles.Count; i++)
-            {
-                var x = i / boardSize;
-                var y = i % boardSize;
-
-                board.AddMoveCommand(new Vector2Int(x, y), players[tiles[i]]);
-            }
-        }
-
-        private static IPlayer[] GetSubstitutePlayers()
-        {
-            var playerX = Substitute.For<IPlayer>();
-            playerX.Name = "X";
-            
-            var playerO = Substitute.For<IPlayer>();
-            playerO.Name = "O";
-
-            return new[] { playerX, playerO };
         }
     }
 }

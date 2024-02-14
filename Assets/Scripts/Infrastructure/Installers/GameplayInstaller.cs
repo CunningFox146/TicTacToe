@@ -10,11 +10,10 @@ using TicTacToe.Services.GameBoard.Rules;
 using TicTacToe.Services.Hint;
 using TicTacToe.Services.Interactable;
 using TicTacToe.UI;
-using TicTacToe.UI.Factories;
 using UnityEngine;
 using Zenject;
 
-namespace TicTacToe.Gameplay
+namespace TicTacToe.Infrastructure.Installers
 {
     public class GameplayInstaller : MonoInstaller
     {
@@ -29,8 +28,7 @@ namespace TicTacToe.Gameplay
             BindGameBoard();
             BindUserInterface();
         }
-
-
+        
         private void BindGameBoard()
         {
             Container.Bind<BoardControllerFactory>().AsSingle();
@@ -56,20 +54,6 @@ namespace TicTacToe.Gameplay
             => Container.Bind<StateFactory>().AsSingle();
 
         private void BindGameplayFactory()
-        {
-            Container
-                .BindFactory<string, string, UniTask<GameField>, GameField.Factory>()
-                .FromFactory<PrefabFactoryAsync<GameField>>();
-            
-            Container
-                .BindFactory<string, string, UniTask<FieldLine>, FieldLine.Factory>()
-                .FromFactory<PrefabFactoryAsync<FieldLine>>();
-            
-            Container
-                .BindFactory<string, string, UniTask<FieldTile>, FieldTile.Factory>()
-                .FromFactory<PrefabFactoryAsync<FieldTile>>();
-            
-            Container.Bind<IGameplayFactory>().To<GameplayFactory>().AsSingle();
-        }
+            => GameplayFactoryInstaller.Install(Container);
     }
 }

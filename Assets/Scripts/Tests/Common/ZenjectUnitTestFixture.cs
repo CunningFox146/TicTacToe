@@ -12,7 +12,7 @@ namespace TicTacToe.Tests.Common
         [OneTimeSetUp]
         public virtual void Setup()
         {
-            var itemsContainer = new GameObject("ObjectsContainer");
+            var itemsContainer = new GameObject("Test Objects Container");
             SceneManager.MoveGameObjectToScene(itemsContainer, SceneManager.GetActiveScene());
             
             Container = new DiContainer

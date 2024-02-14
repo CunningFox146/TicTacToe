@@ -12,9 +12,8 @@ namespace TicTacToe.UI.Factories
         private readonly GameEndView.Factory _gameEndFactory;
         private readonly SkinPopupView.Factory _skinPopupFactory;
 
-        public UserInterfaceFactory(LoadingCurtainView.Factory loadingFactory, MainMenuView.Factory mainMenuFactory, HUDView.Factory hudFactory, GameEndView.Factory gameEndFactory, SkinPopupView.Factory skinPopupFactory)
+        public UserInterfaceFactory(MainMenuView.Factory mainMenuFactory, HUDView.Factory hudFactory, GameEndView.Factory gameEndFactory, SkinPopupView.Factory skinPopupFactory)
         {
-            _loadingFactory = loadingFactory;
             _mainMenuFactory = mainMenuFactory;
             _hudFactory = hudFactory;
             _gameEndFactory = gameEndFactory;
