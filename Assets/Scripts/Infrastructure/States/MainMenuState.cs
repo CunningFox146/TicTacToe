@@ -8,6 +8,8 @@ namespace TicTacToe.Infrastructure.States
 {
     public class MainMenuState : IState
     {
+        private const string MainMenuMusicAlias = "MainMenuMusic";
+        
         private readonly ILoadingCurtainService _loadingCurtain;
         private readonly ISoundSource _soundSource;
         private readonly IUserInterfaceFactory _userInterfaceFactory;
@@ -24,7 +26,9 @@ namespace TicTacToe.Infrastructure.States
 
         public async UniTask Enter()
         {
-            _soundSource.PlaySound(SoundNames.MainMusic).Forget();
+            if (!_soundSource.IsPlayingSound(MainMenuMusicAlias))
+                _soundSource.PlaySound(SoundNames.MainMusic, MainMenuMusicAlias).Forget();
+            
             _viewStackService.PushView(await _userInterfaceFactory.CreateMainMenuView());
             _loadingCurtain.HideLoadingCurtain();
         }

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace TicTacToe.UI.Elements
 
         private void OnDisable()
         {
+            if (!Target)
+                return;
             Target.localEulerAngles = Vector3.zero;
             Target.localScale = Vector3.one;
             _anim?.Kill();
@@ -34,6 +37,9 @@ namespace TicTacToe.UI.Elements
 
         private void PlayAnim()
         {
+            if (!Target)
+                return;
+            
             Target.localScale = Vector3.zero;
 
             _anim = DOTween.Sequence()

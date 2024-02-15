@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using TicTacToe.Infrastructure.AssetManagement;
 using TicTacToe.Services.Randomizer;
@@ -20,6 +21,7 @@ namespace TicTacToe.Services.Sounds
         private readonly IAssetProvider _assetProvider;
         private readonly ObjectPool<AudioSource> _audioSources;
         private readonly AudioMixer _audioMixer;
+        private readonly Dictionary<string, AudioSource> _playingSounds = new();
 
         public bool IsSfxEnabled { get; private set; } = true;
         public bool IsMusicEnabled { get; private set; } = true;
@@ -42,10 +44,13 @@ namespace TicTacToe.Services.Sounds
             await _assetProvider.LoadBundle(SoundNames.SoundBundle);
         }
 
-        public async UniTask PlaySound(string soundName, float delay = 0f)
+        public bool IsPlayingSound(string alias)
+            => _playingSounds.ContainsKey(alias);
+
+        public async UniTask PlaySound(string soundName, string alias = null, float delay = 0f)
         {
             var soundInfo = await LoadSoundInfo(soundName);
-            await PlaySound(soundInfo, delay);
+            await PlaySound(soundInfo, alias, delay);
         }
 
         public void SetSfxEnabled(bool isEnabled)
@@ -59,12 +64,25 @@ namespace TicTacToe.Services.Sounds
             IsMusicEnabled = isEnabled;
             _audioMixer.SetFloat(VolumeMusic, IsMusicEnabled ? 0f : -80f);
         }
+        
+        
+        public void KillSound(string soundName)
+        {
+            if (!_playingSounds.TryGetValue(soundName, out var audio))
+                return;
 
-        private async UniTask PlaySound(ISoundInfo soundInfo, float delay)
+            _audioSources.Release(audio);
+            _playingSounds.Remove(soundName);
+        }
+        
+        private void KillSound(AudioSource audio) 
+            => _audioSources.Release(audio);
+
+        private async UniTask PlaySound(ISoundInfo soundInfo, string soundName = null, float delay = 0f)
         {
             if (delay > 0f)
                 await UniTask.Delay(TimeSpan.FromSeconds(delay));
-        
+            
             var audio = _audioSources.Get();
             audio.outputAudioMixerGroup = _audioMixer.FindMatchingGroups(soundInfo.IsSfx ? SfxGroup : MusicGroup)[0];
             audio.loop = soundInfo.IsLoop;
@@ -73,10 +91,17 @@ namespace TicTacToe.Services.Sounds
             audio.name = audio.clip.name;
             audio.Play();
             
+            if (!string.IsNullOrEmpty(soundName))
+                _playingSounds.Add(soundName, audio);
+            
             if (!soundInfo.IsLoop)
             {
-                await UniTask.Delay(Mathf.FloorToInt(audio.clip.length * 1000));
-                _audioSources.Release(audio);
+                await UniTask.Delay(TimeSpan.FromSeconds(audio.clip.length));
+                
+                if (!string.IsNullOrEmpty(soundName))
+                    KillSound(soundName);
+                else
+                    KillSound(audio);
             }
         }
 
