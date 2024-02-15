@@ -436,6 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5380730443954311969}
   - component: {fileID: 8707087227226827986}
+  - component: {fileID: 5438531752226218645}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -492,6 +493,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &5438531752226218645
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5479997314460497929}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &279246302900140221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -785,6 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6168f150ff4e64bbfa1473e060a37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _header: {fileID: 2193661910552759890}
+  _menu: {fileID: 5438531752226218645}
+  _animDuration: 1
 --- !u!224 &8648940178359178607 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6047243389742760655, guid: c7a2f776eb3a04c3ea9cd27d6145ad07,
